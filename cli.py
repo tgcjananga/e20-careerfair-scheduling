@@ -1,0 +1,135 @@
+import sys
+import argparse
+from pathlib import Path
+from schedule_manager.data_manager import DataManager
+from schedule_manager.scheduler import Scheduler
+from schedule_manager.reporting import generate_html_report
+from seed_data import seed
+
+def main():
+    parser = argparse.ArgumentParser(description="Interview Scheduling CLI")
+    subparsers = parser.add_subparsers(dest="command", help="Available commands")
+    
+    # Init Command
+    subparsers.add_parser("init", help="Initialize/Reset data with seed data")
+    
+    # Import Command
+    import_parser = subparsers.add_parser("import", help="Import data from CSV")
+    import_parser.add_argument("type", choices=["students", "companies", "applications"], help="Type of data to import")
+    import_parser.add_argument("file", help="Path to CSV file")
+    
+    # Set Priority Command
+    prio_parser = subparsers.add_parser("set-priority", help="Set priority for an application")
+    prio_parser.add_argument("student_id", help="Student ID (e.g. S001)")
+    prio_parser.add_argument("company_id", help="Company ID (e.g. C001)")
+    prio_parser.add_argument("priority", help="Priority (1-5, 1 is highest)")
+    
+    # List Command
+    list_parser = subparsers.add_parser("list", help="List loaded data")
+    list_parser.add_argument("type", choices=["students", "companies"], help="Type of data to list")
+    
+    # Schedule Command
+    subparsers.add_parser("schedule", help="Run the scheduling algorithm")
+    
+    # Export Command
+    subparsers.add_parser("export", help="Export schedule to HTML")
+
+    parser_import_resp = subparsers.add_parser("import-responses", help="Import from Google Forms Responses CSV")
+    parser_import_resp.add_argument("file", help="Path to CSV file")
+
+    args = parser.parse_args()
+    
+    dm = DataManager()
+    
+    if args.command == "init":
+        print("Initializing data...")
+        seed()
+        print("Done.")
+
+    elif args.command == "import":
+        from schedule_manager.csv_importer import CSVImporter
+        importer = CSVImporter(dm)
+        if args.type == "companies":
+            importer.import_companies(args.file)
+        elif args.type == "students":
+            importer.import_students(args.file)
+        elif args.type == "applications":
+            importer.import_applications(args.file)
+        if args.type == "students":
+            students = dm.load_students()
+            print(f"Loaded {len(students)} students.")
+            for s in students[:5]:
+                print(f"- {s.name} ({len(s.applications)} apps)")
+            if len(students) > 5: print("...")
+        elif args.type == "companies":
+            companies = dm.load_companies()
+            print(f"Loaded {len(companies)} companies.")
+            for c in companies:
+                print(f"- {c.name} ({len(c.job_roles)} roles)")
+                
+    elif args.command == "schedule":
+        scheduler = Scheduler(dm)
+        # Use today's date or specific date?
+        interviews = scheduler.run(event_date="2024-10-25")
+        
+        # Save interviews back to disk (Scheduler implementation didn't have save, lets just output count)
+        # In a real app we'd save the interviews to JSON. 
+        # For this prototype, we will just print success.
+        # We need to save them to generate report later.
+        
+        # Let's save interviews just for this session flow
+        # We need to add save_interviews to DataManager or just pass them to export
+        # But CLI commands are improved by state.
+        # Let's simple write to a temp file or just run schedule AND export in one go for simplicity?
+        # Actually proper way: add save_interviews to DataManager.
+        
+        # Quick fix: Add save support here manually or update implementation.
+        # I'll update DataManager in next edit if needed, but for now I'll just save to 'data/schedule.json' manually here.
+        import json
+        from dataclasses import asdict
+        with open("schedule_manager/data/schedule.json", "w") as f:
+            json.dump([asdict(i) for i in interviews], f, indent=2)
+        print("Schedule saved to data/schedule.json")
+
+    elif args.command == "export":
+        # Load data
+        students = dm.load_students()
+        companies = dm.load_companies()
+        
+        # Load schedule
+        schedule_path = Path("schedule_manager/data/schedule.json")
+        if not schedule_path.exists():
+            print("No schedule found. Run 'python3 cli.py schedule' first.")
+            return
+            
+        import json
+        from schedule_manager.data_manager import Interview
+        with open(schedule_path, "r") as f:
+            data = json.load(f)
+            interviews = [Interview(**i) for i in data]
+            
+        from schedule_manager.reporting import generate_html_report, generate_student_html_report
+        
+        # Company Report
+        html_company = generate_html_report(interviews, students, companies)
+        with open("schedule_companies.html", "w") as f:
+            f.write(html_company)
+        print("Report generated: schedule_companies.html")
+        
+        # Student Report
+        html_student = generate_student_html_report(interviews, students, companies)
+        with open("schedule_students.html", "w") as f:
+            f.write(html_student)
+        print("Report generated: schedule_students.html")
+
+    elif args.command == "import-responses":
+        from schedule_manager.response_importer import ResponseImporter
+        importer = ResponseImporter(dm)
+        importer.import_responses(args.file)
+        print(f"Successfully imported responses from {args.file}")
+
+    else:
+        parser.print_help()
+
+if __name__ == "__main__":
+    main()
