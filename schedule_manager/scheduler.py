@@ -27,8 +27,39 @@ class Scheduler:
             current += timedelta(minutes=duration_minutes)
         return slots
 
-    def run(self, event_date: str = "2024-10-25"):
-        print(f"Starting schedule generation for {event_date}...")
+    def run(self, event_date: str = "2024-10-25", iterations: int = 100):
+        print(f"Starting schedule optimization for {event_date} ({iterations} iterations)...")
+        
+        best_interviews = []
+        best_count = -1
+        
+        # Use deepcopy to preserve the best list of Interview objects
+        from copy import deepcopy
+
+        for i in range(iterations):
+            # Reset state for this iteration
+            self.interviews = []
+            self.student_schedule = {}
+            self.company_schedule = {}
+            
+            # Run single pass
+            self._run_single_iteration(event_date, verbose=(i==0))
+            
+            current_count = len(self.interviews)
+            
+            if current_count > best_count:
+                best_count = current_count
+                best_interviews = deepcopy(self.interviews)
+                print(f"  > New best found: {best_count} interviews (Iteration {i+1})")
+        
+        # Restore best result
+        self.interviews = best_interviews
+        print(f"Optimization Complete. Final Schedule: {len(self.interviews)} interviews.")
+        return self.interviews
+
+    def _run_single_iteration(self, event_date: str, verbose: bool = False):
+        if verbose:
+            print(f"Generating base schedule for {event_date}...")
         
         # 1. Prepare slots
         all_slots = self.generate_slots(event_date)
@@ -60,7 +91,8 @@ class Scheduler:
         # Secondary key: Random tie breaker (fairness)
         pending_apps.sort(key=lambda x: (x["priority"], x["random_tie_breaker"]))
         
-        print(f"Processing {len(pending_apps)} shortlisted applications...")
+        if verbose:
+            print(f"Processing {len(pending_apps)} shortlisted applications...")
         
         scheduled_count = 0
         conflict_count = 0
@@ -88,7 +120,8 @@ class Scheduler:
                 app.status = AppStatus.WAITLISTED # Downgrade to waitlist if no slot found
                 # print(f"Conflict: Could not schedule {student.name} for {company.name}")
 
-        print(f"Phase 2 Complete. Scheduled Shortlisted: {scheduled_count}")
+        if verbose:
+            print(f"Phase 2 Complete. Scheduled Shortlisted: {scheduled_count}")
 
         # 4. Phase: Open Allocation (Waitlisted & Applied)
         # Collect all remaining applications (Applied status) and those waitlisted from Phase 2
@@ -117,7 +150,8 @@ class Scheduler:
         # Sort by priority then random
         open_apps.sort(key=lambda x: (x["priority"], x["random_tie_breaker"]))
         
-        print(f"Processing {len(open_apps)} open applications...")
+        if verbose:
+            print(f"Processing {len(open_apps)} open applications...")
         
         open_scheduled_count = 0
         
@@ -142,8 +176,9 @@ class Scheduler:
                 # If it was APPLIED, it's now SCHEDULED (effectively shortlisted+scheduled)
                 # We don't change status to SHORTLISTED to preserve history, but it is in interviews list.
                 
-        print(f"Phase 3 Complete. Scheduled Open: {open_scheduled_count}")
-        print(f"Total Scheduled: {len(self.interviews)}")
+        if verbose:
+            print(f"Phase 3 Complete. Scheduled Open: {open_scheduled_count}")
+            print(f"Total Scheduled: {len(self.interviews)}")
         
         return self.interviews
 
