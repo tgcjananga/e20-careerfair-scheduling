@@ -167,15 +167,28 @@ class InterviewRequestHandler(http.server.SimpleHTTPRequestHandler):
             response_data["message"] = "Data reset to seed values."
             
         elif parsed_path.path == '/api/run-schedule':
-            scheduler = Scheduler(dm)
-            interviews = scheduler.run("2024-10-25")
-            
-            # Save schedule
-            with open("schedule_manager/data/schedule.json", "w") as f:
-                json.dump([asdict(i) for i in interviews], f, indent=2)
+            try:
+                # The Scheduler now uses OR-Tools internally if available
+                from schedule_manager.scheduler import Scheduler
+                scheduler = Scheduler(dm)
+                interviews = scheduler.run("2024-10-25")
                 
-            response_data["message"] = f"Scheduled {len(interviews)} interviews."
-            response_data["count"] = len(interviews)
+                # Check how many were scheduled to guess if it worked well
+                msg = f"Scheduled {len(interviews)} interviews."
+                if hasattr(scheduler, 'ORTOOLS_AVAILABLE') and not scheduler.ORTOOLS_AVAILABLE:
+                     msg += " (Warning: OR-Tools not found, optimization disabled)"
+                
+                response_data["message"] = msg
+                response_data["count"] = len(interviews)
+
+                # Save schedule
+                with open("schedule_manager/data/schedule.json", "w") as f:
+                    json.dump([asdict(i) for i in interviews], f, indent=2)
+
+            except Exception as e:
+                print(f"Error running scheduler: {e}")
+                response_data["status"] = "error"
+                response_data["message"] = str(e)
 
         self.send_json(response_data)
 
