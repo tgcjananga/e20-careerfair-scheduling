@@ -803,7 +803,7 @@
         <div class="container header-content">
             <h1>📅 Interview Scheduler</h1>
             <div class="controls">
-                <button style="background:#16a34a; color:white; border:none;" onclick="importResponses()">📂 Load Data
+                <button style="background:#16a34a; color:white; border:none;display:none;" onclick="importResponses()">📂 Load Data
                     from CSV</button>
                 <div style="display:flex; align-items:center; gap:0.4rem;">
                     <input type="date" id="event-date-input"
@@ -812,10 +812,10 @@
                     <button onclick="runSchedule()">▶ Run Auto-Schedule</button>
                 </div>
                 <div style="border-left: 1px solid #ccc; padding-left: 1rem; display:flex; gap:0.5rem;">
-                    <button class="secondary" onclick="downloadCSV('companies')">📥 Export Companies</button>
-                    <button class="secondary" onclick="downloadCSV('students')">📥 Export Students</button>
+                    <button style="display:none;"class="secondary" onclick="downloadCSV('companies')">📥 Export Companies</button>
+                    <button style="display:none;class="secondary" onclick="downloadCSV('students')">📥 Export Students</button>
                 </div>
-                <button class="secondary" onclick="resetData()">Reset Data</button>
+                <button style="display:none;class="secondary" onclick="resetData()">Reset Data</button>
             </div>
         </div>
     </header>
