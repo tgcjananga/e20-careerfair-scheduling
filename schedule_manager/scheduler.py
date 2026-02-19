@@ -91,6 +91,8 @@ class Scheduler:
                 pid = panel_for_role.get((company.id, app.job_role_id), 'default')
                 if pid == 'default' and company.panels:
                     pid = company.panels[0].panel_id
+                elif pid == 'default': # If no panels defined, use a generic company-level panel_id
+                    pid = f"{company.id}-P0" # Placeholder for company-level scheduling
 
                 # Determine interview duration
                 pinfo = panel_info.get((company.id, pid))
@@ -99,7 +101,7 @@ class Scheduler:
                     reserved = pinfo["reserved"]
                 else:
                     role = role_map.get(app.job_role_id)
-                    dur = role.duration_minutes if role else BASE_DURATION
+                    dur = role.duration_minutes if role else self.BASE_DURATION
                     reserved = 0
 
                 # Availability window (Phase 1c)
@@ -109,16 +111,55 @@ class Scheduler:
                 # Pre-compute which slots are valid for this application.
                 # Phase 2b: an interview of `dur` minutes occupies ceil(dur/BASE_DURATION)
                 # consecutive base slots. Slot t is valid only if ALL occupied slots fit
-                # within the availability window.
+                # within the availability window AND do not overlap with breaks (Phase 5).
                 import math
                 slots_needed = max(1, math.ceil(dur / BASE_DURATION))
 
-                candidate_slots = [
-                    t for t in range(num_slots)
-                    if (slot_min[t] >= avail_start and
-                        slot_min[t] + dur <= avail_end and
-                        t + slots_needed - 1 < num_slots)  # all slots must exist
-                ]
+                # --- Phase 5: Break Logic ---
+                # Determine active breaks for this panel
+                active_breaks = company.breaks # Default
+                # Find specific panel object if it exists
+                if company.panels:
+                    for p in company.panels:
+                        if p.panel_id == pid:
+                            if p.breaks: # Override if specific breaks defined
+                                active_breaks = p.breaks
+                            break
+                
+                # Convert breaks to (start_min, end_min) tuples
+                break_intervals = []
+                for b in active_breaks:
+                    try:
+                        if b.get("start") and b.get("end"):
+                            bs = self._hhmm_to_min(b["start"])
+                            be = self._hhmm_to_min(b["end"])
+                            break_intervals.append((bs, be))
+                    except: pass
+
+                candidate_slots = []
+                for t in range(num_slots):
+                    # Check Availability Window
+                    if not (slot_min[t] >= avail_start and
+                            slot_min[t] + dur <= avail_end and
+                            t + slots_needed - 1 < num_slots):
+                        continue
+                    
+                    # Check Break Overlap
+                    # The interview occupies time [start, end)
+                    # Break is [b_start, b_end)
+                    # Overlap if max(start, b_start) < min(end, b_end)
+                    
+                    iv_start = slot_min[t]
+                    iv_end = iv_start + dur
+                    
+                    hits_break = False
+                    for (bs, be) in break_intervals:
+                        if max(iv_start, bs) < min(iv_end, be):
+                            hits_break = True
+                            break
+                    
+                    if not hits_break:
+                        candidate_slots.append(t)
                 if reserved > 0 and len(candidate_slots) > reserved:
                     candidate_slots = candidate_slots[:-reserved]
 

@@ -1811,6 +1811,14 @@
                             Enable walk-in for this panel
                         </label>
                     </div>
+                    <div class="editor-row" style="margin-top:0.5rem; padding-top:0.5rem; border-top:1px dashed #e2e8f0;">
+                         <label>Lunch Break (Override)</label>
+                         <div style="display:flex; align-items:center; gap:0.5rem;">
+                             <input type="time" id="brk-start-${panel.panel_id}" value="${(panel.breaks && panel.breaks.length) ? panel.breaks[0].start : ''}" title="Start Time" style="width:110px;" />
+                             <span style="color:#94a3b8; font-size:0.8rem;">to</span>
+                             <input type="time" id="brk-end-${panel.panel_id}" value="${(panel.breaks && panel.breaks.length) ? panel.breaks[0].end : ''}" title="End Time" style="width:110px;" />
+                         </div>
+                    </div>
                     <div class="editor-actions">
                         <button class="secondary" style="font-size:0.82rem;" onclick="togglePanelEditor('${panel.panel_id}')">Cancel</button>
                         <button style="font-size:0.82rem;" onclick="saveSinglePanel('${panel.panel_id}')">💾 Save Panel</button>
@@ -1865,6 +1873,11 @@
             const roleContainer = document.getElementById(`roles-${panelId}`);
             panel.job_role_ids = Array.from(roleContainer.querySelectorAll('input[type=checkbox]:checked'))
                 .map(cb => cb.value);
+
+            // Collect Break
+            const bs = document.getElementById(`brk-start-${panelId}`).value;
+            const be = document.getElementById(`brk-end-${panelId}`).value;
+            panel.breaks = (bs && be) ? [{ start: bs, end: be }] : [];
 
             savePanels();
         }

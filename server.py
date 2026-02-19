@@ -627,7 +627,7 @@ class InterviewRequestHandler(http.server.SimpleHTTPRequestHandler):
                 response_data["message"] = "Company ID not provided"
 
         elif parsed_path.path.startswith('/api/company/') and parsed_path.path.endswith('/settings'):
-            # POST /api/company/{id}/settings — save availability window
+            # POST /api/company/{id}/settings — save full company object
             company_id = parsed_path.path.split('/api/company/')[1].replace('/settings', '').strip('/')
             try:
                 content_length = int(self.headers.get('Content-Length', 0))
@@ -639,7 +639,18 @@ class InterviewRequestHandler(http.server.SimpleHTTPRequestHandler):
                 else:
                     company.availability_start = body.get('availability_start', company.availability_start)
                     company.availability_end = body.get('availability_end', company.availability_end)
+                    company.breaks = body.get('breaks', company.breaks)
+                    
+                    # Update panels if provided
+                    if "panels" in body:
+                        raw_panels = body["panels"]
+                        from schedule_manager.data_manager import Panel
+                        new_panels = [Panel(**p) for p in raw_panels]
+                        company.panels = new_panels
+                        company.num_panels = len(new_panels) # Keep num_panels in sync for backward compat
+
                     dm.save_company(company)
+                    response_data["status"] = "success"
                     response_data["message"] = f"Settings saved for {company.name}"
                     response_data["availability_start"] = company.availability_start
                     response_data["availability_end"] = company.availability_end
@@ -647,8 +658,6 @@ class InterviewRequestHandler(http.server.SimpleHTTPRequestHandler):
                 response_data["status"] = "error"
                 response_data["message"] = str(e)
 
-        elif parsed_path.path.startswith('/api/company/') and parsed_path.path.endswith('/panels'):
-            # POST /api/company/{id}/panels — save full panels list
             company_id = parsed_path.path.split('/api/company/')[1].replace('/panels', '').strip('/')
             try:
                 content_length = int(self.headers.get('Content-Length', 0))

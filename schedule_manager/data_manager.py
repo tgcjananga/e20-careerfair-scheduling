@@ -25,6 +25,7 @@ class Panel:
     slot_duration_minutes: int = 30      # interview duration for this panel
     walk_in_open: bool = False           # walk-in enabled for this panel
     reserved_walkin_slots: int = 0       # slots kept free for walk-ins (Phase 2d)
+    breaks: List[dict] = field(default_factory=list)  # [{"start": "13:00", "end": "14:00"}]
 
 @dataclass
 class Company:
@@ -34,6 +35,7 @@ class Company:
     panels: List[Panel] = field(default_factory=list)  # per-panel config (Phase 1a+)
     availability_start: str = "09:00"   # company interview window start (Phase 1c)
     availability_end: str = "17:00"     # company interview window end (Phase 1c)
+    breaks: List[dict] = field(default_factory=list)  # [{"start": "13:00", "end": "14:00"}]
     # --- Backward-compat fields (kept so old JSON loads without errors) ---
     num_panels: int = 1                  # derived: len(panels) when panels exist
     walk_in_open: bool = False           # global walk-in toggle (legacy)
