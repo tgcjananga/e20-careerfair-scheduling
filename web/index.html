@@ -694,6 +694,98 @@
         #toast.show {
             opacity: 1;
         }
+
+        /* Master Dashboard CSS */
+        .timeline-container {
+            overflow-x: auto;
+            white-space: nowrap;
+            padding-bottom: 1rem;
+            border: 1px solid var(--border);
+            border-radius: 0.5rem;
+            background: var(--surface);
+        }
+
+        .timeline-table {
+            width: 100%;
+            border-collapse: separate;
+            border-spacing: 0;
+        }
+
+        .timeline-table th,
+        .timeline-table td {
+            padding: 0.75rem;
+            border-bottom: 1px solid var(--border);
+            vertical-align: top;
+        }
+
+        .sticky-col {
+            position: sticky;
+            left: 0;
+            background: var(--surface);
+            z-index: 10;
+            border-right: 1px solid var(--border);
+            width: 220px;
+            min-width: 220px;
+            box-shadow: 2px 0 5px rgba(0, 0, 0, 0.05);
+            padding-right: 1rem;
+        }
+
+        .timeline-scroll-area {
+            display: flex;
+            gap: 0.5rem;
+            align-items: center;
+            min-height: 50px;
+        }
+
+        .t-card {
+            display: inline-flex;
+            flex-direction: column;
+            justify-content: center;
+            padding: 0.4rem 0.6rem;
+            border-radius: 0.4rem;
+            min-width: 130px;
+            font-size: 0.75rem;
+            border: 1px solid rgba(0, 0, 0, 0.08);
+            transition: transform 0.1s;
+        }
+
+        .t-card:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+        }
+
+        .t-past {
+            background: #f8fafc;
+            color: #94a3b8;
+        }
+
+        .t-current {
+            background: #dcfce7;
+            color: #166534;
+            border: 1px solid #86efac;
+            box-shadow: 0 0 0 1px #86efac;
+        }
+
+        .t-upcoming {
+            background: #eff6ff;
+            color: #1e3a8a;
+        }
+
+        .t-cancelled {
+            background: #fef2f2;
+            color: #991b1b;
+            text-decoration: line-through;
+            opacity: 0.7;
+        }
+
+        .search-bar {
+            width: 100%;
+            padding: 0.6rem;
+            margin-bottom: 1rem;
+            border: 1px solid var(--border);
+            border-radius: 0.4rem;
+            font-size: 0.9rem;
+        }
     </style>
 </head>
 
@@ -741,6 +833,8 @@
         <div class="tabs">
             <button class="tab-btn active" onclick="switchTab('companies')">Company Schedules</button>
             <button class="tab-btn" onclick="switchTab('students')">Student Schedules</button>
+            <button class="tab-btn" onclick="switchTab('master-students')">🎓 Student Timeline</button>
+            <button class="tab-btn" onclick="switchTab('master-companies')">🏢 Company Timeline</button>
             <button class="tab-btn" onclick="switchTab('admin')">🛠 Admin Panel</button>
             <button class="tab-btn" onclick="switchTab('livequeue')">🎯 Live Queue</button>
         </div>
@@ -860,6 +954,39 @@
                         + Add Panel
                     </button>
                 </div>
+            </div>
+        </div>
+        <!-- Master Student Timeline View -->
+        <div id="view-master-students" class="view-panel" style="display:none;">
+            <input type="text" id="student-search" class="search-bar" placeholder="🔍 Search students by Name or ID..."
+                onkeyup="renderMasterStudents()">
+            <div class="timeline-container">
+                <table class="timeline-table">
+                    <thead>
+                        <tr>
+                            <th class="sticky-col">Student</th>
+                            <th>Interview Timeline</th>
+                        </tr>
+                    </thead>
+                    <tbody id="master-students-tbody"></tbody>
+                </table>
+            </div>
+        </div>
+
+        <!-- Master Company Timeline View -->
+        <div id="view-master-companies" class="view-panel" style="display:none;">
+            <input type="text" id="company-search" class="search-bar" placeholder="🔍 Search companies..."
+                onkeyup="renderMasterCompanies()">
+            <div class="timeline-container">
+                <table class="timeline-table">
+                    <thead>
+                        <tr>
+                            <th class="sticky-col">Company / Panel</th>
+                            <th>Interview Timeline</th>
+                        </tr>
+                    </thead>
+                    <tbody id="master-companies-tbody"></tbody>
+                </table>
             </div>
         </div>
 
@@ -1086,6 +1213,128 @@
                 await fetch(`/api/interview/${id}/cancel`, { method: 'POST' });
                 loadLiveQueue(); // Refresh immediately
             } catch (e) { alert("Action failed"); }
+        }
+
+        // --- Master Dashboards (Phase 4) ---
+
+        function getStatusClass(iv) {
+            const status = iv.status || 'scheduled';
+            if (status === 'cancelled') return 't-cancelled';
+            if (status === 'completed') return 't-past';
+            if (status === 'in_progress') return 't-current';
+
+            // Time-based fallback for 'scheduled'
+            const now = new Date(); // Use local system time of browser
+            // Actually, we should parse iv.start/end strings.
+            try {
+                // ISO strings: 2026-02-19T09:00:00
+                const start = new Date(iv.start_time);
+                const end = new Date(iv.end_time);
+                if (status === 'scheduled') {
+                    if (end <= now) return 't-past';
+                    if (start <= now && now < end) return 't-current';
+                    return 't-upcoming';
+                }
+            } catch (e) { }
+            return 't-upcoming';
+        }
+
+        function renderMasterStudents() {
+            const filter = document.getElementById('student-search').value.toLowerCase();
+            const tbody = document.getElementById('master-students-tbody');
+            tbody.innerHTML = '';
+
+            students_data.forEach(s => {
+                if (filter && !s.name.toLowerCase().includes(filter) && !s.id.toLowerCase().includes(filter)) return;
+
+                const ivs = schedule_data.filter(i => i.student_id === s.id)
+                    .sort((a, b) => a.start_time.localeCompare(b.start_time));
+
+                if (ivs.length === 0 && filter) return; // Skip empty if searching? Maybe show empty too.
+
+                const tr = document.createElement('tr');
+
+                // Timeline cards
+                const cardsHtml = ivs.map(iv => {
+                    const company = companies_data.find(c => c.id === iv.company_id);
+                    const cName = company ? company.name.substring(0, 15) + (company.name.length > 15 ? '...' : '') : iv.company_id;
+                    const time = iv.start_time.split('T')[1].slice(0, 5);
+                    const cls = getStatusClass(iv);
+
+                    // Tooltip with full details
+                    const roleTitle = getRoleTitle(iv.company_id, iv.job_role_id);
+                    const title = `${cName}\n${iv.start_time} - ${iv.end_time}\n${roleTitle}\n${iv.status}`;
+
+                    return `<div class="t-card ${cls}" title="${title}">
+                        <div style="font-weight:bold;">${time}</div>
+                        <div>${cName}</div>
+                        <div style="font-size:0.7rem; opacity:0.8;">${roleTitle}</div>
+                    </div>`;
+                }).join('');
+
+                tr.innerHTML = `
+                    <td class="sticky-col">
+                        <div style="font-weight:600;">${s.name}</div>
+                        <div style="font-size:0.8rem; color:var(--secondary);">${s.id}</div>
+                    </td>
+                    <td>
+                        <div class="timeline-scroll-area">
+                            ${cardsHtml || '<span style="color:#ccc; font-size:0.8rem;">No interviews</span>'}
+                        </div>
+                    </td>
+                `;
+                tbody.appendChild(tr);
+            });
+        }
+
+        function renderMasterCompanies() {
+            const filter = document.getElementById('company-search').value.toLowerCase();
+            const tbody = document.getElementById('master-companies-tbody');
+            tbody.innerHTML = '';
+
+            companies_data.forEach(c => {
+                if (filter && !c.name.toLowerCase().includes(filter)) return;
+
+                // Render each panel as a row
+                // If no panels, render default
+                const panels = (c.panels && c.panels.length > 0) ? c.panels : [{ panel_id: 'default', label: 'Main Panel' }];
+
+                panels.forEach((p, idx) => {
+                    const tr = document.createElement('tr');
+
+                    // Filter interviews for this company AND panel
+                    const ivs = schedule_data.filter(i =>
+                        i.company_id === c.id &&
+                        (i.panel_id === p.panel_id || (!i.panel_id && p.panel_id === 'default'))
+                    ).sort((a, b) => a.start_time.localeCompare(b.start_time));
+
+                    const cardsHtml = ivs.map(iv => {
+                        const student = students_data.find(s => s.id === iv.student_id);
+                        const sName = student ? student.name : iv.student_id;
+                        const time = iv.start_time.split('T')[1].slice(0, 5);
+                        const cls = getStatusClass(iv);
+
+                        return `<div class="t-card ${cls}" title="${sName}\n${iv.status}">
+                            <div style="font-weight:bold;">${time}</div>
+                            <div>${sName}</div>
+                            <div style="font-size:0.7rem; opacity:0.8;">${iv.student_id}</div>
+                        </div>`;
+                    }).join('');
+
+                    tr.innerHTML = `
+                        <td class="sticky-col">
+                            <div style="font-weight:600;">${c.name}</div>
+                            <div style="font-size:0.8rem; color:var(--secondary);">${p.label || ('Panel ' + (idx + 1))}</div>
+                        </td>
+                        <td>
+                            <div class="timeline-scroll-area">
+                                ${cardsHtml || '<span style="color:#ccc; font-size:0.8rem;">No interviews</span>'}
+                            </div>
+                        </td>
+                    `;
+                    tbody.appendChild(tr);
+                });
+            });
         }
 
         function renderLiveQueue(data) {
@@ -1324,6 +1573,14 @@
             } else if (tab === 'livequeue') {
                 stopAdminAutoRefresh();
                 startLiveQueueRefresh();
+            } else if (tab === 'master-students') {
+                stopAdminAutoRefresh();
+                stopLiveQueueRefresh();
+                renderMasterStudents();
+            } else if (tab === 'master-companies') {
+                stopAdminAutoRefresh();
+                stopLiveQueueRefresh();
+                renderMasterCompanies();
             } else {
                 stopAdminAutoRefresh();
                 stopLiveQueueRefresh();

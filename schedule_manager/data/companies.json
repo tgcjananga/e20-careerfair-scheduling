@@ -38,7 +38,16 @@
         "panel_id": "d_f_n_technology_pvt_ltd-P1",
         "label": "Panel 1 (Default)",
         "job_role_ids": [
-          "d_f_n_technology_pvt_ltd_software_engineer",
+          "d_f_n_technology_pvt_ltd_software_engineer"
+        ],
+        "slot_duration_minutes": 30,
+        "walk_in_open": false,
+        "reserved_walkin_slots": 0
+      },
+      {
+        "panel_id": "d_f_n_technology_pvt_ltd-P2-1771478041451",
+        "label": "Panel 2",
+        "job_role_ids": [
           "d_f_n_technology_pvt_ltd_quality_assurance"
         ],
         "slot_duration_minutes": 30,
@@ -48,7 +57,7 @@
     ],
     "availability_start": "09:00",
     "availability_end": "17:00",
-    "num_panels": 1,
+    "num_panels": 2,
     "walk_in_open": false
   },
   {
@@ -218,10 +227,41 @@
         "duration_minutes": 30
       }
     ],
-    "panels": [],
+    "panels": [
+      {
+        "panel_id": "wso2_lanka_pvt_ltd-P1",
+        "label": "Panel 1 (Default)",
+        "job_role_ids": [
+          "wso2_lanka_pvt_ltd_software_engineer"
+        ],
+        "slot_duration_minutes": 30,
+        "walk_in_open": false,
+        "reserved_walkin_slots": 0
+      },
+      {
+        "panel_id": "wso2_lanka_pvt_ltd-P2-1771478691865",
+        "label": "Panel 2",
+        "job_role_ids": [
+          "wso2_lanka_pvt_ltd_customer_success"
+        ],
+        "slot_duration_minutes": 30,
+        "walk_in_open": false,
+        "reserved_walkin_slots": 0
+      },
+      {
+        "panel_id": "wso2_lanka_pvt_ltd-P3-1771478705774",
+        "label": "Panel 3",
+        "job_role_ids": [
+          "wso2_lanka_pvt_ltd_digital_transformation"
+        ],
+        "slot_duration_minutes": 30,
+        "walk_in_open": false,
+        "reserved_walkin_slots": 0
+      }
+    ],
     "availability_start": "09:00",
     "availability_end": "17:00",
-    "num_panels": 1,
+    "num_panels": 3,
     "walk_in_open": false
   },
   {
