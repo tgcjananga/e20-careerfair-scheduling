@@ -101,7 +101,7 @@ class Scheduler:
                     reserved = pinfo["reserved"]
                 else:
                     role = role_map.get(app.job_role_id)
-                    dur = role.duration_minutes if role else self.BASE_DURATION
+                    dur = role.duration_minutes if role else BASE_DURATION  # Bug #G2 fix: was self.BASE_DURATION
                     reserved = 0
 
                 # Availability window (Phase 1c)
@@ -195,7 +195,8 @@ class Scheduler:
         # C2: Student no-overlap — Phase 2b: block ALL slots occupied by the interview.
         # If app i starts at slot t and needs k slots, it occupies t, t+1, …, t+k-1.
         # For each base slot b, sum over all apps whose interval covers b must be ≤ 1.
-        student_slot_apps: Dict[str, Dict[int, List[int]]] = {}
+        # Use sets to avoid duplicate app indices when slots_needed > 1
+        student_slot_apps: Dict[str, Dict[int, set]] = {}
         for i, item in enumerate(valid_apps):
             sid = item["student"].id
             sn  = item["slots_needed"]
@@ -205,7 +206,7 @@ class Scheduler:
                 # This app starting at t occupies base slots t … t+sn-1
                 for b in range(t, t + sn):
                     if b < num_slots:
-                        student_slot_apps[sid].setdefault(b, []).append(i)
+                        student_slot_apps[sid].setdefault(b, set()).add(i)
 
         for sid, slot_dict in student_slot_apps.items():
             for b, indices in slot_dict.items():
@@ -216,7 +217,8 @@ class Scheduler:
                                   if t <= b < t + valid_apps[i]["slots_needed"]) <= 1)
 
         # C3: Per-panel no-overlap — Phase 2b: same multi-slot blocking logic
-        panel_slot_apps: Dict[Tuple[str, str], Dict[int, List[int]]] = {}
+        # Use sets to avoid duplicate app indices when slots_needed > 1
+        panel_slot_apps: Dict[Tuple[str, str], Dict[int, set]] = {}
         for i, item in enumerate(valid_apps):
             key = (item["company"].id, item["panel_id"])
             sn  = item["slots_needed"]
@@ -225,7 +227,7 @@ class Scheduler:
             for t in item["valid_slots"]:
                 for b in range(t, t + sn):
                     if b < num_slots:
-                        panel_slot_apps[key].setdefault(b, []).append(i)
+                        panel_slot_apps[key].setdefault(b, set()).add(i)
 
         for key, slot_dict in panel_slot_apps.items():
             for b, indices in slot_dict.items():

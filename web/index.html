@@ -257,6 +257,12 @@
             border: 1px solid #fca5a5;
         }
 
+        .btn-inprogress {
+            background: #dbeafe;
+            color: #1e40af;
+            border: 1px solid #93c5fd;
+        }
+
         #loading {
             position: fixed;
             top: 1rem;
@@ -940,8 +946,13 @@
                         <input type="time" id="detail-avail-start" value="09:00" />
                         <span style="color:#64748b; font-size:0.85rem;">to</span>
                         <input type="time" id="detail-avail-end" value="17:00" />
-                        <button onclick="saveCompanySettings()" style="font-size:0.82rem; padding:0.35rem 0.8rem;">💾
-                            Save</button>
+                    </div>
+                    <div class="settings-row" style="margin-top:0.5rem;">
+                        <label title="Leave empty for no company-wide break. Configure per-panel if panels need different break times.">Company Break</label>
+                        <input type="time" id="detail-break-start" title="Break start (leave empty for none)" />
+                        <span style="color:#64748b; font-size:0.85rem;">to</span>
+                        <input type="time" id="detail-break-end" title="Break end (leave empty for none)" />
+                        <button onclick="saveCompanySettings()" style="font-size:0.82rem; padding:0.35rem 0.8rem;">💾 Save</button>
                     </div>
                 </div>
 
@@ -1215,6 +1226,13 @@
             } catch (e) { alert("Action failed"); }
         }
 
+        async function markInProgress(id) {  // Bug #4 fix: was missing
+            try {
+                await fetch(`/api/interview/${id}/in-progress`, { method: 'POST' });
+                loadLiveQueue(); // Refresh immediately
+            } catch (e) { alert("Action failed"); }
+        }
+
         // --- Master Dashboards (Phase 4) ---
 
         function getStatusClass(iv) {
@@ -1371,9 +1389,13 @@
                             entry.status !== 'cancelled';
 
                         if (actionable) {
+                            const inProgressBtn = entry.status !== 'in_progress'
+                                ? `<button class="btn-sm btn-inprogress" onclick="markInProgress('${entry.interview_id}')">🔄 In Progress</button>`
+                                : '';
                             actions = `
                                 <div class="btn-action-row">
                                     <button class="btn-sm btn-complete" onclick="markComplete('${entry.interview_id}')">✅ Mark Complete</button>
+                                    ${inProgressBtn}
                                     <button class="btn-sm btn-cancel" onclick="cancelInterview('${entry.interview_id}')">❌ Cancel</button>
                                 </div>
                             `;
@@ -1722,6 +1744,9 @@
                 document.getElementById('detail-company-name').textContent = currentCompanyDetail.name;
                 document.getElementById('detail-avail-start').value = currentCompanyDetail.availability_start || '09:00';
                 document.getElementById('detail-avail-end').value = currentCompanyDetail.availability_end || '17:00';
+                const existingBreak = (currentCompanyDetail.breaks && currentCompanyDetail.breaks.length > 0) ? currentCompanyDetail.breaks[0] : null;
+                document.getElementById('detail-break-start').value = existingBreak ? existingBreak.start : '';
+                document.getElementById('detail-break-end').value = existingBreak ? existingBreak.end : '';
 
                 renderPanels();
 
@@ -1812,11 +1837,12 @@
                         </label>
                     </div>
                     <div class="editor-row" style="margin-top:0.5rem; padding-top:0.5rem; border-top:1px dashed #e2e8f0;">
-                         <label>Lunch Break (Override)</label>
-                         <div style="display:flex; align-items:center; gap:0.5rem;">
-                             <input type="time" id="brk-start-${panel.panel_id}" value="${(panel.breaks && panel.breaks.length) ? panel.breaks[0].start : ''}" title="Start Time" style="width:110px;" />
+                         <label title="Overrides company break for this panel. Leave empty to inherit company-level break. Note: only one break window per panel is supported via this UI.">Lunch Break (Override)</label>
+                         <div style="display:flex; align-items:center; gap:0.5rem; flex-wrap:wrap;">
+                             <input type="time" id="brk-start-${panel.panel_id}" value="${(panel.breaks && panel.breaks.length) ? panel.breaks[0].start : ''}" title="Break start" style="width:110px;" />
                              <span style="color:#94a3b8; font-size:0.8rem;">to</span>
-                             <input type="time" id="brk-end-${panel.panel_id}" value="${(panel.breaks && panel.breaks.length) ? panel.breaks[0].end : ''}" title="End Time" style="width:110px;" />
+                             <input type="time" id="brk-end-${panel.panel_id}" value="${(panel.breaks && panel.breaks.length) ? panel.breaks[0].end : ''}" title="Break end" style="width:110px;" />
+                             <span style="color:#94a3b8; font-size:0.72rem; cursor:help;" title="Empty = inherit company break. To allow this panel to work during company break, configure per-panel breaks on all panels and leave company break empty.">ℹ️</span>
                          </div>
                     </div>
                     <div class="editor-actions">
@@ -1906,11 +1932,14 @@
             const company = currentCompanyDetail;
             const start = document.getElementById('detail-avail-start').value;
             const end = document.getElementById('detail-avail-end').value;
+            const brkStart = document.getElementById('detail-break-start').value;
+            const brkEnd = document.getElementById('detail-break-end').value;
+            const breaks = (brkStart && brkEnd) ? [{ start: brkStart, end: brkEnd }] : [];
             try {
                 const res = await fetch(`/api/company/${company.id}/settings`, {
                     method: 'POST',
                     headers: { 'Content-Type': 'application/json' },
-                    body: JSON.stringify({ availability_start: start, availability_end: end })
+                    body: JSON.stringify({ availability_start: start, availability_end: end, breaks })
                 });
                 const data = await res.json();
                 if (data.status === 'error') {
@@ -1918,6 +1947,7 @@
                 } else {
                     currentCompanyDetail.availability_start = start;
                     currentCompanyDetail.availability_end = end;
+                    currentCompanyDetail.breaks = breaks;
                     showToast('✅ Settings saved');
                 }
             } catch (e) {

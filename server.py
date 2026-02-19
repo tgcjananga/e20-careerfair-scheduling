@@ -579,10 +579,18 @@ class InterviewRequestHandler(http.server.SimpleHTTPRequestHandler):
                 from datetime import date
                 event_date = body.get('event_date', date.today().strftime('%Y-%m-%d'))
 
-                # Save event_date to config so other endpoints can use it
+                # Save event_date to config — read-merge-write to preserve last_checkpoint (Bug #3 fix)
                 config_path = "schedule_manager/data/config.json"
+                cfg = {}
+                if os.path.exists(config_path):
+                    with open(config_path, 'r') as f:
+                        try:
+                            cfg = json.load(f)
+                        except Exception:
+                            cfg = {}
+                cfg["event_date"] = event_date
                 with open(config_path, 'w') as f:
-                    json.dump({"event_date": event_date}, f)
+                    json.dump(cfg, f, indent=2)
 
                 # The Scheduler now uses OR-Tools internally if available
                 from schedule_manager.scheduler import Scheduler
@@ -658,6 +666,8 @@ class InterviewRequestHandler(http.server.SimpleHTTPRequestHandler):
                 response_data["status"] = "error"
                 response_data["message"] = str(e)
 
+        elif parsed_path.path.startswith('/api/company/') and parsed_path.path.endswith('/panels'):
+            # POST /api/company/{id}/panels — save all panels for a company (Bug #1 fix)
             company_id = parsed_path.path.split('/api/company/')[1].replace('/panels', '').strip('/')
             try:
                 content_length = int(self.headers.get('Content-Length', 0))
@@ -670,7 +680,6 @@ class InterviewRequestHandler(http.server.SimpleHTTPRequestHandler):
                     from schedule_manager.data_manager import Panel
                     panels = [Panel(**p) for p in raw_panels]
                     company.panels = panels
-                    # Keep num_panels in sync for backward compat
                     company.num_panels = len(panels)
                     dm.save_company(company)
                     response_data["message"] = f"Saved {len(panels)} panel(s) for {company.name}"
