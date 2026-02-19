@@ -52,7 +52,7 @@ def _make_company(company_id="co1", name="Test Co", roles=None, panels=None,
     }
 
 
-def _make_student(student_id, company_id, role_id, status="applied", priority=None):
+def _make_student(student_id, company_id, role_id, status="shortlisted", priority=None):
     app = {"student_id": student_id, "company_id": company_id,
            "job_role_id": role_id, "status": status, "priority": priority, "cv_link": ""}
     return {"id": student_id, "name": f"Student {student_id}",
@@ -548,9 +548,9 @@ class TestPhase2b_MultiSlotBlocking(SchedulerTestBase):
             "id": "S001", "name": "Student S001", "email": "s001@example.com",
             "applications": [
                 {"student_id": "S001", "company_id": "co1", "job_role_id": "co1_se",
-                 "status": "applied", "priority": None, "cv_link": ""},
+                 "status": "shortlisted", "priority": None, "cv_link": ""},
                 {"student_id": "S001", "company_id": "co2", "job_role_id": "co2_se",
-                 "status": "applied", "priority": None, "cv_link": ""},
+                 "status": "shortlisted", "priority": None, "cv_link": ""},
             ]
         }
         interviews = self._run_scheduler([co1, co2], [student])
@@ -941,9 +941,9 @@ class TestPhase5_MultiPanelStaggeredBreaks(SchedulerTestBase):
             "id": "DUAL", "name": "Dual Role", "email": "dual@example.com",
             "applications": [
                 {"student_id": "DUAL", "company_id": "co1", "job_role_id": "co1_se",
-                 "status": "applied", "priority": 1, "cv_link": ""},
+                 "status": "shortlisted", "priority": 1, "cv_link": ""},
                 {"student_id": "DUAL", "company_id": "co1", "job_role_id": "co1_qa",
-                 "status": "applied", "priority": 2, "cv_link": ""},
+                 "status": "shortlisted", "priority": 2, "cv_link": ""},
             ]
         }
         interviews = self._run_scheduler([co], [student])

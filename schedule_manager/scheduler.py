@@ -90,7 +90,9 @@ class Scheduler:
 
         for s in self.students:
             for app in s.applications:
-                if app.status not in [AppStatus.APPLIED, AppStatus.SHORTLISTED, AppStatus.WAITLISTED]:
+                # Only schedule students who were shortlisted (or waitlisted as fallback).
+                # APPLIED means the company has not shortlisted them — exclude from scheduled interviews.
+                if app.status not in [AppStatus.SHORTLISTED, AppStatus.WAITLISTED]:
                     continue
                 if app.company_id not in company_map:
                     continue
@@ -251,7 +253,11 @@ class Scheduler:
                                   if t <= b < t + valid_apps[i]["slots_needed"]) <= 1)
 
         # ── Objective: maximise weighted scheduled interviews ─────────────────
-        # Phase 2e: tiered weights for priority + status
+        # Phase 2e: tiered weights for priority + status.
+        # Primary weight is scaled ×100 so the tiebreaker (slot position) never
+        # overrides the real scheduling priority.  Earlier slots are worth
+        # slightly more than later slots so all panels naturally pack forward
+        # from availability_start without an explicit sync constraint.
         objective_terms = []
         for i, item in enumerate(valid_apps):
             app = item["app"]
@@ -260,8 +266,11 @@ class Scheduler:
                 weight += 20
             if app.priority:
                 weight += max(0, 6 - app.priority)  # priority 1→+5, …, 5→+1
+            primary = weight * 100
             for t in item["valid_slots"]:
-                objective_terms.append(x[(i, t)] * weight)
+                # Earlier slot  → higher tiebreaker value (slot 0 → +num_slots, last slot → +1)
+                tiebreaker = num_slots - t
+                objective_terms.append(x[(i, t)] * (primary + tiebreaker))
 
         model.Maximize(sum(objective_terms))
 
