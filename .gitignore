@@ -1,6 +1,5 @@
 
 __pycache__/
 *.pyc
-schedule_manager/data/
 .DS_Store
 venv/
