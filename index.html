@@ -1,1 +1,533 @@
+<!DOCTYPE html>
+<html lang="en">
 
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Interview Scheduling Platform</title>
+    <style>
+        :root {
+            --primary: #2563eb;
+            --secondary: #475569;
+            --bg: #f8fafc;
+            --surface: #ffffff;
+            --border: #e2e8f0;
+        }
+
+        body {
+            font-family: 'Inter', system-ui, sans-serif;
+            background-color: var(--bg);
+            color: #1e293b;
+            margin: 0;
+            padding: 0;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 2rem;
+        }
+
+        header {
+            background: var(--surface);
+            padding: 1rem 0;
+            border-bottom: 1px solid var(--border);
+            margin-bottom: 2rem;
+        }
+
+        .header-content {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        h1 {
+            margin: 0;
+            font-size: 1.5rem;
+            color: var(--primary);
+        }
+
+        /* Controls */
+        .controls {
+            display: flex;
+            gap: 1rem;
+            margin-bottom: 2rem;
+        }
+
+        button {
+            background: var(--primary);
+            color: white;
+            border: none;
+            padding: 0.75rem 1.5rem;
+            border-radius: 0.5rem;
+            cursor: pointer;
+            font-weight: 500;
+            transition: opacity 0.2s;
+        }
+
+        button:hover {
+            opacity: 0.9;
+        }
+
+        button.secondary {
+            background: var(--surface);
+            color: var(--secondary);
+            border: 1px solid var(--border);
+        }
+
+        /* Tabs */
+        .tabs {
+            display: flex;
+            gap: 1rem;
+            border-bottom: 1px solid var(--border);
+            margin-bottom: 1rem;
+        }
+
+        .tab-btn {
+            background: transparent;
+            color: var(--secondary);
+            border: none;
+            padding: 0.75rem 1rem;
+            cursor: pointer;
+            border-bottom: 2px solid transparent;
+        }
+
+        .tab-btn.active {
+            color: var(--primary);
+            border-bottom-color: var(--primary);
+        }
+
+        /* Stats */
+        .stats {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 1rem;
+            margin-bottom: 2rem;
+        }
+
+        .stat-card {
+            background: var(--surface);
+            padding: 1.5rem;
+            border-radius: 0.5rem;
+            border: 1px solid var(--border);
+            text-align: center;
+        }
+
+        .stat-value {
+            font-size: 2rem;
+            font-weight: bold;
+            color: var(--primary);
+        }
+
+        /* Tables */
+        .table-container {
+            background: var(--surface);
+            border-radius: 0.5rem;
+            border: 1px solid var(--border);
+            overflow: hidden;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+
+        th,
+        td {
+            padding: 1rem;
+            text-align: left;
+            border-bottom: 1px solid var(--border);
+        }
+
+        th {
+            background: #f1f5f9;
+            font-weight: 600;
+        }
+
+        .badge {
+            display: inline-block;
+            padding: 0.25rem 0.5rem;
+            border-radius: 999px;
+            font-size: 0.75rem;
+            font-weight: 600;
+        }
+
+        .badge-scheduled {
+            background: #dcfce7;
+            color: #166534;
+        }
+
+        .badge-conflict {
+            background: #fee2e2;
+            color: #991b1b;
+        }
+
+        #loading {
+            position: fixed;
+            top: 1rem;
+            right: 1rem;
+            background: #fef08a;
+            padding: 0.5rem 1rem;
+            border-radius: 0.5rem;
+            display: none;
+        }
+    </style>
+</head>
+
+<body>
+    <div id="loading">Loading...</div>
+
+    <header>
+        <div class="container header-content">
+            <h1>📅 Interview Scheduler</h1>
+            <div class="controls">
+                <button class="secondary" onclick="resetData()">Reset Data</button>
+                <button onclick="runSchedule()">Run Auto-Schedule</button>
+                <div style="border-left: 1px solid #ccc; padding-left: 1rem; display:flex; gap:0.5rem;">
+                    <button class="secondary" onclick="downloadCSV('companies')">📥 Export Companies</button>
+                    <button class="secondary" onclick="downloadCSV('students')">📥 Export Students</button>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <div class="container">
+        <div class="stats">
+            <div class="stat-card">
+                <div class="stat-value" id="count-students">-</div>
+                <div class="stat-label">Students</div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-value" id="count-companies">-</div>
+                <div class="stat-label">Companies</div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-value" id="count-interviews">-</div>
+                <div class="stat-label">Interviews Scheduled</div>
+            </div>
+        </div>
+
+        <div class="tabs">
+            <button class="tab-btn active" onclick="switchTab('companies')">Company Schedules</button>
+            <button class="tab-btn" onclick="switchTab('students')">Student Schedules</button>
+        </div>
+
+        <div id="view-companies" class="view-panel">
+            <div class="table-container">
+                <table id="companies-table">
+                    <thead>
+                        <tr>
+                            <th>Company</th>
+                            <th>Total Slots</th>
+                            <th>Schedule Preview</th>
+                            <th>Action</th>
+                        </tr>
+                    </thead>
+                    <tbody></tbody>
+                </table>
+            </div>
+        </div>
+
+        <div id="view-students" class="view-panel" style="display:none;">
+            <div class="table-container">
+                <table id="students-table">
+                    <thead>
+                        <tr>
+                            <th>Student</th>
+                            <th>ID</th>
+                            <th>Email</th>
+                            <th>Action</th>
+                        </tr>
+                    </thead>
+                    <tbody></tbody>
+                </table>
+            </div>
+        </div>
+
+        <!-- Detail View Panel -->
+        <div id="view-detail" class="view-panel" style="display:none;">
+            <div style="margin-bottom: 1rem;">
+                <button class="secondary" onclick="closeDetail()">← Back to Dashboard</button>
+            </div>
+            <div class="stat-card" style="text-align: left; margin-bottom: 1rem;">
+                <div style="display:flex; justify-content:space-between; align-items:center;">
+                    <div>
+                        <h2 id="detail-title" style="margin:0; color:var(--primary);">Name</h2>
+                        <p id="detail-subtitle" style="margin:0; color:var(--secondary);">ID</p>
+                    </div>
+                    <button id="detail-export-btn" class="secondary">⬇ Export CSV</button>
+                </div>
+            </div>
+
+            <div class="table-container">
+                <table id="detail-table">
+                    <thead>
+                        <tr>
+                            <th>Time</th>
+                            <th>With</th>
+                            <th>Role</th>
+                        </tr>
+                    </thead>
+                    <tbody></tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        let companies_data = [];
+        let students_data = [];
+        let schedule_data = [];
+
+        async function init() {
+            await loadData();
+        }
+
+        function downloadCSV(type, id) {
+            let url = `/api/export/${type}`;
+            if (id) url += `/${id}`;
+            window.location.href = url;
+        }
+
+        async function loadData() {
+            showLoading(true);
+            try {
+                const [cRes, sRes, schRes] = await Promise.all([
+                    fetch('./data/companies.json'),
+fetch('./data/students.json'),
+fetch('./data/schedule.json')
+                    
+                ]);
+
+                companies_data = await cRes.json();
+                students_data = await sRes.json();
+                schedule_data = await schRes.json();
+
+                updateStats();
+                renderCompanyView();
+                renderStudentView();
+            } catch (e) {
+                console.error(e);
+                alert("Failed to load data");
+            } finally {
+                showLoading(false);
+            }
+        }
+
+        // --- Navigation ---
+
+        function showDetail(type, id) {
+            // Hide all panels
+            document.querySelectorAll('.view-panel').forEach(p => p.style.display = 'none');
+            // Hide tabs
+            document.querySelector('.tabs').style.display = 'none';
+            // Show detail panel
+            document.getElementById('view-detail').style.display = 'block';
+
+            const titleEl = document.getElementById('detail-title');
+            const subEl = document.getElementById('detail-subtitle');
+            const tbody = document.querySelector('#detail-table tbody');
+            const exportBtn = document.getElementById('detail-export-btn');
+
+            tbody.innerHTML = '';
+
+            let entityName = "";
+            let interviews = [];
+
+            if (type === 'company') {
+                const c = companies_data.find(x => x.id === id);
+                entityName = c.name;
+                titleEl.textContent = c.name;
+                subEl.textContent = `Company ID: ${c.id}`;
+                exportBtn.onclick = () => downloadCSV('company', id);
+
+                // Get interviews
+                interviews = schedule_data.filter(i => i.company_id === id);
+
+                interviews.sort((a, b) => a.start_time.localeCompare(b.start_time));
+
+                interviews.forEach(i => {
+                    const s = students_data.find(x => x.id === i.student_id);
+                    const time = i.start_time.split('T')[1].slice(0, 5);
+                    const roleTitle = getRoleTitle(i.company_id, i.job_role_id);
+
+                    const tr = document.createElement('tr');
+                    tr.innerHTML = `
+                        <td><span class="badge badge-scheduled">${time}</span></td>
+                        <td><strong>${s ? s.name : i.student_id}</strong> <small>(${i.student_id})</small></td>
+                        <td>${roleTitle}</td>
+                    `;
+                    tbody.appendChild(tr);
+                });
+
+            } else if (type === 'student') {
+                const s = students_data.find(x => x.id === id);
+                entityName = s.name;
+                titleEl.textContent = s.name;
+                subEl.textContent = `Student ID: ${s.id} | ${s.email}`;
+                exportBtn.onclick = () => downloadCSV('student', id);
+
+                interviews = schedule_data.filter(i => i.student_id === id);
+                interviews.sort((a, b) => a.start_time.localeCompare(b.start_time));
+
+                interviews.forEach(i => {
+                    const c = companies_data.find(x => x.id === i.company_id);
+                    const time = i.start_time.split('T')[1].slice(0, 5);
+                    const roleTitle = getRoleTitle(i.company_id, i.job_role_id);
+
+                    const tr = document.createElement('tr');
+                    tr.innerHTML = `
+                        <td><span class="badge badge-scheduled">${time}</span></td>
+                        <td><strong>${c ? c.name : i.company_id}</strong></td>
+                        <td>${roleTitle}</td>
+                    `;
+                    tbody.appendChild(tr);
+                });
+            }
+
+            if (interviews.length === 0) {
+                tbody.innerHTML = '<tr><td colspan="3" style="text-align:center; color:#999;">No interviews scheduled.</td></tr>';
+            }
+        }
+
+        function closeDetail() {
+            document.getElementById('view-detail').style.display = 'none';
+            document.querySelector('.tabs').style.display = 'flex';
+            // Determine which tab to show based on active button
+            const activeTab = document.querySelector('.tab-btn.active').textContent.includes('Company') ? 'companies' : 'students';
+            document.getElementById(`view-${activeTab}`).style.display = 'block';
+        }
+
+        async function runSchedule() {
+            if (!confirm("Run automatic scheduling? This will overwrite current schedule.")) return;
+            showLoading(true);
+            try {
+                const res = await fetch('/api/run-schedule', { method: 'POST' });
+                const data = await res.json();
+                alert(data.message);
+                await loadData();
+            } catch (e) {
+                alert("Scheduling failed");
+            } finally {
+                showLoading(false);
+            }
+        }
+
+        async function resetData() {
+            if (!confirm("Reset all data to seed defaults? This cannot be undone.")) return;
+            showLoading(true);
+            try {
+                await fetch('/api/init', { method: 'POST' });
+                await loadData();
+                alert("Data reset.");
+            } catch (e) {
+                alert("Reset failed");
+            } finally {
+                showLoading(false);
+            }
+        }
+
+        function updateStats() {
+            document.getElementById('count-students').textContent = students_data.length;
+            document.getElementById('count-companies').textContent = companies_data.length;
+            document.getElementById('count-interviews').textContent = schedule_data.length;
+        }
+
+        function getRoleTitle(companyId, roleId) {
+            const company = companies_data.find(c => c.id === companyId);
+            if (!company || !company.job_roles) return roleId;
+            const role = company.job_roles.find(r => r.id === roleId);
+            return role ? role.title : roleId;
+        }
+
+        function renderCompanyView() {
+            const tbody = document.querySelector('#companies-table tbody');
+            tbody.innerHTML = '';
+
+            companies_data.forEach(c => {
+                // Find interviews for this company
+                const interviews = schedule_data.filter(i => i.company_id === c.id)
+                    .sort((a, b) => a.start_time.localeCompare(b.start_time));
+
+                const tr = document.createElement('tr');
+
+                // Format first 3 interviews as preview
+                const preview = interviews.slice(0, 3).map(i => {
+                    const time = i.start_time.split('T')[1].slice(0, 5);
+                    const student = students_data.find(s => s.id === i.student_id);
+                    const roleTitle = getRoleTitle(c.id, i.job_role_id);
+                    return `<span class="badge badge-scheduled" title="${roleTitle}">${time}: ${student ? student.name : i.student_id} (${roleTitle})</span>`;
+                }).join(' ');
+
+                const extra = interviews.length > 3 ? ` <small>+${interviews.length - 3} more</small>` : '';
+
+                tr.innerHTML = `
+                    <td>
+                        <a href="#" onclick="showDetail('company', '${c.id}'); return false;" style="font-weight:bold; color:var(--primary); text-decoration:none;">${c.name}</a>
+                        <br><small style="color:#666">${c.id}</small>
+                    </td>
+                    <td>${interviews.length}</td>
+                    <td>${preview}${extra}</td>
+                    <td><button style="padding:0.25rem 0.5rem; font-size:0.8rem;" class="secondary" onclick="downloadCSV('company', '${c.id}')">⬇ CSV</button></td>
+                `;
+                tbody.appendChild(tr);
+            });
+        }
+
+        function renderStudentView() {
+            const tbody = document.querySelector('#students-table tbody');
+            tbody.innerHTML = '';
+
+            // Render first 50 to avoid lag if too many
+            students_data.slice(0, 100).forEach(s => {
+                const interviews = schedule_data.filter(i => i.student_id === s.id)
+                    .sort((a, b) => a.start_time.localeCompare(b.start_time));
+
+                if (interviews.length === 0) return; // Optional: hide students with no interviews? No show all.
+
+                const tr = document.createElement('tr');
+
+                // Calculate Stats
+                const appliedCount = s.applications.length;
+                const shortlistedCount = s.applications.filter(a => a.status === 'shortlisted').length;
+                const scheduledCount = schedule_data.filter(i => i.student_id === s.id).length;
+
+                // create stats badge
+                const statsHtml = `
+                    <small style="margin-left: 10px; color: #666;">
+                        <span title="Applied">📝 ${appliedCount}</span> | 
+                        <span title="Shortlisted">✅ ${shortlistedCount}</span> | 
+                        <span title="Scheduled">📅 ${scheduledCount}</span>
+                    </small>
+                `;
+
+                tr.innerHTML = `
+                    <td>
+                        <a href="#" onclick="showDetail('student', '${s.id}'); return false;"><strong>${s.name}</strong></a>
+                        ${statsHtml}
+                    </td>
+                    <td>${s.id}</td>
+                    <td>${s.email}</td>
+                    <td><button style="padding:0.25rem 0.5rem; font-size:0.8rem;" class="secondary" onclick="downloadCSV('student', '${s.id}')">⬇ CSV</button></td>
+                `;
+                tbody.appendChild(tr);
+            });
+        }
+
+        function switchTab(tab) {
+            document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
+            document.querySelectorAll('.view-panel').forEach(p => p.style.display = 'none');
+
+            event.target.classList.add('active');
+            document.getElementById(`view-${tab}`).style.display = 'block';
+        }
+
+        function showLoading(show) {
+            document.getElementById('loading').style.display = show ? 'block' : 'none';
+        }
+
+        init();
+    </script>
+</body>
+
+</html>
