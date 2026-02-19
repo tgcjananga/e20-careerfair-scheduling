@@ -1,24 +1,321 @@
 [
   {
-    "id": "avtrasoft_lanka_pvt_ltd",
-    "name": "Avtrasoft Lanka (Pvt) Ltd",
+    "id": "gtn",
+    "name": "GTN",
+    "job_roles": [
+      {
+        "id": "gtn_tech_software_engineer",
+        "title": "Software Engineer",
+        "company_id": "gtn",
+        "duration_minutes": 30
+      },
+      {
+        "id": "gtn_tech_platform_engineer",
+        "title": "Platform Engineer",
+        "company_id": "gtn",
+        "duration_minutes": 30
+      },
+      {
+        "id": "gtn_cyber",
+        "title": "Cyber",
+        "company_id": "gtn",
+        "duration_minutes": 30
+      }
+    ],
+    "panels": [
+      {
+        "panel_id": "gtn_tech-P1",
+        "label": "Panel 1 (Default)",
+        "job_role_ids": [
+          "gtn_tech_software_engineer",
+          "gtn_tech_platform_engineer"
+        ],
+        "slot_duration_minutes": 30,
+        "walk_in_open": false,
+        "reserved_walkin_slots": 0,
+        "breaks": []
+      },
+      {
+        "panel_id": "gtn_tech-P2-1771523814418",
+        "label": "Panel 2",
+        "job_role_ids": [
+          "gtn_tech_software_engineer",
+          "gtn_tech_platform_engineer"
+        ],
+        "slot_duration_minutes": 30,
+        "walk_in_open": false,
+        "reserved_walkin_slots": 0,
+        "breaks": []
+      },
+      {
+        "panel_id": "gtn_tech-P3-1771523818424",
+        "label": "Panel 3",
+        "job_role_ids": [
+          "gtn_tech_software_engineer",
+          "gtn_tech_platform_engineer"
+        ],
+        "slot_duration_minutes": 30,
+        "walk_in_open": false,
+        "reserved_walkin_slots": 0,
+        "breaks": []
+      },
+      {
+        "panel_id": "gtn_tech-P4-1771523821996",
+        "label": "Panel 4",
+        "job_role_ids": [
+          "gtn_tech_software_engineer",
+          "gtn_tech_platform_engineer"
+        ],
+        "slot_duration_minutes": 30,
+        "walk_in_open": false,
+        "reserved_walkin_slots": 0,
+        "breaks": []
+      },
+      {
+        "panel_id": "gtn_tech-P5-1771523825862",
+        "label": "Panel 5",
+        "job_role_ids": [
+          "gtn_cyber"
+        ],
+        "slot_duration_minutes": 30,
+        "walk_in_open": false,
+        "reserved_walkin_slots": 0,
+        "breaks": []
+      }
+    ],
+    "availability_start": "09:00",
+    "availability_end": "17:00",
+    "breaks": [],
+    "num_panels": 5,
+    "walk_in_open": false
+  },
+  {
+    "id": "sysco_labs",
+    "name": "Sysco LABS",
+    "job_roles": [
+      {
+        "id": "sysco_labs_technologies_pvt_ltd_software_engineer",
+        "title": "Software Engineer",
+        "company_id": "sysco_labs",
+        "duration_minutes": 30
+      },
+      {
+        "id": "sysco_labs_technologies_pvt_ltd_quality_assurance",
+        "title": "Quality Assurance",
+        "company_id": "sysco_labs",
+        "duration_minutes": 30
+      },
+      {
+        "id": "sysco_labs_qa",
+        "title": "QA",
+        "company_id": "sysco_labs",
+        "duration_minutes": 30
+      }
+    ],
+    "panels": [
+      {
+        "panel_id": "sysco_labs_technologies_pvt_ltd-P1",
+        "label": "Panel 1 (Default)",
+        "job_role_ids": [
+          "sysco_labs_technologies_pvt_ltd_software_engineer"
+        ],
+        "slot_duration_minutes": 55,
+        "walk_in_open": false,
+        "reserved_walkin_slots": 0,
+        "breaks": []
+      },
+      {
+        "panel_id": "sysco_labs_technologies_pvt_ltd-P2-1771524099666",
+        "label": "Panel 2",
+        "job_role_ids": [
+          "sysco_labs_technologies_pvt_ltd_software_engineer"
+        ],
+        "slot_duration_minutes": 55,
+        "walk_in_open": false,
+        "reserved_walkin_slots": 0,
+        "breaks": []
+      },
+      {
+        "panel_id": "sysco_labs_technologies_pvt_ltd-P3-1771524104361",
+        "label": "Panel 3",
+        "job_role_ids": [
+          "sysco_labs_technologies_pvt_ltd_quality_assurance"
+        ],
+        "slot_duration_minutes": 55,
+        "walk_in_open": false,
+        "reserved_walkin_slots": 0,
+        "breaks": []
+      },
+      {
+        "panel_id": "sysco_labs_technologies_pvt_ltd-P4-1771524109314",
+        "label": "Panel 4",
+        "job_role_ids": [
+          "sysco_labs_technologies_pvt_ltd_quality_assurance"
+        ],
+        "slot_duration_minutes": 55,
+        "walk_in_open": false,
+        "reserved_walkin_slots": 0,
+        "breaks": []
+      }
+    ],
+    "availability_start": "09:00",
+    "availability_end": "17:00",
+    "breaks": [],
+    "num_panels": 4,
+    "walk_in_open": false
+  },
+  {
+    "id": "cut_dry",
+    "name": "Cut + Dry",
+    "job_roles": [
+      {
+        "id": "cutdry_inc_software_engineer",
+        "title": "Software Engineer",
+        "company_id": "cut_dry",
+        "duration_minutes": 30
+      },
+      {
+        "id": "cutdry_inc_aiml",
+        "title": "AI/ML",
+        "company_id": "cut_dry",
+        "duration_minutes": 30
+      }
+    ],
+    "panels": [
+      {
+        "panel_id": "cutdry_inc-P1",
+        "label": "Panel 1 (Default)",
+        "job_role_ids": [
+          "cutdry_inc_software_engineer",
+          "cutdry_inc_aiml"
+        ],
+        "slot_duration_minutes": 30,
+        "walk_in_open": false,
+        "reserved_walkin_slots": 0,
+        "breaks": []
+      }
+    ],
+    "availability_start": "09:00",
+    "availability_end": "17:00",
+    "breaks": [],
+    "num_panels": 1,
+    "walk_in_open": false
+  },
+  {
+    "id": "octave",
+    "name": "Octave",
+    "job_roles": [
+      {
+        "id": "octave_software_engineer",
+        "title": "Software Engineer",
+        "company_id": "octave",
+        "duration_minutes": 30
+      },
+      {
+        "id": "octave_data_science",
+        "title": "Data Science",
+        "company_id": "octave",
+        "duration_minutes": 30
+      },
+      {
+        "id": "octave_machine_learning",
+        "title": "Machine learning",
+        "company_id": "octave",
+        "duration_minutes": 30
+      },
+      {
+        "id": "octave_data_engineering",
+        "title": "Data Engineering",
+        "company_id": "octave",
+        "duration_minutes": 30
+      },
+      {
+        "id": "octave_ai_engineeringfullstack",
+        "title": "AI Engineering(Fullstack)",
+        "company_id": "octave",
+        "duration_minutes": 30
+      },
+      {
+        "id": "octave_aiml",
+        "title": "AI/ML",
+        "company_id": "octave",
+        "duration_minutes": 30
+      }
+    ],
+    "panels": [
+      {
+        "panel_id": "octave-P1",
+        "label": "Panel 1 (Default)",
+        "job_role_ids": [
+          "octave_software_engineer",
+          "octave_data_science",
+          "octave_machine_learning",
+          "octave_data_engineering",
+          "octave_ai_engineeringfullstack",
+          "octave_aiml"
+        ],
+        "slot_duration_minutes": 30,
+        "walk_in_open": false,
+        "reserved_walkin_slots": 0,
+        "breaks": []
+      }
+    ],
+    "availability_start": "09:00",
+    "availability_end": "17:00",
+    "breaks": [],
+    "num_panels": 1,
+    "walk_in_open": false
+  },
+  {
+    "id": "directfn",
+    "name": "DirectFN",
+    "job_roles": [
+      {
+        "id": "directfn_qe",
+        "title": "QE",
+        "company_id": "directfn",
+        "duration_minutes": 30
+      }
+    ],
+    "panels": [
+      {
+        "panel_id": "directfn-P1",
+        "label": "Panel 1 (Default)",
+        "job_role_ids": [
+          "directfn_qe"
+        ],
+        "slot_duration_minutes": 30,
+        "walk_in_open": false,
+        "reserved_walkin_slots": 0,
+        "breaks": []
+      }
+    ],
+    "availability_start": "09:00",
+    "availability_end": "17:00",
+    "breaks": [],
+    "num_panels": 1,
+    "walk_in_open": false
+  },
+  {
+    "id": "avtrasoft",
+    "name": "Avtrasoft",
     "job_roles": [
       {
         "id": "avtrasoft_lanka_pvt_ltd_software_engineer",
         "title": "Software Engineer",
-        "company_id": "avtrasoft_lanka_pvt_ltd",
+        "company_id": "avtrasoft",
         "duration_minutes": 30
       },
       {
         "id": "avtrasoft_lanka_pvt_ltd_devops__support_engineer",
         "title": "DevOps / Support Engineer",
-        "company_id": "avtrasoft_lanka_pvt_ltd",
+        "company_id": "avtrasoft",
         "duration_minutes": 30
       },
       {
         "id": "avtrasoft_lanka_pvt_ltd_system_adminstrator",
         "title": "System Adminstrator",
-        "company_id": "avtrasoft_lanka_pvt_ltd",
+        "company_id": "avtrasoft",
         "duration_minutes": 30
       }
     ],
@@ -57,6 +354,43 @@
     "walk_in_open": false
   },
   {
+    "id": "rhino_partners",
+    "name": "Rhino Partners",
+    "job_roles": [
+      {
+        "id": "rhino_partners_pte_ltd_data_science",
+        "title": "Data Science",
+        "company_id": "rhino_partners",
+        "duration_minutes": 30
+      },
+      {
+        "id": "rhino_partners_pte_ltd_ai_engineering",
+        "title": "AI Engineering",
+        "company_id": "rhino_partners",
+        "duration_minutes": 30
+      }
+    ],
+    "panels": [
+      {
+        "panel_id": "rhino_partners_pte_ltd-P1",
+        "label": "Panel 1 (Default)",
+        "job_role_ids": [
+          "rhino_partners_pte_ltd_data_science",
+          "rhino_partners_pte_ltd_ai_engineering"
+        ],
+        "slot_duration_minutes": 30,
+        "walk_in_open": false,
+        "reserved_walkin_slots": 0,
+        "breaks": []
+      }
+    ],
+    "availability_start": "09:00",
+    "availability_end": "17:00",
+    "breaks": [],
+    "num_panels": 1,
+    "walk_in_open": false
+  },
+  {
     "id": "axiata_digital_labs",
     "name": "Axiata Digital Labs",
     "job_roles": [
@@ -86,6 +420,47 @@
           "axiata_digital_labs_software_engineer"
         ],
         "slot_duration_minutes": 30,
+        "walk_in_open": false,
+        "reserved_walkin_slots": 0,
+        "breaks": []
+      }
+    ],
+    "availability_start": "09:00",
+    "availability_end": "17:00",
+    "breaks": [],
+    "num_panels": 2,
+    "walk_in_open": false
+  },
+  {
+    "id": "thomson_reuters",
+    "name": "Thomson Reuters",
+    "job_roles": [
+      {
+        "id": "thomson_reuters_software_engineer",
+        "title": "Software Engineer",
+        "company_id": "thomson_reuters",
+        "duration_minutes": 30
+      }
+    ],
+    "panels": [
+      {
+        "panel_id": "thomson_reuters-P1",
+        "label": "Panel 1 (Default)",
+        "job_role_ids": [
+          "thomson_reuters_software_engineer"
+        ],
+        "slot_duration_minutes": 60,
+        "walk_in_open": false,
+        "reserved_walkin_slots": 0,
+        "breaks": []
+      },
+      {
+        "panel_id": "thomson_reuters-P2-1771524414347",
+        "label": "Panel 2",
+        "job_role_ids": [
+          "thomson_reuters_software_engineer"
+        ],
+        "slot_duration_minutes": 60,
         "walk_in_open": false,
         "reserved_walkin_slots": 0,
         "breaks": []
@@ -136,6 +511,134 @@
     "availability_end": "17:00",
     "breaks": [],
     "num_panels": 2,
+    "walk_in_open": false
+  },
+  {
+    "id": "wia",
+    "name": "WIA",
+    "job_roles": [
+      {
+        "id": "wia_systems_inc_systems_engineer",
+        "title": "Systems Engineer",
+        "company_id": "wia",
+        "duration_minutes": 30
+      }
+    ],
+    "panels": [
+      {
+        "panel_id": "wia_systems_inc-P1",
+        "label": "Panel 1 (Default)",
+        "job_role_ids": [
+          "wia_systems_inc_systems_engineer"
+        ],
+        "slot_duration_minutes": 30,
+        "walk_in_open": false,
+        "reserved_walkin_slots": 0,
+        "breaks": []
+      }
+    ],
+    "availability_start": "09:00",
+    "availability_end": "17:00",
+    "breaks": [],
+    "num_panels": 1,
+    "walk_in_open": false
+  },
+  {
+    "id": "wso2",
+    "name": "WSO2",
+    "job_roles": [
+      {
+        "id": "wso2_lanka_pvt_ltd_digital_transformation",
+        "title": "Digital Transformation",
+        "company_id": "wso2",
+        "duration_minutes": 30
+      },
+      {
+        "id": "wso2_lanka_pvt_ltd_software_engineer",
+        "title": "Software Engineer",
+        "company_id": "wso2",
+        "duration_minutes": 30
+      },
+      {
+        "id": "wso2_lanka_pvt_ltd_customer_success",
+        "title": "Customer Success",
+        "company_id": "wso2",
+        "duration_minutes": 30
+      },
+      {
+        "id": "wso2_sre",
+        "title": "SRE",
+        "company_id": "wso2",
+        "duration_minutes": 30
+      }
+    ],
+    "panels": [
+      {
+        "panel_id": "wso2_lanka_pvt_ltd-P1",
+        "label": "Panel 1 (Default)",
+        "job_role_ids": [
+          "wso2_lanka_pvt_ltd_software_engineer"
+        ],
+        "slot_duration_minutes": 15,
+        "walk_in_open": false,
+        "reserved_walkin_slots": 0,
+        "breaks": []
+      },
+      {
+        "panel_id": "wso2_lanka_pvt_ltd-P2-1771524500051",
+        "label": "Panel 2",
+        "job_role_ids": [
+          "wso2_lanka_pvt_ltd_digital_transformation",
+          "wso2_lanka_pvt_ltd_software_engineer",
+          "wso2_lanka_pvt_ltd_customer_success"
+        ],
+        "slot_duration_minutes": 30,
+        "walk_in_open": false,
+        "reserved_walkin_slots": 0,
+        "breaks": []
+      },
+      {
+        "panel_id": "wso2_lanka_pvt_ltd-P3-1771524509706",
+        "label": "Panel 3",
+        "job_role_ids": [
+          "wso2_lanka_pvt_ltd_digital_transformation",
+          "wso2_lanka_pvt_ltd_software_engineer",
+          "wso2_lanka_pvt_ltd_customer_success"
+        ],
+        "slot_duration_minutes": 30,
+        "walk_in_open": false,
+        "reserved_walkin_slots": 0,
+        "breaks": []
+      },
+      {
+        "panel_id": "wso2_lanka_pvt_ltd-P4-1771524515442",
+        "label": "Panel 4",
+        "job_role_ids": [
+          "wso2_lanka_pvt_ltd_digital_transformation",
+          "wso2_lanka_pvt_ltd_software_engineer",
+          "wso2_lanka_pvt_ltd_customer_success"
+        ],
+        "slot_duration_minutes": 30,
+        "walk_in_open": false,
+        "reserved_walkin_slots": 0,
+        "breaks": []
+      },
+      {
+        "panel_id": "wso2-P1",
+        "label": "Panel 1 (Default)",
+        "job_role_ids": [
+          "wso2_sre"
+        ],
+        "slot_duration_minutes": 30,
+        "walk_in_open": false,
+        "reserved_walkin_slots": 0,
+        "breaks": []
+      }
+    ],
+    "availability_start": "09:00",
+    "availability_end": "17:00",
+    "breaks": [],
+    "num_panels": 4,
     "walk_in_open": false
   },
   {
@@ -212,19 +715,19 @@
     "walk_in_open": false
   },
   {
-    "id": "codegen_international",
-    "name": "CodeGen International",
+    "id": "codegen",
+    "name": "CodeGen",
     "job_roles": [
       {
         "id": "codegen_international_software_engineer",
         "title": "Software Engineer.",
-        "company_id": "codegen_international",
+        "company_id": "codegen",
         "duration_minutes": 30
       },
       {
         "id": "codegen_international_fullstack",
         "title": "Fullstack",
-        "company_id": "codegen_international",
+        "company_id": "codegen",
         "duration_minutes": 30
       }
     ],
@@ -258,648 +761,6 @@
     "availability_end": "17:00",
     "breaks": [],
     "num_panels": 2,
-    "walk_in_open": false
-  },
-  {
-    "id": "sysco_labs_technologies_pvt_ltd",
-    "name": "Sysco LABS Technologies (Pvt) Ltd",
-    "job_roles": [
-      {
-        "id": "sysco_labs_technologies_pvt_ltd_software_engineer",
-        "title": "Software Engineer",
-        "company_id": "sysco_labs_technologies_pvt_ltd",
-        "duration_minutes": 30
-      },
-      {
-        "id": "sysco_labs_technologies_pvt_ltd_quality_assurance",
-        "title": "Quality Assurance",
-        "company_id": "sysco_labs_technologies_pvt_ltd",
-        "duration_minutes": 30
-      }
-    ],
-    "panels": [
-      {
-        "panel_id": "sysco_labs_technologies_pvt_ltd-P1",
-        "label": "Panel 1 (Default)",
-        "job_role_ids": [
-          "sysco_labs_technologies_pvt_ltd_software_engineer"
-        ],
-        "slot_duration_minutes": 55,
-        "walk_in_open": false,
-        "reserved_walkin_slots": 0,
-        "breaks": []
-      },
-      {
-        "panel_id": "sysco_labs_technologies_pvt_ltd-P2-1771524099666",
-        "label": "Panel 2",
-        "job_role_ids": [
-          "sysco_labs_technologies_pvt_ltd_software_engineer"
-        ],
-        "slot_duration_minutes": 55,
-        "walk_in_open": false,
-        "reserved_walkin_slots": 0,
-        "breaks": []
-      },
-      {
-        "panel_id": "sysco_labs_technologies_pvt_ltd-P3-1771524104361",
-        "label": "Panel 3",
-        "job_role_ids": [
-          "sysco_labs_technologies_pvt_ltd_quality_assurance"
-        ],
-        "slot_duration_minutes": 55,
-        "walk_in_open": false,
-        "reserved_walkin_slots": 0,
-        "breaks": []
-      },
-      {
-        "panel_id": "sysco_labs_technologies_pvt_ltd-P4-1771524109314",
-        "label": "Panel 4",
-        "job_role_ids": [
-          "sysco_labs_technologies_pvt_ltd_quality_assurance"
-        ],
-        "slot_duration_minutes": 55,
-        "walk_in_open": false,
-        "reserved_walkin_slots": 0,
-        "breaks": []
-      }
-    ],
-    "availability_start": "09:00",
-    "availability_end": "17:00",
-    "breaks": [],
-    "num_panels": 4,
-    "walk_in_open": false
-  },
-  {
-    "id": "gtn_tech",
-    "name": "GTN Tech",
-    "job_roles": [
-      {
-        "id": "gtn_tech_software_engineer",
-        "title": "Software Engineer",
-        "company_id": "gtn_tech",
-        "duration_minutes": 30
-      },
-      {
-        "id": "gtn_tech_platform_engineer",
-        "title": "Platform Engineer",
-        "company_id": "gtn_tech",
-        "duration_minutes": 30
-      }
-    ],
-    "panels": [
-      {
-        "panel_id": "gtn_tech-P1",
-        "label": "Panel 1 (Default)",
-        "job_role_ids": [
-          "gtn_tech_software_engineer",
-          "gtn_tech_platform_engineer"
-        ],
-        "slot_duration_minutes": 30,
-        "walk_in_open": false,
-        "reserved_walkin_slots": 0,
-        "breaks": []
-      },
-      {
-        "panel_id": "gtn_tech-P2-1771523814418",
-        "label": "Panel 2",
-        "job_role_ids": [
-          "gtn_tech_software_engineer",
-          "gtn_tech_platform_engineer"
-        ],
-        "slot_duration_minutes": 30,
-        "walk_in_open": false,
-        "reserved_walkin_slots": 0,
-        "breaks": []
-      },
-      {
-        "panel_id": "gtn_tech-P3-1771523818424",
-        "label": "Panel 3",
-        "job_role_ids": [
-          "gtn_tech_software_engineer",
-          "gtn_tech_platform_engineer"
-        ],
-        "slot_duration_minutes": 30,
-        "walk_in_open": false,
-        "reserved_walkin_slots": 0,
-        "breaks": []
-      },
-      {
-        "panel_id": "gtn_tech-P4-1771523821996",
-        "label": "Panel 4",
-        "job_role_ids": [
-          "gtn_tech_software_engineer",
-          "gtn_tech_platform_engineer"
-        ],
-        "slot_duration_minutes": 30,
-        "walk_in_open": false,
-        "reserved_walkin_slots": 0,
-        "breaks": []
-      },
-      {
-        "panel_id": "gtn_tech-P5-1771523825862",
-        "label": "Panel 5",
-        "job_role_ids": [
-          "gtn_tech_software_engineer",
-          "gtn_tech_platform_engineer"
-        ],
-        "slot_duration_minutes": 30,
-        "walk_in_open": false,
-        "reserved_walkin_slots": 0,
-        "breaks": []
-      }
-    ],
-    "availability_start": "09:00",
-    "availability_end": "17:00",
-    "breaks": [],
-    "num_panels": 5,
-    "walk_in_open": false
-  },
-  {
-    "id": "cutdry_inc",
-    "name": "Cut+Dry Inc.",
-    "job_roles": [
-      {
-        "id": "cutdry_inc_software_engineer",
-        "title": "Software Engineer",
-        "company_id": "cutdry_inc",
-        "duration_minutes": 30
-      },
-      {
-        "id": "cutdry_inc_aiml",
-        "title": "AI/ML",
-        "company_id": "cutdry_inc",
-        "duration_minutes": 30
-      }
-    ],
-    "panels": [
-      {
-        "panel_id": "cutdry_inc-P1",
-        "label": "Panel 1 (Default)",
-        "job_role_ids": [
-          "cutdry_inc_software_engineer",
-          "cutdry_inc_aiml"
-        ],
-        "slot_duration_minutes": 30,
-        "walk_in_open": false,
-        "reserved_walkin_slots": 0,
-        "breaks": []
-      }
-    ],
-    "availability_start": "09:00",
-    "availability_end": "17:00",
-    "breaks": [],
-    "num_panels": 1,
-    "walk_in_open": false
-  },
-  {
-    "id": "d_f_n_technology_pvt_ltd",
-    "name": "D F N Technology Pvt Ltd",
-    "job_roles": [
-      {
-        "id": "d_f_n_technology_pvt_ltd_software_engineer",
-        "title": "Software Engineer",
-        "company_id": "d_f_n_technology_pvt_ltd",
-        "duration_minutes": 30
-      },
-      {
-        "id": "d_f_n_technology_pvt_ltd_quality_assurance",
-        "title": "Quality Assurance",
-        "company_id": "d_f_n_technology_pvt_ltd",
-        "duration_minutes": 30
-      }
-    ],
-    "panels": [
-      {
-        "panel_id": "d_f_n_technology_pvt_ltd-P1",
-        "label": "Panel 1 (Default)",
-        "job_role_ids": [
-          "d_f_n_technology_pvt_ltd_software_engineer"
-        ],
-        "slot_duration_minutes": 30,
-        "walk_in_open": false,
-        "reserved_walkin_slots": 0,
-        "breaks": []
-      },
-      {
-        "panel_id": "d_f_n_technology_pvt_ltd-P2-1771524349132",
-        "label": "Panel 2",
-        "job_role_ids": [
-          "d_f_n_technology_pvt_ltd_quality_assurance"
-        ],
-        "slot_duration_minutes": 30,
-        "walk_in_open": false,
-        "reserved_walkin_slots": 0,
-        "breaks": []
-      }
-    ],
-    "availability_start": "09:00",
-    "availability_end": "17:00",
-    "breaks": [],
-    "num_panels": 2,
-    "walk_in_open": false
-  },
-  {
-    "id": "wso2_lanka_pvt_ltd",
-    "name": "WSO2 Lanka Pvt Ltd",
-    "job_roles": [
-      {
-        "id": "wso2_lanka_pvt_ltd_digital_transformation",
-        "title": "Digital Transformation",
-        "company_id": "wso2_lanka_pvt_ltd",
-        "duration_minutes": 30
-      },
-      {
-        "id": "wso2_lanka_pvt_ltd_software_engineer",
-        "title": "Software Engineer",
-        "company_id": "wso2_lanka_pvt_ltd",
-        "duration_minutes": 30
-      },
-      {
-        "id": "wso2_lanka_pvt_ltd_customer_success",
-        "title": "Customer Success",
-        "company_id": "wso2_lanka_pvt_ltd",
-        "duration_minutes": 30
-      }
-    ],
-    "panels": [
-      {
-        "panel_id": "wso2_lanka_pvt_ltd-P1",
-        "label": "Panel 1 (Default)",
-        "job_role_ids": [
-          "wso2_lanka_pvt_ltd_software_engineer"
-        ],
-        "slot_duration_minutes": 15,
-        "walk_in_open": false,
-        "reserved_walkin_slots": 0,
-        "breaks": []
-      },
-      {
-        "panel_id": "wso2_lanka_pvt_ltd-P2-1771524500051",
-        "label": "Panel 2",
-        "job_role_ids": [
-          "wso2_lanka_pvt_ltd_digital_transformation",
-          "wso2_lanka_pvt_ltd_software_engineer",
-          "wso2_lanka_pvt_ltd_customer_success"
-        ],
-        "slot_duration_minutes": 30,
-        "walk_in_open": false,
-        "reserved_walkin_slots": 0,
-        "breaks": []
-      },
-      {
-        "panel_id": "wso2_lanka_pvt_ltd-P3-1771524509706",
-        "label": "Panel 3",
-        "job_role_ids": [
-          "wso2_lanka_pvt_ltd_digital_transformation",
-          "wso2_lanka_pvt_ltd_software_engineer",
-          "wso2_lanka_pvt_ltd_customer_success"
-        ],
-        "slot_duration_minutes": 30,
-        "walk_in_open": false,
-        "reserved_walkin_slots": 0,
-        "breaks": []
-      },
-      {
-        "panel_id": "wso2_lanka_pvt_ltd-P4-1771524515442",
-        "label": "Panel 4",
-        "job_role_ids": [
-          "wso2_lanka_pvt_ltd_digital_transformation",
-          "wso2_lanka_pvt_ltd_software_engineer",
-          "wso2_lanka_pvt_ltd_customer_success"
-        ],
-        "slot_duration_minutes": 30,
-        "walk_in_open": false,
-        "reserved_walkin_slots": 0,
-        "breaks": []
-      }
-    ],
-    "availability_start": "09:00",
-    "availability_end": "17:00",
-    "breaks": [],
-    "num_panels": 4,
-    "walk_in_open": false
-  },
-  {
-    "id": "wia_systems_inc",
-    "name": "WIA Systems Inc",
-    "job_roles": [
-      {
-        "id": "wia_systems_inc_systems_engineer",
-        "title": "Systems Engineer",
-        "company_id": "wia_systems_inc",
-        "duration_minutes": 30
-      }
-    ],
-    "panels": [
-      {
-        "panel_id": "wia_systems_inc-P1",
-        "label": "Panel 1 (Default)",
-        "job_role_ids": [
-          "wia_systems_inc_systems_engineer"
-        ],
-        "slot_duration_minutes": 30,
-        "walk_in_open": false,
-        "reserved_walkin_slots": 0,
-        "breaks": []
-      }
-    ],
-    "availability_start": "09:00",
-    "availability_end": "17:00",
-    "breaks": [],
-    "num_panels": 1,
-    "walk_in_open": false
-  },
-  {
-    "id": "wso2",
-    "name": "WSO2",
-    "job_roles": [
-      {
-        "id": "wso2_sre",
-        "title": "SRE",
-        "company_id": "wso2",
-        "duration_minutes": 30
-      }
-    ],
-    "panels": [
-      {
-        "panel_id": "wso2-P1",
-        "label": "Panel 1 (Default)",
-        "job_role_ids": [
-          "wso2_sre"
-        ],
-        "slot_duration_minutes": 30,
-        "walk_in_open": false,
-        "reserved_walkin_slots": 0,
-        "breaks": []
-      }
-    ],
-    "availability_start": "09:00",
-    "availability_end": "17:00",
-    "breaks": [],
-    "num_panels": 1,
-    "walk_in_open": false
-  },
-  {
-    "id": "thomson_reuters",
-    "name": "Thomson Reuters",
-    "job_roles": [
-      {
-        "id": "thomson_reuters_software_engineer",
-        "title": "Software Engineer",
-        "company_id": "thomson_reuters",
-        "duration_minutes": 30
-      }
-    ],
-    "panels": [
-      {
-        "panel_id": "thomson_reuters-P1",
-        "label": "Panel 1 (Default)",
-        "job_role_ids": [
-          "thomson_reuters_software_engineer"
-        ],
-        "slot_duration_minutes": 60,
-        "walk_in_open": false,
-        "reserved_walkin_slots": 0,
-        "breaks": []
-      },
-      {
-        "panel_id": "thomson_reuters-P2-1771524414347",
-        "label": "Panel 2",
-        "job_role_ids": [
-          "thomson_reuters_software_engineer"
-        ],
-        "slot_duration_minutes": 60,
-        "walk_in_open": false,
-        "reserved_walkin_slots": 0,
-        "breaks": []
-      }
-    ],
-    "availability_start": "09:00",
-    "availability_end": "17:00",
-    "breaks": [],
-    "num_panels": 2,
-    "walk_in_open": false
-  },
-  {
-    "id": "sysco_labs",
-    "name": "Sysco LABS",
-    "job_roles": [
-      {
-        "id": "sysco_labs_qa",
-        "title": "QA",
-        "company_id": "sysco_labs",
-        "duration_minutes": 30
-      }
-    ],
-    "panels": [
-      {
-        "panel_id": "sysco_labs-P1",
-        "label": "Panel 1 (Default)",
-        "job_role_ids": [
-          "sysco_labs_qa"
-        ],
-        "slot_duration_minutes": 30,
-        "walk_in_open": false,
-        "reserved_walkin_slots": 0,
-        "breaks": []
-      }
-    ],
-    "availability_start": "09:00",
-    "availability_end": "17:00",
-    "breaks": [],
-    "num_panels": 1,
-    "walk_in_open": false
-  },
-  {
-    "id": "rhino_partners_pte_ltd",
-    "name": "Rhino Partners PTE Ltd",
-    "job_roles": [
-      {
-        "id": "rhino_partners_pte_ltd_data_science",
-        "title": "Data Science",
-        "company_id": "rhino_partners_pte_ltd",
-        "duration_minutes": 30
-      },
-      {
-        "id": "rhino_partners_pte_ltd_ai_engineering",
-        "title": "AI Engineering",
-        "company_id": "rhino_partners_pte_ltd",
-        "duration_minutes": 30
-      }
-    ],
-    "panels": [
-      {
-        "panel_id": "rhino_partners_pte_ltd-P1",
-        "label": "Panel 1 (Default)",
-        "job_role_ids": [
-          "rhino_partners_pte_ltd_data_science",
-          "rhino_partners_pte_ltd_ai_engineering"
-        ],
-        "slot_duration_minutes": 30,
-        "walk_in_open": false,
-        "reserved_walkin_slots": 0,
-        "breaks": []
-      }
-    ],
-    "availability_start": "09:00",
-    "availability_end": "17:00",
-    "breaks": [],
-    "num_panels": 1,
-    "walk_in_open": false
-  },
-  {
-    "id": "gtn",
-    "name": "GTN",
-    "job_roles": [
-      {
-        "id": "gtn_cyber",
-        "title": "Cyber",
-        "company_id": "gtn",
-        "duration_minutes": 30
-      }
-    ],
-    "panels": [
-      {
-        "panel_id": "gtn-P1",
-        "label": "Panel 1 (Default)",
-        "job_role_ids": [
-          "gtn_cyber"
-        ],
-        "slot_duration_minutes": 30,
-        "walk_in_open": false,
-        "reserved_walkin_slots": 0,
-        "breaks": []
-      }
-    ],
-    "availability_start": "09:00",
-    "availability_end": "17:00",
-    "breaks": [],
-    "num_panels": 1,
-    "walk_in_open": false
-  },
-  {
-    "id": "directfn",
-    "name": "DirectFN",
-    "job_roles": [
-      {
-        "id": "directfn_qe",
-        "title": "QE",
-        "company_id": "directfn",
-        "duration_minutes": 30
-      }
-    ],
-    "panels": [
-      {
-        "panel_id": "directfn-P1",
-        "label": "Panel 1 (Default)",
-        "job_role_ids": [
-          "directfn_qe"
-        ],
-        "slot_duration_minutes": 30,
-        "walk_in_open": false,
-        "reserved_walkin_slots": 0,
-        "breaks": []
-      }
-    ],
-    "availability_start": "09:00",
-    "availability_end": "17:00",
-    "breaks": [],
-    "num_panels": 1,
-    "walk_in_open": false
-  },
-  {
-    "id": "octave",
-    "name": "OCTAVE",
-    "job_roles": [
-      {
-        "id": "octave_software_engineer",
-        "title": "Software Engineer",
-        "company_id": "octave",
-        "duration_minutes": 30
-      },
-      {
-        "id": "octave_data_science",
-        "title": "Data Science",
-        "company_id": "octave",
-        "duration_minutes": 30
-      },
-      {
-        "id": "octave_machine_learning",
-        "title": "Machine learning",
-        "company_id": "octave",
-        "duration_minutes": 30
-      },
-      {
-        "id": "octave_data_engineering",
-        "title": "Data Engineering",
-        "company_id": "octave",
-        "duration_minutes": 30
-      },
-      {
-        "id": "octave_ai_engineeringfullstack",
-        "title": "AI Engineering(Fullstack)",
-        "company_id": "octave",
-        "duration_minutes": 30
-      },
-      {
-        "id": "octave_aiml",
-        "title": "AI/ML",
-        "company_id": "octave",
-        "duration_minutes": 30
-      }
-    ],
-    "panels": [
-      {
-        "panel_id": "octave-P1",
-        "label": "Panel 1 (Default)",
-        "job_role_ids": [
-          "octave_software_engineer",
-          "octave_data_science",
-          "octave_machine_learning",
-          "octave_data_engineering",
-          "octave_ai_engineeringfullstack",
-          "octave_aiml"
-        ],
-        "slot_duration_minutes": 30,
-        "walk_in_open": false,
-        "reserved_walkin_slots": 0,
-        "breaks": []
-      }
-    ],
-    "availability_start": "09:00",
-    "availability_end": "17:00",
-    "breaks": [],
-    "num_panels": 1,
-    "walk_in_open": false
-  },
-  {
-    "id": "0",
-    "name": "0",
-    "job_roles": [
-      {
-        "id": "0_",
-        "title": "",
-        "company_id": "0",
-        "duration_minutes": 30
-      }
-    ],
-    "panels": [
-      {
-        "panel_id": "0-P1",
-        "label": "Panel 1 (Default)",
-        "job_role_ids": [
-          "0_"
-        ],
-        "slot_duration_minutes": 30,
-        "walk_in_open": false,
-        "reserved_walkin_slots": 0,
-        "breaks": []
-      }
-    ],
-    "availability_start": "09:00",
-    "availability_end": "17:00",
-    "breaks": [],
-    "num_panels": 1,
     "walk_in_open": false
   }
 ]

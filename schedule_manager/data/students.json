@@ -6,7 +6,7 @@
     "applications": [
       {
         "student_id": "E19174",
-        "company_id": "avtrasoft_lanka_pvt_ltd",
+        "company_id": "avtrasoft",
         "job_role_id": "avtrasoft_lanka_pvt_ltd_software_engineer",
         "status": "applied",
         "priority": 1,
@@ -38,7 +38,7 @@
       },
       {
         "student_id": "E19174",
-        "company_id": "codegen_international",
+        "company_id": "codegen",
         "job_role_id": "codegen_international_software_engineer",
         "status": "applied",
         "priority": 5,
@@ -61,7 +61,7 @@
     "applications": [
       {
         "student_id": "E20009",
-        "company_id": "sysco_labs_technologies_pvt_ltd",
+        "company_id": "sysco_labs",
         "job_role_id": "sysco_labs_technologies_pvt_ltd_software_engineer",
         "status": "applied",
         "priority": 1,
@@ -69,7 +69,7 @@
       },
       {
         "student_id": "E20009",
-        "company_id": "gtn_tech",
+        "company_id": "gtn",
         "job_role_id": "gtn_tech_software_engineer",
         "status": "applied",
         "priority": 2,
@@ -77,7 +77,7 @@
       },
       {
         "student_id": "E20009",
-        "company_id": "cutdry_inc",
+        "company_id": "cut_dry",
         "job_role_id": "cutdry_inc_software_engineer",
         "status": "shortlisted",
         "priority": 3,
@@ -85,15 +85,7 @@
       },
       {
         "student_id": "E20009",
-        "company_id": "d_f_n_technology_pvt_ltd",
-        "job_role_id": "d_f_n_technology_pvt_ltd_software_engineer",
-        "status": "applied",
-        "priority": 4,
-        "cv_link": ""
-      },
-      {
-        "student_id": "E20009",
-        "company_id": "avtrasoft_lanka_pvt_ltd",
+        "company_id": "avtrasoft",
         "job_role_id": "avtrasoft_lanka_pvt_ltd_software_engineer",
         "status": "applied",
         "priority": 5,
@@ -101,7 +93,7 @@
       },
       {
         "student_id": "E20009",
-        "company_id": "codegen_international",
+        "company_id": "codegen",
         "job_role_id": "codegen_international_software_engineer",
         "status": "applied",
         "priority": 6,
@@ -132,7 +124,7 @@
       },
       {
         "student_id": "E20016",
-        "company_id": "codegen_international",
+        "company_id": "codegen",
         "job_role_id": "codegen_international_fullstack",
         "status": "applied",
         "priority": 2,
@@ -140,7 +132,7 @@
       },
       {
         "student_id": "E20016",
-        "company_id": "gtn_tech",
+        "company_id": "gtn",
         "job_role_id": "gtn_tech_software_engineer",
         "status": "shortlisted",
         "priority": 3,
@@ -148,7 +140,7 @@
       },
       {
         "student_id": "E20016",
-        "company_id": "wso2_lanka_pvt_ltd",
+        "company_id": "wso2",
         "job_role_id": "wso2_lanka_pvt_ltd_software_engineer",
         "status": "shortlisted",
         "priority": 4,
@@ -171,7 +163,7 @@
     "applications": [
       {
         "student_id": "E20024",
-        "company_id": "wso2_lanka_pvt_ltd",
+        "company_id": "wso2",
         "job_role_id": "wso2_lanka_pvt_ltd_digital_transformation",
         "status": "applied",
         "priority": 1,
@@ -179,7 +171,7 @@
       },
       {
         "student_id": "E20024",
-        "company_id": "gtn_tech",
+        "company_id": "gtn",
         "job_role_id": "gtn_tech_platform_engineer",
         "status": "applied",
         "priority": 2,
@@ -195,7 +187,7 @@
       },
       {
         "student_id": "E20024",
-        "company_id": "avtrasoft_lanka_pvt_ltd",
+        "company_id": "avtrasoft",
         "job_role_id": "avtrasoft_lanka_pvt_ltd_devops__support_engineer",
         "status": "shortlisted",
         "priority": 4,
@@ -203,7 +195,7 @@
       },
       {
         "student_id": "E20024",
-        "company_id": "wia_systems_inc",
+        "company_id": "wia",
         "job_role_id": "wia_systems_inc_systems_engineer",
         "status": "shortlisted",
         "priority": 5,
@@ -211,7 +203,7 @@
       },
       {
         "student_id": "E20024",
-        "company_id": "codegen_international",
+        "company_id": "codegen",
         "job_role_id": "codegen_international_software_engineer",
         "status": "applied",
         "priority": 6,
@@ -234,7 +226,7 @@
     "applications": [
       {
         "student_id": "E20032",
-        "company_id": "wso2_lanka_pvt_ltd",
+        "company_id": "wso2",
         "job_role_id": "wso2_lanka_pvt_ltd_digital_transformation",
         "status": "applied",
         "priority": 1,
@@ -242,7 +234,7 @@
       },
       {
         "student_id": "E20032",
-        "company_id": "sysco_labs_technologies_pvt_ltd",
+        "company_id": "sysco_labs",
         "job_role_id": "sysco_labs_technologies_pvt_ltd_software_engineer",
         "status": "applied",
         "priority": 2,
@@ -250,7 +242,7 @@
       },
       {
         "student_id": "E20032",
-        "company_id": "gtn_tech",
+        "company_id": "gtn",
         "job_role_id": "gtn_tech_platform_engineer",
         "status": "applied",
         "priority": 3,
@@ -281,7 +273,7 @@
     "applications": [
       {
         "student_id": "E20035",
-        "company_id": "avtrasoft_lanka_pvt_ltd",
+        "company_id": "avtrasoft",
         "job_role_id": "avtrasoft_lanka_pvt_ltd_software_engineer",
         "status": "applied",
         "priority": 1,
@@ -305,7 +297,7 @@
       },
       {
         "student_id": "E20035",
-        "company_id": "sysco_labs_technologies_pvt_ltd",
+        "company_id": "sysco_labs",
         "job_role_id": "sysco_labs_technologies_pvt_ltd_software_engineer",
         "status": "applied",
         "priority": 4,
@@ -321,7 +313,7 @@
       },
       {
         "student_id": "E20035",
-        "company_id": "codegen_international",
+        "company_id": "codegen",
         "job_role_id": "codegen_international_software_engineer",
         "status": "applied",
         "priority": 6,
@@ -336,7 +328,7 @@
     "applications": [
       {
         "student_id": "E20036",
-        "company_id": "sysco_labs_technologies_pvt_ltd",
+        "company_id": "sysco_labs",
         "job_role_id": "sysco_labs_technologies_pvt_ltd_software_engineer",
         "status": "applied",
         "priority": 1,
@@ -344,7 +336,7 @@
       },
       {
         "student_id": "E20036",
-        "company_id": "cutdry_inc",
+        "company_id": "cut_dry",
         "job_role_id": "cutdry_inc_software_engineer",
         "status": "applied",
         "priority": 2,
@@ -352,7 +344,7 @@
       },
       {
         "student_id": "E20036",
-        "company_id": "wso2_lanka_pvt_ltd",
+        "company_id": "wso2",
         "job_role_id": "wso2_lanka_pvt_ltd_software_engineer",
         "status": "applied",
         "priority": 3,
@@ -368,7 +360,7 @@
       },
       {
         "student_id": "E20036",
-        "company_id": "avtrasoft_lanka_pvt_ltd",
+        "company_id": "avtrasoft",
         "job_role_id": "avtrasoft_lanka_pvt_ltd_software_engineer",
         "status": "applied",
         "priority": 5,
@@ -384,7 +376,7 @@
       },
       {
         "student_id": "E20036",
-        "company_id": "codegen_international",
+        "company_id": "codegen",
         "job_role_id": "codegen_international_software_engineer",
         "status": "shortlisted",
         "priority": 7,
@@ -399,7 +391,7 @@
     "applications": [
       {
         "student_id": "E20037",
-        "company_id": "wso2_lanka_pvt_ltd",
+        "company_id": "wso2",
         "job_role_id": "wso2_lanka_pvt_ltd_software_engineer",
         "status": "shortlisted",
         "priority": 1,
@@ -407,7 +399,7 @@
       },
       {
         "student_id": "E20037",
-        "company_id": "cutdry_inc",
+        "company_id": "cut_dry",
         "job_role_id": "cutdry_inc_software_engineer",
         "status": "shortlisted",
         "priority": 2,
@@ -415,7 +407,7 @@
       },
       {
         "student_id": "E20037",
-        "company_id": "sysco_labs_technologies_pvt_ltd",
+        "company_id": "sysco_labs",
         "job_role_id": "sysco_labs_technologies_pvt_ltd_software_engineer",
         "status": "shortlisted",
         "priority": 3,
@@ -454,7 +446,7 @@
     "applications": [
       {
         "student_id": "E20049",
-        "company_id": "gtn_tech",
+        "company_id": "gtn",
         "job_role_id": "gtn_tech_platform_engineer",
         "status": "shortlisted",
         "priority": 1,
@@ -462,7 +454,7 @@
       },
       {
         "student_id": "E20049",
-        "company_id": "avtrasoft_lanka_pvt_ltd",
+        "company_id": "avtrasoft",
         "job_role_id": "avtrasoft_lanka_pvt_ltd_devops__support_engineer",
         "status": "shortlisted",
         "priority": 2,
@@ -470,7 +462,7 @@
       },
       {
         "student_id": "E20049",
-        "company_id": "wia_systems_inc",
+        "company_id": "wia",
         "job_role_id": "wia_systems_inc_systems_engineer",
         "status": "applied",
         "priority": 3,
@@ -486,7 +478,7 @@
       },
       {
         "student_id": "E20049",
-        "company_id": "cutdry_inc",
+        "company_id": "cut_dry",
         "job_role_id": "cutdry_inc_software_engineer",
         "status": "applied",
         "priority": 5,
@@ -502,7 +494,7 @@
       },
       {
         "student_id": "E20049",
-        "company_id": "codegen_international",
+        "company_id": "codegen",
         "job_role_id": "codegen_international_software_engineer",
         "status": "applied",
         "priority": 7,
@@ -525,7 +517,7 @@
     "applications": [
       {
         "student_id": "E20054",
-        "company_id": "cutdry_inc",
+        "company_id": "cut_dry",
         "job_role_id": "cutdry_inc_aiml",
         "status": "applied",
         "priority": 1,
@@ -533,7 +525,7 @@
       },
       {
         "student_id": "E20054",
-        "company_id": "rhino_partners_pte_ltd",
+        "company_id": "rhino_partners",
         "job_role_id": "rhino_partners_pte_ltd_data_science",
         "status": "shortlisted",
         "priority": 2,
@@ -549,15 +541,7 @@
       },
       {
         "student_id": "E20054",
-        "company_id": "d_f_n_technology_pvt_ltd",
-        "job_role_id": "d_f_n_technology_pvt_ltd_software_engineer",
-        "status": "applied",
-        "priority": 4,
-        "cv_link": ""
-      },
-      {
-        "student_id": "E20054",
-        "company_id": "codegen_international",
+        "company_id": "codegen",
         "job_role_id": "codegen_international_software_engineer",
         "status": "applied",
         "priority": 5,
@@ -596,7 +580,7 @@
     "applications": [
       {
         "student_id": "E20062",
-        "company_id": "gtn_tech",
+        "company_id": "gtn",
         "job_role_id": "gtn_tech_software_engineer",
         "status": "applied",
         "priority": 1,
@@ -604,7 +588,7 @@
       },
       {
         "student_id": "E20062",
-        "company_id": "wso2_lanka_pvt_ltd",
+        "company_id": "wso2",
         "job_role_id": "wso2_lanka_pvt_ltd_software_engineer",
         "status": "applied",
         "priority": 2,
@@ -612,7 +596,7 @@
       },
       {
         "student_id": "E20062",
-        "company_id": "sysco_labs_technologies_pvt_ltd",
+        "company_id": "sysco_labs",
         "job_role_id": "sysco_labs_technologies_pvt_ltd_software_engineer",
         "status": "applied",
         "priority": 3,
@@ -620,7 +604,7 @@
       },
       {
         "student_id": "E20062",
-        "company_id": "avtrasoft_lanka_pvt_ltd",
+        "company_id": "avtrasoft",
         "job_role_id": "avtrasoft_lanka_pvt_ltd_software_engineer",
         "status": "applied",
         "priority": 4,
@@ -644,7 +628,7 @@
       },
       {
         "student_id": "E20062",
-        "company_id": "codegen_international",
+        "company_id": "codegen",
         "job_role_id": "codegen_international_software_engineer",
         "status": "applied",
         "priority": 7,
@@ -659,7 +643,7 @@
     "applications": [
       {
         "student_id": "E20069",
-        "company_id": "cutdry_inc",
+        "company_id": "cut_dry",
         "job_role_id": "cutdry_inc_aiml",
         "status": "applied",
         "priority": 1,
@@ -675,7 +659,7 @@
       },
       {
         "student_id": "E20069",
-        "company_id": "rhino_partners_pte_ltd",
+        "company_id": "rhino_partners",
         "job_role_id": "rhino_partners_pte_ltd_ai_engineering",
         "status": "shortlisted",
         "priority": 3,
@@ -690,7 +674,7 @@
     "applications": [
       {
         "student_id": "E20078",
-        "company_id": "sysco_labs_technologies_pvt_ltd",
+        "company_id": "sysco_labs",
         "job_role_id": "sysco_labs_technologies_pvt_ltd_software_engineer",
         "status": "applied",
         "priority": 1,
@@ -706,7 +690,7 @@
       },
       {
         "student_id": "E20078",
-        "company_id": "avtrasoft_lanka_pvt_ltd",
+        "company_id": "avtrasoft",
         "job_role_id": "avtrasoft_lanka_pvt_ltd_software_engineer",
         "status": "applied",
         "priority": 3,
@@ -714,7 +698,7 @@
       },
       {
         "student_id": "E20078",
-        "company_id": "wia_systems_inc",
+        "company_id": "wia",
         "job_role_id": "wia_systems_inc_systems_engineer",
         "status": "shortlisted",
         "priority": 4,
@@ -738,7 +722,7 @@
       },
       {
         "student_id": "E20078",
-        "company_id": "codegen_international",
+        "company_id": "codegen",
         "job_role_id": "codegen_international_software_engineer",
         "status": "applied",
         "priority": 7,
@@ -753,7 +737,7 @@
     "applications": [
       {
         "student_id": "E20084",
-        "company_id": "wso2_lanka_pvt_ltd",
+        "company_id": "wso2",
         "job_role_id": "wso2_lanka_pvt_ltd_software_engineer",
         "status": "applied",
         "priority": 1,
@@ -761,7 +745,7 @@
       },
       {
         "student_id": "E20084",
-        "company_id": "sysco_labs_technologies_pvt_ltd",
+        "company_id": "sysco_labs",
         "job_role_id": "sysco_labs_technologies_pvt_ltd_software_engineer",
         "status": "applied",
         "priority": 2,
@@ -769,7 +753,7 @@
       },
       {
         "student_id": "E20084",
-        "company_id": "gtn_tech",
+        "company_id": "gtn",
         "job_role_id": "gtn_tech_software_engineer",
         "status": "shortlisted",
         "priority": 3,
@@ -785,7 +769,7 @@
       },
       {
         "student_id": "E20084",
-        "company_id": "avtrasoft_lanka_pvt_ltd",
+        "company_id": "avtrasoft",
         "job_role_id": "avtrasoft_lanka_pvt_ltd_software_engineer",
         "status": "shortlisted",
         "priority": 5,
@@ -793,7 +777,7 @@
       },
       {
         "student_id": "E20084",
-        "company_id": "codegen_international",
+        "company_id": "codegen",
         "job_role_id": "codegen_international_software_engineer",
         "status": "shortlisted",
         "priority": 6,
@@ -816,7 +800,7 @@
     "applications": [
       {
         "student_id": "E20087",
-        "company_id": "sysco_labs_technologies_pvt_ltd",
+        "company_id": "sysco_labs",
         "job_role_id": "sysco_labs_technologies_pvt_ltd_software_engineer",
         "status": "shortlisted",
         "priority": 1,
@@ -824,7 +808,7 @@
       },
       {
         "student_id": "E20087",
-        "company_id": "gtn_tech",
+        "company_id": "gtn",
         "job_role_id": "gtn_tech_software_engineer",
         "status": "applied",
         "priority": 2,
@@ -864,7 +848,7 @@
       },
       {
         "student_id": "E20087",
-        "company_id": "codegen_international",
+        "company_id": "codegen",
         "job_role_id": "codegen_international_software_engineer",
         "status": "applied",
         "priority": 7,
@@ -879,7 +863,7 @@
     "applications": [
       {
         "student_id": "E20089",
-        "company_id": "gtn_tech",
+        "company_id": "gtn",
         "job_role_id": "gtn_tech_software_engineer",
         "status": "applied",
         "priority": 1,
@@ -887,7 +871,7 @@
       },
       {
         "student_id": "E20089",
-        "company_id": "wso2_lanka_pvt_ltd",
+        "company_id": "wso2",
         "job_role_id": "wso2_lanka_pvt_ltd_digital_transformation",
         "status": "applied",
         "priority": 2,
@@ -895,7 +879,7 @@
       },
       {
         "student_id": "E20089",
-        "company_id": "sysco_labs_technologies_pvt_ltd",
+        "company_id": "sysco_labs",
         "job_role_id": "sysco_labs_technologies_pvt_ltd_software_engineer",
         "status": "applied",
         "priority": 3,
@@ -903,7 +887,7 @@
       },
       {
         "student_id": "E20089",
-        "company_id": "wia_systems_inc",
+        "company_id": "wia",
         "job_role_id": "wia_systems_inc_systems_engineer",
         "status": "shortlisted",
         "priority": 4,
@@ -919,7 +903,7 @@
       },
       {
         "student_id": "E20089",
-        "company_id": "codegen_international",
+        "company_id": "codegen",
         "job_role_id": "codegen_international_software_engineer",
         "status": "applied",
         "priority": 6,
@@ -942,7 +926,7 @@
     "applications": [
       {
         "student_id": "E20093",
-        "company_id": "cutdry_inc",
+        "company_id": "cut_dry",
         "job_role_id": "cutdry_inc_aiml",
         "status": "shortlisted",
         "priority": 1,
@@ -950,7 +934,7 @@
       },
       {
         "student_id": "E20093",
-        "company_id": "rhino_partners_pte_ltd",
+        "company_id": "rhino_partners",
         "job_role_id": "rhino_partners_pte_ltd_ai_engineering",
         "status": "shortlisted",
         "priority": 2,
@@ -989,7 +973,7 @@
     "applications": [
       {
         "student_id": "E20094",
-        "company_id": "sysco_labs_technologies_pvt_ltd",
+        "company_id": "sysco_labs",
         "job_role_id": "sysco_labs_technologies_pvt_ltd_software_engineer",
         "status": "applied",
         "priority": 1,
@@ -997,7 +981,7 @@
       },
       {
         "student_id": "E20094",
-        "company_id": "gtn_tech",
+        "company_id": "gtn",
         "job_role_id": "gtn_tech_software_engineer",
         "status": "applied",
         "priority": 2,
@@ -1005,7 +989,7 @@
       },
       {
         "student_id": "E20094",
-        "company_id": "cutdry_inc",
+        "company_id": "cut_dry",
         "job_role_id": "cutdry_inc_aiml",
         "status": "shortlisted",
         "priority": 3,
@@ -1029,7 +1013,7 @@
       },
       {
         "student_id": "E20094",
-        "company_id": "codegen_international",
+        "company_id": "codegen",
         "job_role_id": "codegen_international_software_engineer",
         "status": "applied",
         "priority": 6,
@@ -1052,7 +1036,7 @@
     "applications": [
       {
         "student_id": "E20099",
-        "company_id": "gtn_tech",
+        "company_id": "gtn",
         "job_role_id": "gtn_tech_software_engineer",
         "status": "applied",
         "priority": 1,
@@ -1060,7 +1044,7 @@
       },
       {
         "student_id": "E20099",
-        "company_id": "sysco_labs_technologies_pvt_ltd",
+        "company_id": "sysco_labs",
         "job_role_id": "sysco_labs_technologies_pvt_ltd_software_engineer",
         "status": "applied",
         "priority": 2,
@@ -1068,7 +1052,7 @@
       },
       {
         "student_id": "E20099",
-        "company_id": "cutdry_inc",
+        "company_id": "cut_dry",
         "job_role_id": "cutdry_inc_software_engineer",
         "status": "shortlisted",
         "priority": 3,
@@ -1084,7 +1068,7 @@
       },
       {
         "student_id": "E20099",
-        "company_id": "avtrasoft_lanka_pvt_ltd",
+        "company_id": "avtrasoft",
         "job_role_id": "avtrasoft_lanka_pvt_ltd_software_engineer",
         "status": "shortlisted",
         "priority": 5,
@@ -1092,7 +1076,7 @@
       },
       {
         "student_id": "E20099",
-        "company_id": "codegen_international",
+        "company_id": "codegen",
         "job_role_id": "codegen_international_software_engineer",
         "status": "applied",
         "priority": 6,
@@ -1115,7 +1099,7 @@
     "applications": [
       {
         "student_id": "E20100",
-        "company_id": "wso2_lanka_pvt_ltd",
+        "company_id": "wso2",
         "job_role_id": "wso2_lanka_pvt_ltd_customer_success",
         "status": "applied",
         "priority": 1,
@@ -1123,7 +1107,7 @@
       },
       {
         "student_id": "E20100",
-        "company_id": "gtn_tech",
+        "company_id": "gtn",
         "job_role_id": "gtn_tech_software_engineer",
         "status": "shortlisted",
         "priority": 2,
@@ -1131,7 +1115,7 @@
       },
       {
         "student_id": "E20100",
-        "company_id": "sysco_labs_technologies_pvt_ltd",
+        "company_id": "sysco_labs",
         "job_role_id": "sysco_labs_technologies_pvt_ltd_software_engineer",
         "status": "applied",
         "priority": 3,
@@ -1163,7 +1147,7 @@
       },
       {
         "student_id": "E20100",
-        "company_id": "codegen_international",
+        "company_id": "codegen",
         "job_role_id": "codegen_international_fullstack",
         "status": "applied",
         "priority": 7,
@@ -1178,18 +1162,10 @@
     "applications": [
       {
         "student_id": "E20121",
-        "company_id": "sysco_labs_technologies_pvt_ltd",
+        "company_id": "sysco_labs",
         "job_role_id": "sysco_labs_technologies_pvt_ltd_software_engineer",
         "status": "applied",
         "priority": 1,
-        "cv_link": ""
-      },
-      {
-        "student_id": "E20121",
-        "company_id": "d_f_n_technology_pvt_ltd",
-        "job_role_id": "d_f_n_technology_pvt_ltd_software_engineer",
-        "status": "applied",
-        "priority": 2,
         "cv_link": ""
       },
       {
@@ -1202,7 +1178,7 @@
       },
       {
         "student_id": "E20121",
-        "company_id": "avtrasoft_lanka_pvt_ltd",
+        "company_id": "avtrasoft",
         "job_role_id": "avtrasoft_lanka_pvt_ltd_software_engineer",
         "status": "applied",
         "priority": 4,
@@ -1218,7 +1194,7 @@
       },
       {
         "student_id": "E20121",
-        "company_id": "codegen_international",
+        "company_id": "codegen",
         "job_role_id": "codegen_international_software_engineer",
         "status": "applied",
         "priority": 6,
@@ -1241,7 +1217,7 @@
     "applications": [
       {
         "student_id": "E20122",
-        "company_id": "gtn_tech",
+        "company_id": "gtn",
         "job_role_id": "gtn_tech_platform_engineer",
         "status": "applied",
         "priority": 1,
@@ -1249,7 +1225,7 @@
       },
       {
         "student_id": "E20122",
-        "company_id": "cutdry_inc",
+        "company_id": "cut_dry",
         "job_role_id": "cutdry_inc_aiml",
         "status": "shortlisted",
         "priority": 2,
@@ -1257,7 +1233,7 @@
       },
       {
         "student_id": "E20122",
-        "company_id": "avtrasoft_lanka_pvt_ltd",
+        "company_id": "avtrasoft",
         "job_role_id": "avtrasoft_lanka_pvt_ltd_devops__support_engineer",
         "status": "applied",
         "priority": 3,
@@ -1265,7 +1241,7 @@
       },
       {
         "student_id": "E20122",
-        "company_id": "rhino_partners_pte_ltd",
+        "company_id": "rhino_partners",
         "job_role_id": "rhino_partners_pte_ltd_data_science",
         "status": "applied",
         "priority": 4,
@@ -1281,7 +1257,7 @@
       },
       {
         "student_id": "E20122",
-        "company_id": "codegen_international",
+        "company_id": "codegen",
         "job_role_id": "codegen_international_software_engineer",
         "status": "applied",
         "priority": 6,
@@ -1304,7 +1280,7 @@
     "applications": [
       {
         "student_id": "E20131",
-        "company_id": "gtn_tech",
+        "company_id": "gtn",
         "job_role_id": "gtn_tech_software_engineer",
         "status": "applied",
         "priority": 1,
@@ -1312,7 +1288,7 @@
       },
       {
         "student_id": "E20131",
-        "company_id": "sysco_labs_technologies_pvt_ltd",
+        "company_id": "sysco_labs",
         "job_role_id": "sysco_labs_technologies_pvt_ltd_software_engineer",
         "status": "shortlisted",
         "priority": 2,
@@ -1344,7 +1320,7 @@
       },
       {
         "student_id": "E20131",
-        "company_id": "codegen_international",
+        "company_id": "codegen",
         "job_role_id": "codegen_international_software_engineer",
         "status": "applied",
         "priority": 6,
@@ -1367,7 +1343,7 @@
     "applications": [
       {
         "student_id": "E20133",
-        "company_id": "wso2_lanka_pvt_ltd",
+        "company_id": "wso2",
         "job_role_id": "wso2_lanka_pvt_ltd_customer_success",
         "status": "applied",
         "priority": 1,
@@ -1375,7 +1351,7 @@
       },
       {
         "student_id": "E20133",
-        "company_id": "sysco_labs_technologies_pvt_ltd",
+        "company_id": "sysco_labs",
         "job_role_id": "sysco_labs_technologies_pvt_ltd_software_engineer",
         "status": "shortlisted",
         "priority": 2,
@@ -1383,7 +1359,7 @@
       },
       {
         "student_id": "E20133",
-        "company_id": "cutdry_inc",
+        "company_id": "cut_dry",
         "job_role_id": "cutdry_inc_software_engineer",
         "status": "applied",
         "priority": 3,
@@ -1414,7 +1390,7 @@
     "applications": [
       {
         "student_id": "E20148",
-        "company_id": "cutdry_inc",
+        "company_id": "cut_dry",
         "job_role_id": "cutdry_inc_aiml",
         "status": "shortlisted",
         "priority": 1,
@@ -1422,7 +1398,7 @@
       },
       {
         "student_id": "E20148",
-        "company_id": "wso2_lanka_pvt_ltd",
+        "company_id": "wso2",
         "job_role_id": "wso2_lanka_pvt_ltd_digital_transformation",
         "status": "applied",
         "priority": 2,
@@ -1461,7 +1437,7 @@
     "applications": [
       {
         "student_id": "E20168",
-        "company_id": "gtn_tech",
+        "company_id": "gtn",
         "job_role_id": "gtn_tech_platform_engineer",
         "status": "shortlisted",
         "priority": 1,
@@ -1469,7 +1445,7 @@
       },
       {
         "student_id": "E20168",
-        "company_id": "sysco_labs_technologies_pvt_ltd",
+        "company_id": "sysco_labs",
         "job_role_id": "sysco_labs_technologies_pvt_ltd_software_engineer",
         "status": "shortlisted",
         "priority": 2,
@@ -1477,7 +1453,7 @@
       },
       {
         "student_id": "E20168",
-        "company_id": "cutdry_inc",
+        "company_id": "cut_dry",
         "job_role_id": "cutdry_inc_software_engineer",
         "status": "shortlisted",
         "priority": 3,
@@ -1485,7 +1461,7 @@
       },
       {
         "student_id": "E20168",
-        "company_id": "wia_systems_inc",
+        "company_id": "wia",
         "job_role_id": "wia_systems_inc_systems_engineer",
         "status": "applied",
         "priority": 4,
@@ -1516,7 +1492,7 @@
     "applications": [
       {
         "student_id": "E20178",
-        "company_id": "wso2_lanka_pvt_ltd",
+        "company_id": "wso2",
         "job_role_id": "wso2_lanka_pvt_ltd_digital_transformation",
         "status": "applied",
         "priority": 1,
@@ -1524,7 +1500,7 @@
       },
       {
         "student_id": "E20178",
-        "company_id": "sysco_labs_technologies_pvt_ltd",
+        "company_id": "sysco_labs",
         "job_role_id": "sysco_labs_technologies_pvt_ltd_software_engineer",
         "status": "applied",
         "priority": 2,
@@ -1548,7 +1524,7 @@
       },
       {
         "student_id": "E20178",
-        "company_id": "avtrasoft_lanka_pvt_ltd",
+        "company_id": "avtrasoft",
         "job_role_id": "avtrasoft_lanka_pvt_ltd_software_engineer",
         "status": "applied",
         "priority": 5,
@@ -1556,7 +1532,7 @@
       },
       {
         "student_id": "E20178",
-        "company_id": "codegen_international",
+        "company_id": "codegen",
         "job_role_id": "codegen_international_software_engineer",
         "status": "applied",
         "priority": 6,
@@ -1579,7 +1555,7 @@
     "applications": [
       {
         "student_id": "E20179",
-        "company_id": "wso2_lanka_pvt_ltd",
+        "company_id": "wso2",
         "job_role_id": "wso2_lanka_pvt_ltd_software_engineer",
         "status": "applied",
         "priority": 1,
@@ -1587,7 +1563,7 @@
       },
       {
         "student_id": "E20179",
-        "company_id": "sysco_labs_technologies_pvt_ltd",
+        "company_id": "sysco_labs",
         "job_role_id": "sysco_labs_technologies_pvt_ltd_software_engineer",
         "status": "applied",
         "priority": 2,
@@ -1595,7 +1571,7 @@
       },
       {
         "student_id": "E20179",
-        "company_id": "gtn_tech",
+        "company_id": "gtn",
         "job_role_id": "gtn_tech_software_engineer",
         "status": "shortlisted",
         "priority": 3,
@@ -1619,7 +1595,7 @@
       },
       {
         "student_id": "E20179",
-        "company_id": "codegen_international",
+        "company_id": "codegen",
         "job_role_id": "codegen_international_software_engineer",
         "status": "shortlisted",
         "priority": 6,
@@ -1642,7 +1618,7 @@
     "applications": [
       {
         "student_id": "E20189",
-        "company_id": "sysco_labs_technologies_pvt_ltd",
+        "company_id": "sysco_labs",
         "job_role_id": "sysco_labs_technologies_pvt_ltd_software_engineer",
         "status": "applied",
         "priority": 1,
@@ -1650,7 +1626,7 @@
       },
       {
         "student_id": "E20189",
-        "company_id": "wso2_lanka_pvt_ltd",
+        "company_id": "wso2",
         "job_role_id": "wso2_lanka_pvt_ltd_digital_transformation",
         "status": "shortlisted",
         "priority": 2,
@@ -1658,7 +1634,7 @@
       },
       {
         "student_id": "E20189",
-        "company_id": "wia_systems_inc",
+        "company_id": "wia",
         "job_role_id": "wia_systems_inc_systems_engineer",
         "status": "applied",
         "priority": 3,
@@ -1666,7 +1642,7 @@
       },
       {
         "student_id": "E20189",
-        "company_id": "rhino_partners_pte_ltd",
+        "company_id": "rhino_partners",
         "job_role_id": "rhino_partners_pte_ltd_ai_engineering",
         "status": "shortlisted",
         "priority": 4,
@@ -1689,7 +1665,7 @@
     "applications": [
       {
         "student_id": "E20197",
-        "company_id": "cutdry_inc",
+        "company_id": "cut_dry",
         "job_role_id": "cutdry_inc_software_engineer",
         "status": "applied",
         "priority": 1,
@@ -1697,7 +1673,7 @@
       },
       {
         "student_id": "E20197",
-        "company_id": "sysco_labs_technologies_pvt_ltd",
+        "company_id": "sysco_labs",
         "job_role_id": "sysco_labs_technologies_pvt_ltd_software_engineer",
         "status": "applied",
         "priority": 2,
@@ -1729,7 +1705,7 @@
       },
       {
         "student_id": "E20197",
-        "company_id": "codegen_international",
+        "company_id": "codegen",
         "job_role_id": "codegen_international_software_engineer",
         "status": "shortlisted",
         "priority": 6,
@@ -1752,7 +1728,7 @@
     "applications": [
       {
         "student_id": "E20199",
-        "company_id": "sysco_labs_technologies_pvt_ltd",
+        "company_id": "sysco_labs",
         "job_role_id": "sysco_labs_technologies_pvt_ltd_software_engineer",
         "status": "shortlisted",
         "priority": 1,
@@ -1760,7 +1736,7 @@
       },
       {
         "student_id": "E20199",
-        "company_id": "gtn_tech",
+        "company_id": "gtn",
         "job_role_id": "gtn_tech_software_engineer",
         "status": "applied",
         "priority": 2,
@@ -1768,7 +1744,7 @@
       },
       {
         "student_id": "E20199",
-        "company_id": "cutdry_inc",
+        "company_id": "cut_dry",
         "job_role_id": "cutdry_inc_software_engineer",
         "status": "shortlisted",
         "priority": 3,
@@ -1776,15 +1752,7 @@
       },
       {
         "student_id": "E20199",
-        "company_id": "d_f_n_technology_pvt_ltd",
-        "job_role_id": "d_f_n_technology_pvt_ltd_software_engineer",
-        "status": "applied",
-        "priority": 4,
-        "cv_link": ""
-      },
-      {
-        "student_id": "E20199",
-        "company_id": "avtrasoft_lanka_pvt_ltd",
+        "company_id": "avtrasoft",
         "job_role_id": "avtrasoft_lanka_pvt_ltd_software_engineer",
         "status": "shortlisted",
         "priority": 5,
@@ -1800,7 +1768,7 @@
       },
       {
         "student_id": "E20199",
-        "company_id": "codegen_international",
+        "company_id": "codegen",
         "job_role_id": "codegen_international_software_engineer",
         "status": "applied",
         "priority": 7,
@@ -1815,7 +1783,7 @@
     "applications": [
       {
         "student_id": "E20211",
-        "company_id": "cutdry_inc",
+        "company_id": "cut_dry",
         "job_role_id": "cutdry_inc_software_engineer",
         "status": "shortlisted",
         "priority": 1,
@@ -1823,7 +1791,7 @@
       },
       {
         "student_id": "E20211",
-        "company_id": "gtn_tech",
+        "company_id": "gtn",
         "job_role_id": "gtn_tech_software_engineer",
         "status": "shortlisted",
         "priority": 2,
@@ -1831,7 +1799,7 @@
       },
       {
         "student_id": "E20211",
-        "company_id": "wia_systems_inc",
+        "company_id": "wia",
         "job_role_id": "wia_systems_inc_systems_engineer",
         "status": "applied",
         "priority": 3,
@@ -1878,7 +1846,7 @@
     "applications": [
       {
         "student_id": "E20231",
-        "company_id": "gtn_tech",
+        "company_id": "gtn",
         "job_role_id": "gtn_tech_software_engineer",
         "status": "shortlisted",
         "priority": 1,
@@ -1886,7 +1854,7 @@
       },
       {
         "student_id": "E20231",
-        "company_id": "sysco_labs_technologies_pvt_ltd",
+        "company_id": "sysco_labs",
         "job_role_id": "sysco_labs_technologies_pvt_ltd_software_engineer",
         "status": "shortlisted",
         "priority": 2,
@@ -1910,7 +1878,7 @@
       },
       {
         "student_id": "E20231",
-        "company_id": "wso2_lanka_pvt_ltd",
+        "company_id": "wso2",
         "job_role_id": "wso2_lanka_pvt_ltd_digital_transformation",
         "status": "applied",
         "priority": 5,
@@ -1926,7 +1894,7 @@
       },
       {
         "student_id": "E20231",
-        "company_id": "codegen_international",
+        "company_id": "codegen",
         "job_role_id": "codegen_international_software_engineer",
         "status": "shortlisted",
         "priority": 7,
@@ -1941,18 +1909,10 @@
     "applications": [
       {
         "student_id": "E20242",
-        "company_id": "cutdry_inc",
+        "company_id": "cut_dry",
         "job_role_id": "cutdry_inc_software_engineer",
         "status": "applied",
         "priority": 1,
-        "cv_link": ""
-      },
-      {
-        "student_id": "E20242",
-        "company_id": "d_f_n_technology_pvt_ltd",
-        "job_role_id": "d_f_n_technology_pvt_ltd_software_engineer",
-        "status": "applied",
-        "priority": 2,
         "cv_link": ""
       },
       {
@@ -1965,7 +1925,7 @@
       },
       {
         "student_id": "E20242",
-        "company_id": "avtrasoft_lanka_pvt_ltd",
+        "company_id": "avtrasoft",
         "job_role_id": "avtrasoft_lanka_pvt_ltd_devops__support_engineer",
         "status": "shortlisted",
         "priority": 4,
@@ -2004,7 +1964,7 @@
     "applications": [
       {
         "student_id": "E20243",
-        "company_id": "gtn_tech",
+        "company_id": "gtn",
         "job_role_id": "gtn_tech_software_engineer",
         "status": "shortlisted",
         "priority": 1,
@@ -2012,7 +1972,7 @@
       },
       {
         "student_id": "E20243",
-        "company_id": "wso2_lanka_pvt_ltd",
+        "company_id": "wso2",
         "job_role_id": "wso2_lanka_pvt_ltd_digital_transformation",
         "status": "shortlisted",
         "priority": 2,
@@ -2052,7 +2012,7 @@
       },
       {
         "student_id": "E20243",
-        "company_id": "codegen_international",
+        "company_id": "codegen",
         "job_role_id": "codegen_international_software_engineer",
         "status": "applied",
         "priority": 7,
@@ -2075,7 +2035,7 @@
     "applications": [
       {
         "student_id": "E20244",
-        "company_id": "sysco_labs_technologies_pvt_ltd",
+        "company_id": "sysco_labs",
         "job_role_id": "sysco_labs_technologies_pvt_ltd_software_engineer",
         "status": "applied",
         "priority": 1,
@@ -2083,7 +2043,7 @@
       },
       {
         "student_id": "E20244",
-        "company_id": "avtrasoft_lanka_pvt_ltd",
+        "company_id": "avtrasoft",
         "job_role_id": "avtrasoft_lanka_pvt_ltd_software_engineer",
         "status": "applied",
         "priority": 2,
@@ -2099,15 +2059,7 @@
       },
       {
         "student_id": "E20244",
-        "company_id": "d_f_n_technology_pvt_ltd",
-        "job_role_id": "d_f_n_technology_pvt_ltd_software_engineer",
-        "status": "applied",
-        "priority": 4,
-        "cv_link": ""
-      },
-      {
-        "student_id": "E20244",
-        "company_id": "sysco_labs_technologies_pvt_ltd",
+        "company_id": "sysco_labs",
         "job_role_id": "sysco_labs_technologies_pvt_ltd_quality_assurance",
         "status": "shortlisted",
         "priority": 5,
@@ -2123,7 +2075,7 @@
       },
       {
         "student_id": "E20244",
-        "company_id": "codegen_international",
+        "company_id": "codegen",
         "job_role_id": "codegen_international_software_engineer",
         "status": "applied",
         "priority": 7,
@@ -2146,7 +2098,7 @@
     "applications": [
       {
         "student_id": "E20254",
-        "company_id": "wso2_lanka_pvt_ltd",
+        "company_id": "wso2",
         "job_role_id": "wso2_lanka_pvt_ltd_customer_success",
         "status": "shortlisted",
         "priority": 1,
@@ -2154,7 +2106,7 @@
       },
       {
         "student_id": "E20254",
-        "company_id": "sysco_labs_technologies_pvt_ltd",
+        "company_id": "sysco_labs",
         "job_role_id": "sysco_labs_technologies_pvt_ltd_software_engineer",
         "status": "applied",
         "priority": 2,
@@ -2162,7 +2114,7 @@
       },
       {
         "student_id": "E20254",
-        "company_id": "gtn_tech",
+        "company_id": "gtn",
         "job_role_id": "gtn_tech_software_engineer",
         "status": "applied",
         "priority": 3,
@@ -2193,7 +2145,7 @@
     "applications": [
       {
         "student_id": "E20259",
-        "company_id": "gtn_tech",
+        "company_id": "gtn",
         "job_role_id": "gtn_tech_software_engineer",
         "status": "applied",
         "priority": 1,
@@ -2201,7 +2153,7 @@
       },
       {
         "student_id": "E20259",
-        "company_id": "sysco_labs_technologies_pvt_ltd",
+        "company_id": "sysco_labs",
         "job_role_id": "sysco_labs_technologies_pvt_ltd_software_engineer",
         "status": "applied",
         "priority": 2,
@@ -2209,7 +2161,7 @@
       },
       {
         "student_id": "E20259",
-        "company_id": "cutdry_inc",
+        "company_id": "cut_dry",
         "job_role_id": "cutdry_inc_software_engineer",
         "status": "applied",
         "priority": 3,
@@ -2233,7 +2185,7 @@
       },
       {
         "student_id": "E20259",
-        "company_id": "codegen_international",
+        "company_id": "codegen",
         "job_role_id": "codegen_international_fullstack",
         "status": "applied",
         "priority": 6,
@@ -2264,7 +2216,7 @@
     "applications": [
       {
         "student_id": "E20262",
-        "company_id": "wso2_lanka_pvt_ltd",
+        "company_id": "wso2",
         "job_role_id": "wso2_lanka_pvt_ltd_software_engineer",
         "status": "shortlisted",
         "priority": 1,
@@ -2272,7 +2224,7 @@
       },
       {
         "student_id": "E20262",
-        "company_id": "sysco_labs_technologies_pvt_ltd",
+        "company_id": "sysco_labs",
         "job_role_id": "sysco_labs_technologies_pvt_ltd_software_engineer",
         "status": "shortlisted",
         "priority": 2,
@@ -2280,7 +2232,7 @@
       },
       {
         "student_id": "E20262",
-        "company_id": "gtn_tech",
+        "company_id": "gtn",
         "job_role_id": "gtn_tech_software_engineer",
         "status": "applied",
         "priority": 3,
@@ -2304,7 +2256,7 @@
       },
       {
         "student_id": "E20262",
-        "company_id": "codegen_international",
+        "company_id": "codegen",
         "job_role_id": "codegen_international_software_engineer",
         "status": "shortlisted",
         "priority": 6,
@@ -2327,7 +2279,7 @@
     "applications": [
       {
         "student_id": "E20266",
-        "company_id": "sysco_labs_technologies_pvt_ltd",
+        "company_id": "sysco_labs",
         "job_role_id": "sysco_labs_technologies_pvt_ltd_software_engineer",
         "status": "shortlisted",
         "priority": 1,
@@ -2335,7 +2287,7 @@
       },
       {
         "student_id": "E20266",
-        "company_id": "gtn_tech",
+        "company_id": "gtn",
         "job_role_id": "gtn_tech_software_engineer",
         "status": "applied",
         "priority": 2,
@@ -2343,7 +2295,7 @@
       },
       {
         "student_id": "E20266",
-        "company_id": "wso2_lanka_pvt_ltd",
+        "company_id": "wso2",
         "job_role_id": "wso2_lanka_pvt_ltd_digital_transformation",
         "status": "shortlisted",
         "priority": 3,
@@ -2351,7 +2303,7 @@
       },
       {
         "student_id": "E20266",
-        "company_id": "avtrasoft_lanka_pvt_ltd",
+        "company_id": "avtrasoft",
         "job_role_id": "avtrasoft_lanka_pvt_ltd_devops__support_engineer",
         "status": "shortlisted",
         "priority": 4,
@@ -2359,7 +2311,7 @@
       },
       {
         "student_id": "E20266",
-        "company_id": "wia_systems_inc",
+        "company_id": "wia",
         "job_role_id": "wia_systems_inc_systems_engineer",
         "status": "shortlisted",
         "priority": 5,
@@ -2375,7 +2327,7 @@
       },
       {
         "student_id": "E20266",
-        "company_id": "codegen_international",
+        "company_id": "codegen",
         "job_role_id": "codegen_international_software_engineer",
         "status": "applied",
         "priority": 7,
@@ -2390,7 +2342,7 @@
     "applications": [
       {
         "student_id": "E20271",
-        "company_id": "wso2_lanka_pvt_ltd",
+        "company_id": "wso2",
         "job_role_id": "wso2_lanka_pvt_ltd_software_engineer",
         "status": "applied",
         "priority": 1,
@@ -2398,7 +2350,7 @@
       },
       {
         "student_id": "E20271",
-        "company_id": "sysco_labs_technologies_pvt_ltd",
+        "company_id": "sysco_labs",
         "job_role_id": "sysco_labs_technologies_pvt_ltd_software_engineer",
         "status": "shortlisted",
         "priority": 2,
@@ -2422,15 +2374,7 @@
       },
       {
         "student_id": "E20271",
-        "company_id": "d_f_n_technology_pvt_ltd",
-        "job_role_id": "d_f_n_technology_pvt_ltd_software_engineer",
-        "status": "applied",
-        "priority": 5,
-        "cv_link": ""
-      },
-      {
-        "student_id": "E20271",
-        "company_id": "codegen_international",
+        "company_id": "codegen",
         "job_role_id": "codegen_international_fullstack",
         "status": "shortlisted",
         "priority": 6,
@@ -2461,7 +2405,7 @@
     "applications": [
       {
         "student_id": "E20272",
-        "company_id": "gtn_tech",
+        "company_id": "gtn",
         "job_role_id": "gtn_tech_software_engineer",
         "status": "applied",
         "priority": 1,
@@ -2469,7 +2413,7 @@
       },
       {
         "student_id": "E20272",
-        "company_id": "sysco_labs_technologies_pvt_ltd",
+        "company_id": "sysco_labs",
         "job_role_id": "sysco_labs_technologies_pvt_ltd_software_engineer",
         "status": "applied",
         "priority": 2,
@@ -2493,7 +2437,7 @@
       },
       {
         "student_id": "E20272",
-        "company_id": "wso2_lanka_pvt_ltd",
+        "company_id": "wso2",
         "job_role_id": "wso2_lanka_pvt_ltd_digital_transformation",
         "status": "applied",
         "priority": 5,
@@ -2509,7 +2453,7 @@
       },
       {
         "student_id": "E20272",
-        "company_id": "codegen_international",
+        "company_id": "codegen",
         "job_role_id": "codegen_international_software_engineer",
         "status": "applied",
         "priority": 7,
@@ -2524,7 +2468,7 @@
     "applications": [
       {
         "student_id": "E20276",
-        "company_id": "sysco_labs_technologies_pvt_ltd",
+        "company_id": "sysco_labs",
         "job_role_id": "sysco_labs_technologies_pvt_ltd_software_engineer",
         "status": "applied",
         "priority": 1,
@@ -2532,7 +2476,7 @@
       },
       {
         "student_id": "E20276",
-        "company_id": "wso2_lanka_pvt_ltd",
+        "company_id": "wso2",
         "job_role_id": "wso2_lanka_pvt_ltd_software_engineer",
         "status": "applied",
         "priority": 2,
@@ -2556,7 +2500,7 @@
       },
       {
         "student_id": "E20276",
-        "company_id": "avtrasoft_lanka_pvt_ltd",
+        "company_id": "avtrasoft",
         "job_role_id": "avtrasoft_lanka_pvt_ltd_software_engineer",
         "status": "applied",
         "priority": 5,
@@ -2572,7 +2516,7 @@
       },
       {
         "student_id": "E20276",
-        "company_id": "codegen_international",
+        "company_id": "codegen",
         "job_role_id": "codegen_international_fullstack",
         "status": "shortlisted",
         "priority": 7,
@@ -2587,7 +2531,7 @@
     "applications": [
       {
         "student_id": "E20279",
-        "company_id": "wso2_lanka_pvt_ltd",
+        "company_id": "wso2",
         "job_role_id": "wso2_lanka_pvt_ltd_software_engineer",
         "status": "applied",
         "priority": 1,
@@ -2595,7 +2539,7 @@
       },
       {
         "student_id": "E20279",
-        "company_id": "sysco_labs_technologies_pvt_ltd",
+        "company_id": "sysco_labs",
         "job_role_id": "sysco_labs_technologies_pvt_ltd_software_engineer",
         "status": "applied",
         "priority": 2,
@@ -2603,7 +2547,7 @@
       },
       {
         "student_id": "E20279",
-        "company_id": "avtrasoft_lanka_pvt_ltd",
+        "company_id": "avtrasoft",
         "job_role_id": "avtrasoft_lanka_pvt_ltd_software_engineer",
         "status": "shortlisted",
         "priority": 3,
@@ -2619,7 +2563,7 @@
       },
       {
         "student_id": "E20279",
-        "company_id": "wia_systems_inc",
+        "company_id": "wia",
         "job_role_id": "wia_systems_inc_systems_engineer",
         "status": "applied",
         "priority": 5,
@@ -2635,7 +2579,7 @@
       },
       {
         "student_id": "E20279",
-        "company_id": "codegen_international",
+        "company_id": "codegen",
         "job_role_id": "codegen_international_software_engineer",
         "status": "shortlisted",
         "priority": 7,
@@ -2650,7 +2594,7 @@
     "applications": [
       {
         "student_id": "E20280",
-        "company_id": "wso2_lanka_pvt_ltd",
+        "company_id": "wso2",
         "job_role_id": "wso2_lanka_pvt_ltd_software_engineer",
         "status": "applied",
         "priority": 1,
@@ -2658,7 +2602,7 @@
       },
       {
         "student_id": "E20280",
-        "company_id": "cutdry_inc",
+        "company_id": "cut_dry",
         "job_role_id": "cutdry_inc_software_engineer",
         "status": "shortlisted",
         "priority": 2,
@@ -2682,7 +2626,7 @@
       },
       {
         "student_id": "E20280",
-        "company_id": "codegen_international",
+        "company_id": "codegen",
         "job_role_id": "codegen_international_software_engineer",
         "status": "shortlisted",
         "priority": 5,
@@ -2697,7 +2641,7 @@
     "applications": [
       {
         "student_id": "E20284",
-        "company_id": "gtn_tech",
+        "company_id": "gtn",
         "job_role_id": "gtn_tech_software_engineer",
         "status": "applied",
         "priority": 1,
@@ -2705,7 +2649,7 @@
       },
       {
         "student_id": "E20284",
-        "company_id": "avtrasoft_lanka_pvt_ltd",
+        "company_id": "avtrasoft",
         "job_role_id": "avtrasoft_lanka_pvt_ltd_software_engineer",
         "status": "shortlisted",
         "priority": 2,
@@ -2713,7 +2657,7 @@
       },
       {
         "student_id": "E20284",
-        "company_id": "wia_systems_inc",
+        "company_id": "wia",
         "job_role_id": "wia_systems_inc_systems_engineer",
         "status": "applied",
         "priority": 3,
@@ -2729,14 +2673,6 @@
       },
       {
         "student_id": "E20284",
-        "company_id": "d_f_n_technology_pvt_ltd",
-        "job_role_id": "d_f_n_technology_pvt_ltd_software_engineer",
-        "status": "applied",
-        "priority": 5,
-        "cv_link": ""
-      },
-      {
-        "student_id": "E20284",
         "company_id": "wso2",
         "job_role_id": "wso2_sre",
         "status": "applied",
@@ -2745,7 +2681,7 @@
       },
       {
         "student_id": "E20284",
-        "company_id": "codegen_international",
+        "company_id": "codegen",
         "job_role_id": "codegen_international_software_engineer",
         "status": "applied",
         "priority": 7,
@@ -2768,7 +2704,7 @@
     "applications": [
       {
         "student_id": "E20285",
-        "company_id": "codegen_international",
+        "company_id": "codegen",
         "job_role_id": "codegen_international_software_engineer",
         "status": "shortlisted",
         "priority": 1,
@@ -2792,7 +2728,7 @@
       },
       {
         "student_id": "E20285",
-        "company_id": "avtrasoft_lanka_pvt_ltd",
+        "company_id": "avtrasoft",
         "job_role_id": "avtrasoft_lanka_pvt_ltd_software_engineer",
         "status": "shortlisted",
         "priority": 4,
@@ -2807,7 +2743,7 @@
     "applications": [
       {
         "student_id": "E20286",
-        "company_id": "gtn_tech",
+        "company_id": "gtn",
         "job_role_id": "gtn_tech_platform_engineer",
         "status": "applied",
         "priority": 1,
@@ -2823,7 +2759,7 @@
       },
       {
         "student_id": "E20286",
-        "company_id": "avtrasoft_lanka_pvt_ltd",
+        "company_id": "avtrasoft",
         "job_role_id": "avtrasoft_lanka_pvt_ltd_software_engineer",
         "status": "shortlisted",
         "priority": 3,
@@ -2855,7 +2791,7 @@
       },
       {
         "student_id": "E20286",
-        "company_id": "codegen_international",
+        "company_id": "codegen",
         "job_role_id": "codegen_international_software_engineer",
         "status": "applied",
         "priority": 7,
@@ -2870,7 +2806,7 @@
     "applications": [
       {
         "student_id": "E20300",
-        "company_id": "sysco_labs_technologies_pvt_ltd",
+        "company_id": "sysco_labs",
         "job_role_id": "sysco_labs_technologies_pvt_ltd_software_engineer",
         "status": "applied",
         "priority": 1,
@@ -2878,7 +2814,7 @@
       },
       {
         "student_id": "E20300",
-        "company_id": "gtn_tech",
+        "company_id": "gtn",
         "job_role_id": "gtn_tech_software_engineer",
         "status": "applied",
         "priority": 2,
@@ -2886,7 +2822,7 @@
       },
       {
         "student_id": "E20300",
-        "company_id": "wso2_lanka_pvt_ltd",
+        "company_id": "wso2",
         "job_role_id": "wso2_lanka_pvt_ltd_software_engineer",
         "status": "shortlisted",
         "priority": 3,
@@ -2902,7 +2838,7 @@
       },
       {
         "student_id": "E20300",
-        "company_id": "avtrasoft_lanka_pvt_ltd",
+        "company_id": "avtrasoft",
         "job_role_id": "avtrasoft_lanka_pvt_ltd_software_engineer",
         "status": "shortlisted",
         "priority": 5,
@@ -2910,7 +2846,7 @@
       },
       {
         "student_id": "E20300",
-        "company_id": "codegen_international",
+        "company_id": "codegen",
         "job_role_id": "codegen_international_software_engineer",
         "status": "applied",
         "priority": 6,
@@ -2933,7 +2869,7 @@
     "applications": [
       {
         "student_id": "E20305",
-        "company_id": "sysco_labs_technologies_pvt_ltd",
+        "company_id": "sysco_labs",
         "job_role_id": "sysco_labs_technologies_pvt_ltd_software_engineer",
         "status": "applied",
         "priority": 1,
@@ -2941,7 +2877,7 @@
       },
       {
         "student_id": "E20305",
-        "company_id": "gtn_tech",
+        "company_id": "gtn",
         "job_role_id": "gtn_tech_software_engineer",
         "status": "shortlisted",
         "priority": 2,
@@ -2949,7 +2885,7 @@
       },
       {
         "student_id": "E20305",
-        "company_id": "wso2_lanka_pvt_ltd",
+        "company_id": "wso2",
         "job_role_id": "wso2_lanka_pvt_ltd_customer_success",
         "status": "shortlisted",
         "priority": 3,
@@ -2965,7 +2901,7 @@
       },
       {
         "student_id": "E20305",
-        "company_id": "avtrasoft_lanka_pvt_ltd",
+        "company_id": "avtrasoft",
         "job_role_id": "avtrasoft_lanka_pvt_ltd_software_engineer",
         "status": "shortlisted",
         "priority": 5,
@@ -2973,7 +2909,7 @@
       },
       {
         "student_id": "E20305",
-        "company_id": "codegen_international",
+        "company_id": "codegen",
         "job_role_id": "codegen_international_fullstack",
         "status": "applied",
         "priority": 6,
@@ -2996,7 +2932,7 @@
     "applications": [
       {
         "student_id": "E20316",
-        "company_id": "wso2_lanka_pvt_ltd",
+        "company_id": "wso2",
         "job_role_id": "wso2_lanka_pvt_ltd_software_engineer",
         "status": "shortlisted",
         "priority": 1,
@@ -3004,7 +2940,7 @@
       },
       {
         "student_id": "E20316",
-        "company_id": "gtn_tech",
+        "company_id": "gtn",
         "job_role_id": "gtn_tech_software_engineer",
         "status": "shortlisted",
         "priority": 2,
@@ -3012,7 +2948,7 @@
       },
       {
         "student_id": "E20316",
-        "company_id": "sysco_labs_technologies_pvt_ltd",
+        "company_id": "sysco_labs",
         "job_role_id": "sysco_labs_technologies_pvt_ltd_software_engineer",
         "status": "applied",
         "priority": 3,
@@ -3036,7 +2972,7 @@
       },
       {
         "student_id": "E20316",
-        "company_id": "codegen_international",
+        "company_id": "codegen",
         "job_role_id": "codegen_international_software_engineer",
         "status": "shortlisted",
         "priority": 6,
@@ -3075,7 +3011,7 @@
       },
       {
         "student_id": "E20328",
-        "company_id": "wso2_lanka_pvt_ltd",
+        "company_id": "wso2",
         "job_role_id": "wso2_lanka_pvt_ltd_digital_transformation",
         "status": "applied",
         "priority": 2,
@@ -3083,7 +3019,7 @@
       },
       {
         "student_id": "E20328",
-        "company_id": "rhino_partners_pte_ltd",
+        "company_id": "rhino_partners",
         "job_role_id": "rhino_partners_pte_ltd_ai_engineering",
         "status": "applied",
         "priority": 3,
@@ -3091,7 +3027,7 @@
       },
       {
         "student_id": "E20328",
-        "company_id": "wia_systems_inc",
+        "company_id": "wia",
         "job_role_id": "wia_systems_inc_systems_engineer",
         "status": "applied",
         "priority": 4,
@@ -3099,7 +3035,7 @@
       },
       {
         "student_id": "E20328",
-        "company_id": "codegen_international",
+        "company_id": "codegen",
         "job_role_id": "codegen_international_software_engineer",
         "status": "applied",
         "priority": 5,
@@ -3122,7 +3058,7 @@
     "applications": [
       {
         "student_id": "E20338",
-        "company_id": "gtn_tech",
+        "company_id": "gtn",
         "job_role_id": "gtn_tech_software_engineer",
         "status": "applied",
         "priority": 1,
@@ -3130,7 +3066,7 @@
       },
       {
         "student_id": "E20338",
-        "company_id": "sysco_labs_technologies_pvt_ltd",
+        "company_id": "sysco_labs",
         "job_role_id": "sysco_labs_technologies_pvt_ltd_software_engineer",
         "status": "applied",
         "priority": 2,
@@ -3154,7 +3090,7 @@
       },
       {
         "student_id": "E20338",
-        "company_id": "avtrasoft_lanka_pvt_ltd",
+        "company_id": "avtrasoft",
         "job_role_id": "avtrasoft_lanka_pvt_ltd_software_engineer",
         "status": "applied",
         "priority": 5,
@@ -3162,7 +3098,7 @@
       },
       {
         "student_id": "E20338",
-        "company_id": "codegen_international",
+        "company_id": "codegen",
         "job_role_id": "codegen_international_software_engineer",
         "status": "applied",
         "priority": 6,
@@ -3185,7 +3121,7 @@
     "applications": [
       {
         "student_id": "E20339",
-        "company_id": "wso2_lanka_pvt_ltd",
+        "company_id": "wso2",
         "job_role_id": "wso2_lanka_pvt_ltd_software_engineer",
         "status": "applied",
         "priority": 1,
@@ -3193,7 +3129,7 @@
       },
       {
         "student_id": "E20339",
-        "company_id": "sysco_labs_technologies_pvt_ltd",
+        "company_id": "sysco_labs",
         "job_role_id": "sysco_labs_technologies_pvt_ltd_software_engineer",
         "status": "shortlisted",
         "priority": 2,
@@ -3201,7 +3137,7 @@
       },
       {
         "student_id": "E20339",
-        "company_id": "gtn_tech",
+        "company_id": "gtn",
         "job_role_id": "gtn_tech_software_engineer",
         "status": "applied",
         "priority": 3,
@@ -3209,15 +3145,7 @@
       },
       {
         "student_id": "E20339",
-        "company_id": "d_f_n_technology_pvt_ltd",
-        "job_role_id": "d_f_n_technology_pvt_ltd_software_engineer",
-        "status": "applied",
-        "priority": 4,
-        "cv_link": ""
-      },
-      {
-        "student_id": "E20339",
-        "company_id": "avtrasoft_lanka_pvt_ltd",
+        "company_id": "avtrasoft",
         "job_role_id": "avtrasoft_lanka_pvt_ltd_software_engineer",
         "status": "shortlisted",
         "priority": 5,
@@ -3225,7 +3153,7 @@
       },
       {
         "student_id": "E20339",
-        "company_id": "codegen_international",
+        "company_id": "codegen",
         "job_role_id": "codegen_international_software_engineer",
         "status": "shortlisted",
         "priority": 6,
@@ -3256,7 +3184,7 @@
     "applications": [
       {
         "student_id": "E20342",
-        "company_id": "gtn_tech",
+        "company_id": "gtn",
         "job_role_id": "gtn_tech_platform_engineer",
         "status": "applied",
         "priority": 1,
@@ -3264,7 +3192,7 @@
       },
       {
         "student_id": "E20342",
-        "company_id": "wso2_lanka_pvt_ltd",
+        "company_id": "wso2",
         "job_role_id": "wso2_lanka_pvt_ltd_customer_success",
         "status": "shortlisted",
         "priority": 2,
@@ -3280,7 +3208,7 @@
       },
       {
         "student_id": "E20342",
-        "company_id": "wia_systems_inc",
+        "company_id": "wia",
         "job_role_id": "wia_systems_inc_systems_engineer",
         "status": "applied",
         "priority": 4,
@@ -3304,7 +3232,7 @@
       },
       {
         "student_id": "E20342",
-        "company_id": "codegen_international",
+        "company_id": "codegen",
         "job_role_id": "codegen_international_software_engineer",
         "status": "applied",
         "priority": 7,
@@ -3319,7 +3247,7 @@
     "applications": [
       {
         "student_id": "E20346",
-        "company_id": "cutdry_inc",
+        "company_id": "cut_dry",
         "job_role_id": "cutdry_inc_software_engineer",
         "status": "applied",
         "priority": 1,
@@ -3327,7 +3255,7 @@
       },
       {
         "student_id": "E20346",
-        "company_id": "rhino_partners_pte_ltd",
+        "company_id": "rhino_partners",
         "job_role_id": "rhino_partners_pte_ltd_ai_engineering",
         "status": "shortlisted",
         "priority": 2,
@@ -3343,7 +3271,7 @@
       },
       {
         "student_id": "E20346",
-        "company_id": "sysco_labs_technologies_pvt_ltd",
+        "company_id": "sysco_labs",
         "job_role_id": "sysco_labs_technologies_pvt_ltd_software_engineer",
         "status": "applied",
         "priority": 4,
@@ -3351,7 +3279,7 @@
       },
       {
         "student_id": "E20346",
-        "company_id": "codegen_international",
+        "company_id": "codegen",
         "job_role_id": "codegen_international_software_engineer",
         "status": "applied",
         "priority": 5,
@@ -3366,7 +3294,7 @@
     "applications": [
       {
         "student_id": "E20350",
-        "company_id": "sysco_labs_technologies_pvt_ltd",
+        "company_id": "sysco_labs",
         "job_role_id": "sysco_labs_technologies_pvt_ltd_software_engineer",
         "status": "applied",
         "priority": 1,
@@ -3382,7 +3310,7 @@
       },
       {
         "student_id": "E20350",
-        "company_id": "avtrasoft_lanka_pvt_ltd",
+        "company_id": "avtrasoft",
         "job_role_id": "avtrasoft_lanka_pvt_ltd_software_engineer",
         "status": "applied",
         "priority": 3,
@@ -3406,7 +3334,7 @@
       },
       {
         "student_id": "E20350",
-        "company_id": "codegen_international",
+        "company_id": "codegen",
         "job_role_id": "codegen_international_software_engineer",
         "status": "applied",
         "priority": 6,
@@ -3429,7 +3357,7 @@
     "applications": [
       {
         "student_id": "E20365",
-        "company_id": "wso2_lanka_pvt_ltd",
+        "company_id": "wso2",
         "job_role_id": "wso2_lanka_pvt_ltd_software_engineer",
         "status": "shortlisted",
         "priority": 1,
@@ -3437,7 +3365,7 @@
       },
       {
         "student_id": "E20365",
-        "company_id": "sysco_labs_technologies_pvt_ltd",
+        "company_id": "sysco_labs",
         "job_role_id": "sysco_labs_technologies_pvt_ltd_software_engineer",
         "status": "applied",
         "priority": 2,
@@ -3445,7 +3373,7 @@
       },
       {
         "student_id": "E20365",
-        "company_id": "gtn_tech",
+        "company_id": "gtn",
         "job_role_id": "gtn_tech_software_engineer",
         "status": "shortlisted",
         "priority": 3,
@@ -3484,7 +3412,7 @@
     "applications": [
       {
         "student_id": "E20366",
-        "company_id": "sysco_labs_technologies_pvt_ltd",
+        "company_id": "sysco_labs",
         "job_role_id": "sysco_labs_technologies_pvt_ltd_software_engineer",
         "status": "applied",
         "priority": 1,
@@ -3492,7 +3420,7 @@
       },
       {
         "student_id": "E20366",
-        "company_id": "wso2_lanka_pvt_ltd",
+        "company_id": "wso2",
         "job_role_id": "wso2_lanka_pvt_ltd_software_engineer",
         "status": "applied",
         "priority": 2,
@@ -3500,7 +3428,7 @@
       },
       {
         "student_id": "E20366",
-        "company_id": "gtn_tech",
+        "company_id": "gtn",
         "job_role_id": "gtn_tech_software_engineer",
         "status": "applied",
         "priority": 3,
@@ -3532,7 +3460,7 @@
       },
       {
         "student_id": "E20366",
-        "company_id": "codegen_international",
+        "company_id": "codegen",
         "job_role_id": "codegen_international_software_engineer",
         "status": "applied",
         "priority": 7,
@@ -3555,7 +3483,7 @@
     "applications": [
       {
         "student_id": "E20367",
-        "company_id": "cutdry_inc",
+        "company_id": "cut_dry",
         "job_role_id": "cutdry_inc_software_engineer",
         "status": "applied",
         "priority": 1,
@@ -3563,18 +3491,10 @@
       },
       {
         "student_id": "E20367",
-        "company_id": "wso2_lanka_pvt_ltd",
+        "company_id": "wso2",
         "job_role_id": "wso2_lanka_pvt_ltd_software_engineer",
         "status": "applied",
         "priority": 2,
-        "cv_link": ""
-      },
-      {
-        "student_id": "E20367",
-        "company_id": "d_f_n_technology_pvt_ltd",
-        "job_role_id": "d_f_n_technology_pvt_ltd_software_engineer",
-        "status": "applied",
-        "priority": 3,
         "cv_link": ""
       },
       {
@@ -3595,7 +3515,7 @@
       },
       {
         "student_id": "E20367",
-        "company_id": "codegen_international",
+        "company_id": "codegen",
         "job_role_id": "codegen_international_software_engineer",
         "status": "applied",
         "priority": 6,
@@ -3626,7 +3546,7 @@
     "applications": [
       {
         "student_id": "E20370",
-        "company_id": "wso2_lanka_pvt_ltd",
+        "company_id": "wso2",
         "job_role_id": "wso2_lanka_pvt_ltd_software_engineer",
         "status": "applied",
         "priority": 1,
@@ -3634,7 +3554,7 @@
       },
       {
         "student_id": "E20370",
-        "company_id": "sysco_labs_technologies_pvt_ltd",
+        "company_id": "sysco_labs",
         "job_role_id": "sysco_labs_technologies_pvt_ltd_software_engineer",
         "status": "applied",
         "priority": 2,
@@ -3650,7 +3570,7 @@
       },
       {
         "student_id": "E20370",
-        "company_id": "avtrasoft_lanka_pvt_ltd",
+        "company_id": "avtrasoft",
         "job_role_id": "avtrasoft_lanka_pvt_ltd_software_engineer",
         "status": "applied",
         "priority": 4,
@@ -3666,7 +3586,7 @@
       },
       {
         "student_id": "E20370",
-        "company_id": "codegen_international",
+        "company_id": "codegen",
         "job_role_id": "codegen_international_software_engineer",
         "status": "applied",
         "priority": 6,
@@ -3689,7 +3609,7 @@
     "applications": [
       {
         "student_id": "E20371",
-        "company_id": "wso2_lanka_pvt_ltd",
+        "company_id": "wso2",
         "job_role_id": "wso2_lanka_pvt_ltd_software_engineer",
         "status": "shortlisted",
         "priority": 1,
@@ -3697,7 +3617,7 @@
       },
       {
         "student_id": "E20371",
-        "company_id": "gtn_tech",
+        "company_id": "gtn",
         "job_role_id": "gtn_tech_software_engineer",
         "status": "applied",
         "priority": 2,
@@ -3705,7 +3625,7 @@
       },
       {
         "student_id": "E20371",
-        "company_id": "cutdry_inc",
+        "company_id": "cut_dry",
         "job_role_id": "cutdry_inc_software_engineer",
         "status": "applied",
         "priority": 3,
@@ -3713,7 +3633,7 @@
       },
       {
         "student_id": "E20371",
-        "company_id": "avtrasoft_lanka_pvt_ltd",
+        "company_id": "avtrasoft",
         "job_role_id": "avtrasoft_lanka_pvt_ltd_software_engineer",
         "status": "applied",
         "priority": 4,
@@ -3729,7 +3649,7 @@
       },
       {
         "student_id": "E20371",
-        "company_id": "codegen_international",
+        "company_id": "codegen",
         "job_role_id": "codegen_international_software_engineer",
         "status": "applied",
         "priority": 6,
@@ -3760,7 +3680,7 @@
     "applications": [
       {
         "student_id": "E20376",
-        "company_id": "rhino_partners_pte_ltd",
+        "company_id": "rhino_partners",
         "job_role_id": "rhino_partners_pte_ltd_data_science",
         "status": "shortlisted",
         "priority": 1,
@@ -3776,7 +3696,7 @@
       },
       {
         "student_id": "E20376",
-        "company_id": "avtrasoft_lanka_pvt_ltd",
+        "company_id": "avtrasoft",
         "job_role_id": "avtrasoft_lanka_pvt_ltd_devops__support_engineer",
         "status": "shortlisted",
         "priority": 3,
@@ -3784,7 +3704,7 @@
       },
       {
         "student_id": "E20376",
-        "company_id": "wia_systems_inc",
+        "company_id": "wia",
         "job_role_id": "wia_systems_inc_systems_engineer",
         "status": "applied",
         "priority": 4,
@@ -3807,7 +3727,7 @@
     "applications": [
       {
         "student_id": "E20377",
-        "company_id": "gtn_tech",
+        "company_id": "gtn",
         "job_role_id": "gtn_tech_software_engineer",
         "status": "applied",
         "priority": 1,
@@ -3815,7 +3735,7 @@
       },
       {
         "student_id": "E20377",
-        "company_id": "wso2_lanka_pvt_ltd",
+        "company_id": "wso2",
         "job_role_id": "wso2_lanka_pvt_ltd_software_engineer",
         "status": "applied",
         "priority": 2,
@@ -3839,7 +3759,7 @@
       },
       {
         "student_id": "E20377",
-        "company_id": "sysco_labs_technologies_pvt_ltd",
+        "company_id": "sysco_labs",
         "job_role_id": "sysco_labs_technologies_pvt_ltd_software_engineer",
         "status": "applied",
         "priority": 5,
@@ -3847,7 +3767,7 @@
       },
       {
         "student_id": "E20377",
-        "company_id": "codegen_international",
+        "company_id": "codegen",
         "job_role_id": "codegen_international_software_engineer",
         "status": "applied",
         "priority": 6,
@@ -3870,7 +3790,7 @@
     "applications": [
       {
         "student_id": "E20378",
-        "company_id": "sysco_labs_technologies_pvt_ltd",
+        "company_id": "sysco_labs",
         "job_role_id": "sysco_labs_technologies_pvt_ltd_software_engineer",
         "status": "applied",
         "priority": 1,
@@ -3878,7 +3798,7 @@
       },
       {
         "student_id": "E20378",
-        "company_id": "wso2_lanka_pvt_ltd",
+        "company_id": "wso2",
         "job_role_id": "wso2_lanka_pvt_ltd_customer_success",
         "status": "shortlisted",
         "priority": 2,
@@ -3886,7 +3806,7 @@
       },
       {
         "student_id": "E20378",
-        "company_id": "gtn_tech",
+        "company_id": "gtn",
         "job_role_id": "gtn_tech_software_engineer",
         "status": "applied",
         "priority": 3,
@@ -3910,7 +3830,7 @@
       },
       {
         "student_id": "E20378",
-        "company_id": "codegen_international",
+        "company_id": "codegen",
         "job_role_id": "codegen_international_software_engineer",
         "status": "applied",
         "priority": 6,
@@ -3933,18 +3853,10 @@
     "applications": [
       {
         "student_id": "E20381",
-        "company_id": "sysco_labs_technologies_pvt_ltd",
+        "company_id": "sysco_labs",
         "job_role_id": "sysco_labs_technologies_pvt_ltd_software_engineer",
         "status": "applied",
         "priority": 1,
-        "cv_link": ""
-      },
-      {
-        "student_id": "E20381",
-        "company_id": "d_f_n_technology_pvt_ltd",
-        "job_role_id": "d_f_n_technology_pvt_ltd_software_engineer",
-        "status": "applied",
-        "priority": 2,
         "cv_link": ""
       },
       {
@@ -3965,7 +3877,7 @@
       },
       {
         "student_id": "E20381",
-        "company_id": "avtrasoft_lanka_pvt_ltd",
+        "company_id": "avtrasoft",
         "job_role_id": "avtrasoft_lanka_pvt_ltd_software_engineer",
         "status": "applied",
         "priority": 5,
@@ -3981,7 +3893,7 @@
       },
       {
         "student_id": "E20381",
-        "company_id": "codegen_international",
+        "company_id": "codegen",
         "job_role_id": "codegen_international_software_engineer",
         "status": "applied",
         "priority": 7,
@@ -3996,7 +3908,7 @@
     "applications": [
       {
         "student_id": "E20385",
-        "company_id": "gtn_tech",
+        "company_id": "gtn",
         "job_role_id": "gtn_tech_platform_engineer",
         "status": "shortlisted",
         "priority": 1,
@@ -4004,7 +3916,7 @@
       },
       {
         "student_id": "E20385",
-        "company_id": "avtrasoft_lanka_pvt_ltd",
+        "company_id": "avtrasoft",
         "job_role_id": "avtrasoft_lanka_pvt_ltd_system_adminstrator",
         "status": "applied",
         "priority": 2,
@@ -4012,7 +3924,7 @@
       },
       {
         "student_id": "E20385",
-        "company_id": "wia_systems_inc",
+        "company_id": "wia",
         "job_role_id": "wia_systems_inc_systems_engineer",
         "status": "shortlisted",
         "priority": 3,
@@ -4027,7 +3939,7 @@
     "applications": [
       {
         "student_id": "E20397",
-        "company_id": "sysco_labs_technologies_pvt_ltd",
+        "company_id": "sysco_labs",
         "job_role_id": "sysco_labs_technologies_pvt_ltd_software_engineer",
         "status": "applied",
         "priority": 1,
@@ -4043,7 +3955,7 @@
       },
       {
         "student_id": "E20397",
-        "company_id": "gtn_tech",
+        "company_id": "gtn",
         "job_role_id": "gtn_tech_software_engineer",
         "status": "applied",
         "priority": 3,
@@ -4051,7 +3963,7 @@
       },
       {
         "student_id": "E20397",
-        "company_id": "avtrasoft_lanka_pvt_ltd",
+        "company_id": "avtrasoft",
         "job_role_id": "avtrasoft_lanka_pvt_ltd_software_engineer",
         "status": "shortlisted",
         "priority": 4,
@@ -4067,7 +3979,7 @@
       },
       {
         "student_id": "E20397",
-        "company_id": "codegen_international",
+        "company_id": "codegen",
         "job_role_id": "codegen_international_software_engineer",
         "status": "applied",
         "priority": 6,
@@ -4082,7 +3994,7 @@
     "applications": [
       {
         "student_id": "E20404",
-        "company_id": "gtn_tech",
+        "company_id": "gtn",
         "job_role_id": "gtn_tech_software_engineer",
         "status": "applied",
         "priority": 1,
@@ -4090,7 +4002,7 @@
       },
       {
         "student_id": "E20404",
-        "company_id": "sysco_labs_technologies_pvt_ltd",
+        "company_id": "sysco_labs",
         "job_role_id": "sysco_labs_technologies_pvt_ltd_software_engineer",
         "status": "applied",
         "priority": 2,
@@ -4122,7 +4034,7 @@
       },
       {
         "student_id": "E20404",
-        "company_id": "codegen_international",
+        "company_id": "codegen",
         "job_role_id": "codegen_international_software_engineer",
         "status": "applied",
         "priority": 6,
@@ -4145,7 +4057,7 @@
     "applications": [
       {
         "student_id": "E20416",
-        "company_id": "gtn_tech",
+        "company_id": "gtn",
         "job_role_id": "gtn_tech_software_engineer",
         "status": "applied",
         "priority": 1,
@@ -4153,7 +4065,7 @@
       },
       {
         "student_id": "E20416",
-        "company_id": "sysco_labs_technologies_pvt_ltd",
+        "company_id": "sysco_labs",
         "job_role_id": "sysco_labs_technologies_pvt_ltd_software_engineer",
         "status": "applied",
         "priority": 2,
@@ -4161,7 +4073,7 @@
       },
       {
         "student_id": "E20416",
-        "company_id": "wso2_lanka_pvt_ltd",
+        "company_id": "wso2",
         "job_role_id": "wso2_lanka_pvt_ltd_software_engineer",
         "status": "shortlisted",
         "priority": 3,
@@ -4177,7 +4089,7 @@
       },
       {
         "student_id": "E20416",
-        "company_id": "avtrasoft_lanka_pvt_ltd",
+        "company_id": "avtrasoft",
         "job_role_id": "avtrasoft_lanka_pvt_ltd_software_engineer",
         "status": "applied",
         "priority": 5,
@@ -4185,7 +4097,7 @@
       },
       {
         "student_id": "E20416",
-        "company_id": "codegen_international",
+        "company_id": "codegen",
         "job_role_id": "codegen_international_software_engineer",
         "status": "shortlisted",
         "priority": 6,
@@ -4208,7 +4120,7 @@
     "applications": [
       {
         "student_id": "E20419",
-        "company_id": "wso2_lanka_pvt_ltd",
+        "company_id": "wso2",
         "job_role_id": "wso2_lanka_pvt_ltd_software_engineer",
         "status": "shortlisted",
         "priority": 1,
@@ -4216,7 +4128,7 @@
       },
       {
         "student_id": "E20419",
-        "company_id": "avtrasoft_lanka_pvt_ltd",
+        "company_id": "avtrasoft",
         "job_role_id": "avtrasoft_lanka_pvt_ltd_devops__support_engineer",
         "status": "applied",
         "priority": 2,
@@ -4224,7 +4136,7 @@
       },
       {
         "student_id": "E20419",
-        "company_id": "wia_systems_inc",
+        "company_id": "wia",
         "job_role_id": "wia_systems_inc_systems_engineer",
         "status": "shortlisted",
         "priority": 3,
@@ -4256,7 +4168,7 @@
       },
       {
         "student_id": "E20419",
-        "company_id": "codegen_international",
+        "company_id": "codegen",
         "job_role_id": "codegen_international_software_engineer",
         "status": "applied",
         "priority": 7,
@@ -4279,7 +4191,7 @@
     "applications": [
       {
         "student_id": "E20420",
-        "company_id": "cutdry_inc",
+        "company_id": "cut_dry",
         "job_role_id": "cutdry_inc_aiml",
         "status": "applied",
         "priority": 1,
@@ -4287,7 +4199,7 @@
       },
       {
         "student_id": "E20420",
-        "company_id": "wso2_lanka_pvt_ltd",
+        "company_id": "wso2",
         "job_role_id": "wso2_lanka_pvt_ltd_digital_transformation",
         "status": "shortlisted",
         "priority": 2,
@@ -4303,7 +4215,7 @@
       },
       {
         "student_id": "E20420",
-        "company_id": "avtrasoft_lanka_pvt_ltd",
+        "company_id": "avtrasoft",
         "job_role_id": "avtrasoft_lanka_pvt_ltd_system_adminstrator",
         "status": "applied",
         "priority": 4,
@@ -4342,7 +4254,7 @@
     "applications": [
       {
         "student_id": "E20434",
-        "company_id": "gtn_tech",
+        "company_id": "gtn",
         "job_role_id": "gtn_tech_software_engineer",
         "status": "shortlisted",
         "priority": 1,
@@ -4350,7 +4262,7 @@
       },
       {
         "student_id": "E20434",
-        "company_id": "wso2_lanka_pvt_ltd",
+        "company_id": "wso2",
         "job_role_id": "wso2_lanka_pvt_ltd_digital_transformation",
         "status": "applied",
         "priority": 2,
@@ -4358,7 +4270,7 @@
       },
       {
         "student_id": "E20434",
-        "company_id": "avtrasoft_lanka_pvt_ltd",
+        "company_id": "avtrasoft",
         "job_role_id": "avtrasoft_lanka_pvt_ltd_software_engineer",
         "status": "applied",
         "priority": 3,
@@ -4382,7 +4294,7 @@
       },
       {
         "student_id": "E20434",
-        "company_id": "codegen_international",
+        "company_id": "codegen",
         "job_role_id": "codegen_international_software_engineer",
         "status": "applied",
         "priority": 6,
@@ -4405,7 +4317,7 @@
     "applications": [
       {
         "student_id": "E20439",
-        "company_id": "wso2_lanka_pvt_ltd",
+        "company_id": "wso2",
         "job_role_id": "wso2_lanka_pvt_ltd_software_engineer",
         "status": "shortlisted",
         "priority": 1,
@@ -4413,7 +4325,7 @@
       },
       {
         "student_id": "E20439",
-        "company_id": "gtn_tech",
+        "company_id": "gtn",
         "job_role_id": "gtn_tech_software_engineer",
         "status": "applied",
         "priority": 2,
@@ -4429,18 +4341,10 @@
       },
       {
         "student_id": "E20439",
-        "company_id": "avtrasoft_lanka_pvt_ltd",
+        "company_id": "avtrasoft",
         "job_role_id": "avtrasoft_lanka_pvt_ltd_software_engineer",
         "status": "applied",
         "priority": 4,
-        "cv_link": ""
-      },
-      {
-        "student_id": "E20439",
-        "company_id": "d_f_n_technology_pvt_ltd",
-        "job_role_id": "d_f_n_technology_pvt_ltd_quality_assurance",
-        "status": "applied",
-        "priority": 5,
         "cv_link": ""
       },
       {
@@ -4453,7 +4357,7 @@
       },
       {
         "student_id": "E20439",
-        "company_id": "codegen_international",
+        "company_id": "codegen",
         "job_role_id": "codegen_international_software_engineer",
         "status": "applied",
         "priority": 7,
@@ -4476,7 +4380,7 @@
     "applications": [
       {
         "student_id": "E20453",
-        "company_id": "gtn_tech",
+        "company_id": "gtn",
         "job_role_id": "gtn_tech_software_engineer",
         "status": "shortlisted",
         "priority": 1,
@@ -4484,7 +4388,7 @@
       },
       {
         "student_id": "E20453",
-        "company_id": "wso2_lanka_pvt_ltd",
+        "company_id": "wso2",
         "job_role_id": "wso2_lanka_pvt_ltd_customer_success",
         "status": "applied",
         "priority": 2,
@@ -4492,7 +4396,7 @@
       },
       {
         "student_id": "E20453",
-        "company_id": "cutdry_inc",
+        "company_id": "cut_dry",
         "job_role_id": "cutdry_inc_software_engineer",
         "status": "applied",
         "priority": 3,
@@ -4516,7 +4420,7 @@
       },
       {
         "student_id": "E20453",
-        "company_id": "codegen_international",
+        "company_id": "codegen",
         "job_role_id": "codegen_international_software_engineer",
         "status": "shortlisted",
         "priority": 6,
@@ -4531,7 +4435,7 @@
     "applications": [
       {
         "student_id": "E20455",
-        "company_id": "gtn_tech",
+        "company_id": "gtn",
         "job_role_id": "gtn_tech_software_engineer",
         "status": "applied",
         "priority": 1,
@@ -4539,7 +4443,7 @@
       },
       {
         "student_id": "E20455",
-        "company_id": "avtrasoft_lanka_pvt_ltd",
+        "company_id": "avtrasoft",
         "job_role_id": "avtrasoft_lanka_pvt_ltd_software_engineer",
         "status": "applied",
         "priority": 2,
@@ -4555,7 +4459,7 @@
       },
       {
         "student_id": "E20455",
-        "company_id": "cutdry_inc",
+        "company_id": "cut_dry",
         "job_role_id": "cutdry_inc_software_engineer",
         "status": "applied",
         "priority": 4,
@@ -4563,7 +4467,7 @@
       },
       {
         "student_id": "E20455",
-        "company_id": "codegen_international",
+        "company_id": "codegen",
         "job_role_id": "codegen_international_software_engineer",
         "status": "applied",
         "priority": 5,
@@ -4594,7 +4498,7 @@
     "applications": [
       {
         "student_id": "E20456",
-        "company_id": "gtn_tech",
+        "company_id": "gtn",
         "job_role_id": "gtn_tech_software_engineer",
         "status": "applied",
         "priority": 1,
@@ -4602,7 +4506,7 @@
       },
       {
         "student_id": "E20456",
-        "company_id": "avtrasoft_lanka_pvt_ltd",
+        "company_id": "avtrasoft",
         "job_role_id": "avtrasoft_lanka_pvt_ltd_software_engineer",
         "status": "applied",
         "priority": 2,
@@ -4626,7 +4530,7 @@
       },
       {
         "student_id": "E20456",
-        "company_id": "rhino_partners_pte_ltd",
+        "company_id": "rhino_partners",
         "job_role_id": "rhino_partners_pte_ltd_ai_engineering",
         "status": "applied",
         "priority": 5,
@@ -4634,7 +4538,7 @@
       },
       {
         "student_id": "E20456",
-        "company_id": "rhino_partners_pte_ltd",
+        "company_id": "rhino_partners",
         "job_role_id": "rhino_partners_pte_ltd_ai_engineering",
         "status": "applied",
         "priority": 6,
