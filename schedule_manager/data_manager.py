@@ -66,6 +66,7 @@ class Interview:
     start_time: str = ""       # ISO format
     end_time: str = ""         # ISO format
     status: str = "scheduled"  # Phase 3: scheduled | in_progress | completed | cancelled
+    pinned: bool = False       # True = hardcoded, never moved by scheduler
 
 class DataManager:
     def __init__(self, data_dir: str = "schedule_manager/data"):

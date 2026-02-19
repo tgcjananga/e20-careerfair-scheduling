@@ -114,45 +114,47 @@
     ],
     "panels": [
       {
-        "panel_id": "sysco_labs_technologies_pvt_ltd-P1",
-        "label": "Panel 1 (Default)",
+        "panel_id": "sysco_labs-SE1",
+        "label": "SE1",
         "job_role_ids": [
           "sysco_labs_technologies_pvt_ltd_software_engineer"
         ],
-        "slot_duration_minutes": 55,
+        "slot_duration_minutes": 45,
         "walk_in_open": false,
         "reserved_walkin_slots": 0,
         "breaks": []
       },
       {
-        "panel_id": "sysco_labs_technologies_pvt_ltd-P2-1771524099666",
-        "label": "Panel 2",
+        "panel_id": "sysco_labs-SE2",
+        "label": "SE2",
         "job_role_ids": [
           "sysco_labs_technologies_pvt_ltd_software_engineer"
         ],
-        "slot_duration_minutes": 55,
+        "slot_duration_minutes": 45,
         "walk_in_open": false,
         "reserved_walkin_slots": 0,
         "breaks": []
       },
       {
-        "panel_id": "sysco_labs_technologies_pvt_ltd-P3-1771524104361",
-        "label": "Panel 3",
+        "panel_id": "sysco_labs-QE1",
+        "label": "QE1",
         "job_role_ids": [
-          "sysco_labs_technologies_pvt_ltd_quality_assurance"
+          "sysco_labs_technologies_pvt_ltd_quality_assurance",
+          "sysco_labs_qa"
         ],
-        "slot_duration_minutes": 55,
+        "slot_duration_minutes": 45,
         "walk_in_open": false,
         "reserved_walkin_slots": 0,
         "breaks": []
       },
       {
-        "panel_id": "sysco_labs_technologies_pvt_ltd-P4-1771524109314",
-        "label": "Panel 4",
+        "panel_id": "sysco_labs-QE2",
+        "label": "QE2",
         "job_role_ids": [
-          "sysco_labs_technologies_pvt_ltd_quality_assurance"
+          "sysco_labs_technologies_pvt_ltd_quality_assurance",
+          "sysco_labs_qa"
         ],
-        "slot_duration_minutes": 55,
+        "slot_duration_minutes": 45,
         "walk_in_open": false,
         "reserved_walkin_slots": 0,
         "breaks": []

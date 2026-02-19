@@ -31,6 +31,28 @@ class Scheduler:
 
         print(f"Starting OR-Tools optimization for {event_date}...")
 
+        # ── 0. Load pinned configuration ─────────────────────────────────────
+        import json as _json
+        import os as _os
+        _data_dir = _os.path.join(_os.path.dirname(__file__), 'data')
+        _config_path = _os.path.join(_data_dir, 'config.json')
+        pinned_company_ids: set = set()
+        if _os.path.exists(_config_path):
+            with open(_config_path, encoding='utf-8') as _f:
+                pinned_company_ids = set(_json.load(_f).get('pinned_company_ids', []))
+
+        # Load existing pinned interviews from schedule.json
+        _sched_path = _os.path.join(_data_dir, 'schedule.json')
+        pinned_interviews_raw: list = []
+        if _os.path.exists(_sched_path) and pinned_company_ids:
+            with open(_sched_path, encoding='utf-8') as _f:
+                _raw = _json.load(_f)
+            _all = _raw if isinstance(_raw, list) else _raw.get('interviews', [])
+            pinned_interviews_raw = [iv for iv in _all if iv.get('pinned', False)]
+        if pinned_company_ids:
+            print(f"  Pinned companies (skipped by optimizer): {sorted(pinned_company_ids)}")
+            print(f"  Loaded {len(pinned_interviews_raw)} pinned interviews.")
+
         # ── 1. Prepare lookup tables ─────────────────────────────────────────
 
         company_map: Dict[str, Company] = {c.id: c for c in self.companies}
@@ -72,6 +94,24 @@ class Scheduler:
         # slot_min[t] = start minute of slot t (e.g. 0→540, 1→570, …, 15→1020)
         slot_min = [DAY_START + t * BASE_DURATION for t in range(num_slots)]
 
+        # ── Build per-student blocked slots from pinned interviews ────────────
+        # Maps student_id → set of 30-min base slot indices that their pinned
+        # interviews overlap. Used to prevent double-booking in other companies.
+        pinned_student_blocked: Dict[str, set] = {}
+        for _piv in pinned_interviews_raw:
+            _sid = _piv['student_id']
+            try:
+                _ps = datetime.fromisoformat(_piv['start_time'])
+                _pe = datetime.fromisoformat(_piv['end_time'])
+                _sm = _ps.hour * 60 + _ps.minute
+                _em = _pe.hour * 60 + _pe.minute
+                _blk = pinned_student_blocked.setdefault(_sid, set())
+                for _t in range(num_slots):
+                    if max(_sm, slot_min[_t]) < min(_em, slot_min[_t] + BASE_DURATION):
+                        _blk.add(_t)
+            except Exception:
+                pass
+
         # slot_start[t] = actual datetime for slot t
         day_dt = datetime.strptime(event_date, "%Y-%m-%d")
         slot_start_dt = [day_dt + timedelta(minutes=m - DAY_START + DAY_START)
@@ -93,6 +133,9 @@ class Scheduler:
                 # Only schedule students who were shortlisted (or waitlisted as fallback).
                 # APPLIED means the company has not shortlisted them — exclude from scheduled interviews.
                 if app.status not in [AppStatus.SHORTLISTED, AppStatus.WAITLISTED]:
+                    continue
+                # Skip companies whose schedule is hardcoded (pinned)
+                if app.company_id in pinned_company_ids:
                     continue
                 if app.company_id not in company_map:
                     continue
@@ -163,6 +206,14 @@ class Scheduler:
 
                     if reserved > 0 and len(candidate_slots) > reserved:
                         candidate_slots = candidate_slots[:-reserved]
+
+                    # Remove slots blocked by pinned interviews for this student
+                    _pblk = pinned_student_blocked.get(s.id)
+                    if _pblk:
+                        candidate_slots = [
+                            t for t in candidate_slots
+                            if not any(b in _pblk for b in range(t, t + slots_needed))
+                        ]
 
                     if not candidate_slots:
                         continue
@@ -344,6 +395,26 @@ class Scheduler:
             print(f"  Objective Value: {solver.ObjectiveValue()}")
         else:
             print("  No solution found.")
+
+        # ── Prepend pinned interviews to the final result ─────────────────────
+        pinned_objs = []
+        for _piv in pinned_interviews_raw:
+            try:
+                pinned_objs.append(Interview(
+                    id=_piv['id'],
+                    student_id=_piv['student_id'],
+                    company_id=_piv['company_id'],
+                    job_role_id=_piv['job_role_id'],
+                    panel_id=_piv['panel_id'],
+                    start_time=_piv['start_time'],
+                    end_time=_piv['end_time'],
+                    status=_piv.get('status', 'scheduled'),
+                    pinned=True,
+                ))
+            except Exception as e:
+                print(f"  Warning: could not reload pinned interview {_piv.get('id')}: {e}")
+        self.interviews = pinned_objs + self.interviews
+        print(f"  Total (pinned {len(pinned_objs)} + scheduled {len(self.interviews) - len(pinned_objs)}): {len(self.interviews)}")
 
         return self.interviews
 
