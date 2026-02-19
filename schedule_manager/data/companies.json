@@ -293,8 +293,7 @@
         "panel_id": "sysco_labs_technologies_pvt_ltd-P2-1771524099666",
         "label": "Panel 2",
         "job_role_ids": [
-          "sysco_labs_technologies_pvt_ltd_software_engineer",
-          "sysco_labs_technologies_pvt_ltd_quality_assurance"
+          "sysco_labs_technologies_pvt_ltd_software_engineer"
         ],
         "slot_duration_minutes": 55,
         "walk_in_open": false,
@@ -305,7 +304,6 @@
         "panel_id": "sysco_labs_technologies_pvt_ltd-P3-1771524104361",
         "label": "Panel 3",
         "job_role_ids": [
-          "sysco_labs_technologies_pvt_ltd_software_engineer",
           "sysco_labs_technologies_pvt_ltd_quality_assurance"
         ],
         "slot_duration_minutes": 55,
@@ -317,19 +315,6 @@
         "panel_id": "sysco_labs_technologies_pvt_ltd-P4-1771524109314",
         "label": "Panel 4",
         "job_role_ids": [
-          "sysco_labs_technologies_pvt_ltd_software_engineer",
-          "sysco_labs_technologies_pvt_ltd_quality_assurance"
-        ],
-        "slot_duration_minutes": 55,
-        "walk_in_open": false,
-        "reserved_walkin_slots": 0,
-        "breaks": []
-      },
-      {
-        "panel_id": "sysco_labs_technologies_pvt_ltd-P5-1771524113446",
-        "label": "Panel 5",
-        "job_role_ids": [
-          "sysco_labs_technologies_pvt_ltd_software_engineer",
           "sysco_labs_technologies_pvt_ltd_quality_assurance"
         ],
         "slot_duration_minutes": 55,
@@ -341,7 +326,7 @@
     "availability_start": "09:00",
     "availability_end": "17:00",
     "breaks": [],
-    "num_panels": 5,
+    "num_panels": 4,
     "walk_in_open": false
   },
   {
