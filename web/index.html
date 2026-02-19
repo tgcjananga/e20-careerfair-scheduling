@@ -127,6 +127,60 @@
             overflow: hidden;
         }
 
+        /* Live Queue Rows */
+        .lq-row {
+            padding: 0.75rem;
+            border-bottom: 1px solid var(--border);
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+        }
+
+        .lq-row:last-child {
+            border-bottom: none;
+        }
+
+        .lq-current {
+            background: #f0fdf4;
+        }
+
+        .lq-previous {
+            background: #f8fafc;
+            /* Dimmed background */
+            opacity: 0.85;
+        }
+
+        .lq-badge {
+            display: inline-block;
+            padding: 0.25rem 0.5rem;
+            border-radius: 999px;
+            font-size: 0.7rem;
+            font-weight: 700;
+            text-transform: uppercase;
+            width: 80px;
+            text-align: center;
+        }
+
+        .badge-previous {
+            background: #e2e8f0;
+            color: #64748b;
+        }
+
+        .now {
+            background: #16a34a;
+            color: white;
+        }
+
+        .next {
+            background: #3b82f6;
+            color: white;
+        }
+
+        .after {
+            background: #94a3b8;
+            color: white;
+        }
+
         table {
             width: 100%;
             border-collapse: collapse;
@@ -1061,9 +1115,13 @@
                         if (entry.status === 'completed') { statusBadgeClass = 'badge-completed'; statusText = '🟢 DONE'; }
                         if (entry.status === 'cancelled') { statusBadgeClass = 'badge-cancelled'; statusText = '🔴 CANCELLED'; }
 
-                        // Show actions only for "NOW" row if not already done
+                        // Show actions only for "NOW" row or "PREVIOUS" row (if not done)
                         let actions = '';
-                        if (cls === 'lq-current' && entry.status !== 'completed' && entry.status !== 'cancelled') {
+                        const actionable = (cls === 'lq-current' || cls === 'lq-previous') &&
+                            entry.status !== 'completed' &&
+                            entry.status !== 'cancelled';
+
+                        if (actionable) {
                             actions = `
                                 <div class="btn-action-row">
                                     <button class="btn-sm btn-complete" onclick="markComplete('${entry.interview_id}')">✅ Mark Complete</button>
@@ -1083,11 +1141,13 @@
                         </div>`;
                     };
 
+                    const prev = panel.previous || null;
                     const next0 = panel.next[0] || null;
                     const next1 = panel.next[1] || null;
 
                     panelsHtml += `<div class="lq-panel-block">
                         ${showPanelLabel ? `<div class="lq-panel-label">${panel.panel_label}</div>` : ''}
+                        ${makeRow(prev, 'lq-previous', 'badge-previous', '⚪ PREVIOUS')}
                         ${makeRow(panel.current, 'lq-current', 'now', '🟢 NOW')}
                         ${makeRow(next0, 'lq-next1', 'next', '🔵 NEXT')}
                         ${makeRow(next1, 'lq-next2', 'after', '⚪ AFTER')}

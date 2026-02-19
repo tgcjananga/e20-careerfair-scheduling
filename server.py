@@ -243,23 +243,50 @@ class InterviewRequestHandler(http.server.SimpleHTTPRequestHandler):
                     # Phase 3: use status field if set; fallback to time-based
                     current = None
                     upcoming = []
+                    past_candidates = []
+
                     for iv in ivs:
                         iv_status = iv.get('status', 'scheduled')
-                        if iv_status in ('completed', 'cancelled'):
-                            continue  # skip done/cancelled interviews
+                        if iv_status in ('cancelled'):
+                            continue  # skip cancelled (deleted) interviews completely? 
+                            # User might want to see previous even if cancelled? No, usually not.
+                            # But if they want to Complete a 'scheduled' one that expired.
+                            # If status is 'completed', we might still want to show it as "Previous: Done".
+                        
+                        # Note: we need to parse times even for completed ones now to find the "previous" one.
                         try:
                             start_dt = datetime.fromisoformat(iv['start_time'])
                             end_dt = datetime.fromisoformat(iv['end_time'])
-                            if iv_status == 'in_progress' or (iv_status == 'scheduled' and start_dt <= now < end_dt):
+                            
+                            # Check for Current
+                            # If we manually set in_progress, it takes precedence for "current"
+                            if iv_status == 'in_progress':
                                 current = make_entry(iv)
+                            
+                            # Check time-based
+                            elif start_dt <= now < end_dt:
+                                # Overwrite current if multiple match (last wins), unless one is specifically in_progress? 
+                                # Let's assume time-based match is valid 'current' if no explicit in_progress exists
+                                if not current or current['status'] != 'in_progress':
+                                    current = make_entry(iv)
+                            
                             elif start_dt > now:
                                 upcoming.append(iv)
+                            
+                            elif end_dt <= now:
+                                past_candidates.append(iv)
+                                
                         except Exception:
                             pass
+
+                    # Sort past candidates by end_time ascending, so the last one is the most recent
+                    past_candidates.sort(key=lambda x: x['end_time'])
+                    previous = make_entry(past_candidates[-1]) if past_candidates else None
 
                     panels_out.append({
                         "panel_id": pid,
                         "panel_label": panel_label,
+                        "previous": previous,
                         "current": current,
                         "next": [make_entry(iv) for iv in upcoming[:2]]
                     })
