@@ -375,6 +375,76 @@ class InterviewRequestHandler(http.server.SimpleHTTPRequestHandler):
                 })
             response_data = summary
 
+        elif parsed_path.path == '/api/statistics':
+            students_path  = "schedule_manager/data/students.json"
+            companies_path = "schedule_manager/data/companies.json"
+            schedule_path  = "schedule_manager/data/schedule.json"
+            students_data, companies_data, interviews_data = [], [], []
+            if os.path.exists(students_path):
+                with open(students_path) as f: students_data  = json.load(f)
+            if os.path.exists(companies_path):
+                with open(companies_path) as f: companies_data = json.load(f)
+            if os.path.exists(schedule_path):
+                with open(schedule_path)  as f: interviews_data = json.load(f)
+
+            total_students = len(students_data)
+            total_applications = 0
+            shortlisted_apps   = 0
+            shortlisted_students = 0
+            walkin_students      = 0
+            for s in students_data:
+                apps = s.get("applications", [])
+                total_applications += len(apps)
+                cnt = sum(1 for a in apps if a.get("status") == "shortlisted")
+                shortlisted_apps += cnt
+                if cnt > 0:
+                    shortlisted_students += 1
+                else:
+                    walkin_students += 1
+
+            walkin_enabled = sum(1 for c in companies_data if c.get("walk_in_open", False))
+            total_reserved = sum(
+                p.get("reserved_walkin_slots", 0)
+                for c in companies_data for p in c.get("panels", [])
+            )
+
+            walkin_student_list = sorted(
+                [{"id": s["id"], "name": s.get("name", ""), "email": s.get("email", ""),
+                  "application_count": len(s.get("applications", []))}
+                 for s in students_data
+                 if not any(a.get("status") == "shortlisted" for a in s.get("applications", []))],
+                key=lambda x: x["name"]
+            )
+
+            company_names = {c["id"]: c["name"] for c in companies_data}
+            breakdown = {}
+            for s in students_data:
+                for a in s.get("applications", []):
+                    cid = a.get("company_id")
+                    if cid not in breakdown:
+                        breakdown[cid] = {"shortlisted": 0, "applied": 0}
+                    if a.get("status") == "shortlisted":
+                        breakdown[cid]["shortlisted"] += 1
+                    else:
+                        breakdown[cid]["applied"] += 1
+            breakdown_list = sorted(
+                [{"company_id": cid, "company_name": company_names.get(cid, cid),
+                  "shortlisted": v["shortlisted"], "applied": v["applied"]}
+                 for cid, v in breakdown.items()],
+                key=lambda x: -x["shortlisted"]
+            )
+            response_data = {
+                "students":      {"total": total_students, "shortlisted": shortlisted_students,
+                                   "walkin_candidates": walkin_students},
+                "applications":  {"total": total_applications, "shortlisted": shortlisted_apps,
+                                   "applied": total_applications - shortlisted_apps},
+                "companies":     {"total": len(companies_data), "walkin_enabled": walkin_enabled,
+                                   "total_reserved_walkin_slots": total_reserved},
+                "interviews":    {"total_scheduled": len(interviews_data)},
+                "per_company":   breakdown_list,
+                "walkin_students": walkin_student_list,
+            }
+
         elif parsed_path.path == '/api/checkpoint-info':
             config_path = "schedule_manager/data/config.json"
             data_dir = "schedule_manager/data"

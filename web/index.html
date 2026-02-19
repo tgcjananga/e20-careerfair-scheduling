@@ -842,6 +842,7 @@
             <button class="tab-btn" onclick="switchTab('master-students')">🎓 Student Timeline</button>
             <button class="tab-btn" onclick="switchTab('master-companies')">🏢 Company Timeline</button>
             <button class="tab-btn" onclick="switchTab('admin')">🛠 Admin Panel</button>
+            <button class="tab-btn" onclick="switchTab('statistics')">📊 Statistics</button>
             <button class="tab-btn" onclick="switchTab('livequeue')">🎯 Live Queue</button>
         </div>
 
@@ -1036,6 +1037,49 @@
                         </tr>
                     </thead>
                     <tbody id="master-companies-tbody"></tbody>
+                </table>
+            </div>
+        </div>
+
+        <!-- Statistics View -->
+        <div id="view-statistics" class="view-panel" style="display:none;">
+            <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:1rem;">
+                <h2 style="margin:0; font-size:1.1rem; color:var(--secondary);">📊 Event Statistics</h2>
+                <button class="secondary" onclick="loadStatistics()" style="font-size:0.8rem; padding:0.4rem 0.8rem;">🔄 Refresh</button>
+            </div>
+
+            <!-- KPI cards row -->
+            <div id="stats-cards" style="display:grid; grid-template-columns:repeat(auto-fit,minmax(150px,1fr)); gap:0.75rem; margin-bottom:1.75rem;"></div>
+
+            <!-- Walk-in candidates section -->
+            <details id="stats-walkin-panel" style="margin-bottom:1.25rem; border:1px solid var(--border); border-radius:0.6rem; background:#f8fafc;">
+                <summary style="padding:0.6rem 0.9rem; font-size:0.85rem; font-weight:600; cursor:pointer; color:var(--secondary); list-style:none; display:flex; align-items:center; gap:0.5rem;">
+                    🚶 Walk-in Candidates
+                    <span style="font-size:0.75rem; font-weight:400; color:#94a3b8;">— students with no shortlisted applications</span>
+                </summary>
+                <div style="padding:0.5rem 1rem 1rem;">
+                    <div class="table-container">
+                        <table id="stats-walkin-table">
+                            <thead><tr><th>Student</th><th>ID</th><th>Email</th><th style="text-align:center;">Applications Submitted</th></tr></thead>
+                            <tbody></tbody>
+                        </table>
+                    </div>
+                </div>
+            </details>
+
+            <!-- Per-company shortlist breakdown -->
+            <h3 style="font-size:0.95rem; color:var(--secondary); margin:0 0 0.5rem 0;">Shortlist Breakdown by Company</h3>
+            <div class="table-container">
+                <table id="stats-company-table">
+                    <thead>
+                        <tr>
+                            <th>Company</th>
+                            <th style="text-align:center;">Shortlisted</th>
+                            <th style="text-align:center;">Applied (not shortlisted)</th>
+                            <th style="text-align:center;">Total</th>
+                        </tr>
+                    </thead>
+                    <tbody></tbody>
                 </table>
             </div>
         </div>
@@ -1651,9 +1695,84 @@
                 stopAdminAutoRefresh();
                 stopLiveQueueRefresh();
                 renderMasterCompanies();
+            } else if (tab === 'statistics') {
+                stopAdminAutoRefresh();
+                stopLiveQueueRefresh();
+                loadStatistics();
             } else {
                 stopAdminAutoRefresh();
                 stopLiveQueueRefresh();
+            }
+        }
+
+        async function loadStatistics() {
+            try {
+                const res = await fetch('/api/statistics');
+                const d = await res.json();
+
+                // ── KPI cards ──────────────────────────────────────────────
+                document.getElementById('stats-cards').innerHTML = `
+                    <div class="stat-card">
+                        <div class="stat-number">${d.students.total}</div>
+                        <div class="stat-label">Total Students</div>
+                    </div>
+                    <div class="stat-card" style="border-color:#16a34a;">
+                        <div class="stat-number" style="color:#16a34a;">${d.students.shortlisted}</div>
+                        <div class="stat-label">Shortlisted Students</div>
+                    </div>
+                    <div class="stat-card" style="border-color:#ea580c;">
+                        <div class="stat-number" style="color:#ea580c;">${d.students.walkin_candidates}</div>
+                        <div class="stat-label">Walk-in Candidates</div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-number">${d.applications.total}</div>
+                        <div class="stat-label">Total Applications</div>
+                    </div>
+                    <div class="stat-card" style="border-color:#16a34a;">
+                        <div class="stat-number" style="color:#16a34a;">${d.applications.shortlisted}</div>
+                        <div class="stat-label">Shortlisted Applications</div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-number">${d.companies.total}</div>
+                        <div class="stat-label">Companies</div>
+                    </div>
+                    <div class="stat-card" style="border-color:#0ea5e9;">
+                        <div class="stat-number" style="color:#0ea5e9;">${d.interviews.total_scheduled}</div>
+                        <div class="stat-label">Scheduled Interviews</div>
+                    </div>
+                    <div class="stat-card" style="border-color:#7c3aed;">
+                        <div class="stat-number" style="color:#7c3aed;">${d.companies.walkin_enabled}</div>
+                        <div class="stat-label">Walk-in Enabled Companies</div>
+                    </div>
+                `;
+
+                // ── Walk-in candidates table ────────────────────────────────
+                const wTbody = document.querySelector('#stats-walkin-table tbody');
+                wTbody.innerHTML = '';
+                for (const s of (d.walkin_students || [])) {
+                    const tr = document.createElement('tr');
+                    tr.innerHTML = `<td>${s.name}</td><td>${s.id}</td><td>${s.email}</td><td style="text-align:center;">${s.application_count}</td>`;
+                    wTbody.appendChild(tr);
+                }
+                if (!d.walkin_students || d.walkin_students.length === 0) {
+                    wTbody.innerHTML = '<tr><td colspan="4" style="text-align:center; color:#94a3b8;">No walk-in candidates identified</td></tr>';
+                }
+
+                // ── Per-company breakdown table ─────────────────────────────
+                const cTbody = document.querySelector('#stats-company-table tbody');
+                cTbody.innerHTML = '';
+                for (const c of d.per_company) {
+                    const tr = document.createElement('tr');
+                    tr.innerHTML = `
+                        <td>${c.company_name}</td>
+                        <td style="text-align:center; color:#16a34a; font-weight:600;">${c.shortlisted}</td>
+                        <td style="text-align:center; color:#94a3b8;">${c.applied}</td>
+                        <td style="text-align:center;">${c.shortlisted + c.applied}</td>
+                    `;
+                    cTbody.appendChild(tr);
+                }
+            } catch(e) {
+                console.error('Failed to load statistics', e);
             }
         }
 
