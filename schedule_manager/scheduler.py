@@ -252,27 +252,67 @@ class Scheduler:
                                   for t in valid_apps[i]["valid_slots"]
                                   if t <= b < t + valid_apps[i]["slots_needed"]) <= 1)
 
-        # ── Objective: maximise weighted scheduled interviews ─────────────────
-        # Phase 2e: tiered weights for priority + status.
-        # Primary weight is scaled ×100 so the tiebreaker (slot position) never
-        # overrides the real scheduling priority.  Earlier slots are worth
-        # slightly more than later slots so all panels naturally pack forward
-        # from availability_start without an explicit sync constraint.
-        objective_terms = []
+        # ── Panel load variables ──────────────────────────────────────────────
+        # panel_load[(company_id, panel_id)] = number of interviews scheduled
+        # on that panel. Used for balance penalty in the objective.
+        panel_keys = list({(item["company"].id, item["panel_id"]) for item in valid_apps})
+        panel_load: Dict[Tuple[str, str], object] = {}
+        for key in panel_keys:
+            pload = model.NewIntVar(0, num_slots, f"load_{key[0]}_{key[1]}")
+            panel_load[key] = pload
+            terms = [
+                x[(i, t)]
+                for i, item in enumerate(valid_apps)
+                if (item["company"].id, item["panel_id"]) == key
+                for t in item["valid_slots"]
+            ]
+            model.Add(pload == sum(terms))
+
+        # ── Per-company imbalance variables ───────────────────────────────────
+        # For each company with 2+ panels, penalise (max_load - min_load).
+        # Weight: 1 000 so balance is always subordinate to scheduling one more
+        # real interview (tier-1 weight 1 000 000) but dominates slot packing
+        # (tier-3 max ~16 per interview).
+        imbalance_terms = []
+        company_panel_keys: Dict[str, list] = {}
+        for cid, pid in panel_keys:
+            company_panel_keys.setdefault(cid, []).append((cid, pid))
+
+        for cid, keys in company_panel_keys.items():
+            if len(keys) < 2:
+                continue
+            load_vars = [panel_load[k] for k in keys]
+            max_load = model.NewIntVar(0, num_slots, f"max_load_{cid}")
+            min_load = model.NewIntVar(0, num_slots, f"min_load_{cid}")
+            imbalance = model.NewIntVar(0, num_slots, f"imbalance_{cid}")
+            model.AddMaxEquality(max_load, load_vars)
+            model.AddMinEquality(min_load, load_vars)
+            model.Add(imbalance == max_load - min_load)
+            imbalance_terms.append(imbalance * 1_000)
+
+        # ── 3-tier objective ──────────────────────────────────────────────────
+        # Tier 1 (1 100 000 / 1 000 000): Maximise interviews scheduled.
+        #   SHORTLISTED > WAITLISTED so shortlisted fill first when capacity limited.
+        # Tier 2 (-1 000 × imbalance): Balance interview counts across panels of
+        #   the same company. A gap of 1 interview costs 1 000 — less than one
+        #   real interview, so balance never evicts a real candidate.
+        # Tier 3 (num_slots - t): Pack interviews as early as possible within
+        #   each panel's availability window. Max ~16 per interview — always
+        #   subordinate to balance (min 1 000 per imbalance unit).
+        tier1_terms = []
+        tier3_terms = []
         for i, item in enumerate(valid_apps):
             app = item["app"]
-            weight = 10
-            if app.status == AppStatus.SHORTLISTED:
-                weight += 20
-            if app.priority:
-                weight += max(0, 6 - app.priority)  # priority 1→+5, …, 5→+1
-            primary = weight * 100
+            t1_weight = 1_100_000 if app.status == AppStatus.SHORTLISTED else 1_000_000
             for t in item["valid_slots"]:
-                # Earlier slot  → higher tiebreaker value (slot 0 → +num_slots, last slot → +1)
-                tiebreaker = num_slots - t
-                objective_terms.append(x[(i, t)] * (primary + tiebreaker))
+                tier1_terms.append(x[(i, t)] * t1_weight)
+                tier3_terms.append(x[(i, t)] * (num_slots - t))
 
-        model.Maximize(sum(objective_terms))
+        model.Maximize(
+            sum(tier1_terms)
+            - sum(imbalance_terms)
+            + sum(tier3_terms)
+        )
 
         # ── 4. Solve ─────────────────────────────────────────────────────────
         solver = cp_model.CpSolver()
