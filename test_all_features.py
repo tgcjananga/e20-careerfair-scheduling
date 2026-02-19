@@ -484,6 +484,26 @@ class TestPhase2a_PanelIdOnInterviews(SchedulerTestBase):
         self.assertIn("co1-P1", panel_ids_used)
         self.assertIn("co1-P2", panel_ids_used)
 
+    def test_same_role_shared_across_two_panels(self):
+        """Both panels handle the same role — students should be split across both panels,
+        not all funnelled into one. This was the last-write-wins bug in panel_for_role."""
+        roles = [{"id": "co1_se", "title": "SE", "company_id": "co1", "duration_minutes": 30}]
+        panels = [
+            _make_panel("co1-P1", "Panel A", ["co1_se"]),
+            _make_panel("co1-P2", "Panel B", ["co1_se"]),
+        ]
+        co = _make_company("co1", roles=roles, panels=panels)
+        # 20 students → single panel can only hold 16 in a full day; 2 panels should fit all 20
+        students = [_make_student(f"S{i:03d}", "co1", "co1_se") for i in range(20)]
+        interviews = self._run_scheduler([co], students)
+        panel_ids_used = {iv["panel_id"] for iv in interviews}
+        # Both panels must be used
+        self.assertIn("co1-P1", panel_ids_used, "Panel A received no interviews (same-role sharing broken)")
+        self.assertIn("co1-P2", panel_ids_used, "Panel B received no interviews (same-role sharing broken)")
+        # No student may appear twice
+        student_ids = [iv["student_id"] for iv in interviews]
+        self.assertEqual(len(student_ids), len(set(student_ids)), "A student was double-booked across panels")
+
 
 # ══════════════════════════════════════════════════════════════════════════════
 # Phase 2b — Multi-slot Blocking for Variable Durations

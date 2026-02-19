@@ -389,6 +389,25 @@ class InterviewRequestHandler(http.server.SimpleHTTPRequestHandler):
                 "backups_exist": backups_exist
             }
 
+        elif parsed_path.path == '/api/company-defaults':
+            defaults_path = "schedule_manager/data/company_defaults.json"
+            if os.path.exists(defaults_path):
+                with open(defaults_path, 'r') as f:
+                    response_data = json.load(f)
+            else:
+                response_data = {
+                    "availability_start": "09:00",
+                    "availability_end": "17:00",
+                    "breaks": [],
+                    "default_panel": {
+                        "label": "Panel 1 (Default)",
+                        "slot_duration_minutes": 30,
+                        "reserved_walkin_slots": 0,
+                        "walk_in_open": False,
+                        "breaks": []
+                    }
+                }
+
         self.send_json(response_data)
 
     def handle_api_post(self):
@@ -415,6 +434,19 @@ class InterviewRequestHandler(http.server.SimpleHTTPRequestHandler):
                     response_data["companies"] = len(companies)
             except Exception as e:
                 print(f"Error importing responses: {e}")
+                response_data["status"] = "error"
+                response_data["message"] = str(e)
+
+        elif parsed_path.path == '/api/company-defaults':
+            # POST /api/company-defaults — save the template applied to new companies on CSV import
+            try:
+                content_length = int(self.headers.get('Content-Length', 0))
+                body = json.loads(self.rfile.read(content_length).decode('utf-8')) if content_length > 0 else {}
+                defaults_path = "schedule_manager/data/company_defaults.json"
+                with open(defaults_path, 'w') as f:
+                    json.dump(body, f, indent=2)
+                response_data["message"] = "Company defaults saved."
+            except Exception as e:
                 response_data["status"] = "error"
                 response_data["message"] = str(e)
 

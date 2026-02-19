@@ -41,12 +41,16 @@ class Scheduler:
             for r in c.job_roles:
                 role_map[r.id] = r
 
-        # For each (company_id, role_id): which panel handles it?
-        panel_for_role: Dict[Tuple[str, str], str] = {}
+        # For each (company_id, role_id): ALL panels that handle it (may be multiple)
+        # Changed from single-value to list so multiple panels can share a role
+        panels_for_role: Dict[Tuple[str, str], List[str]] = {}
         for c in self.companies:
             for panel in c.panels:
                 for rid in panel.job_role_ids:
-                    panel_for_role[(c.id, rid)] = panel.panel_id
+                    key = (c.id, rid)
+                    if key not in panels_for_role:
+                        panels_for_role[key] = []
+                    panels_for_role[key].append(panel.panel_id)
 
         # panel_info: (company_id, panel_id) → {duration, reserved_walkin_slots}
         panel_info: Dict[Tuple[str, str], dict] = {}
@@ -78,7 +82,12 @@ class Scheduler:
             for t in range(num_slots)
         ]
 
+        import math
         valid_apps = []
+        # app_group: tracks all valid_apps indices for the same (student, company, role)
+        # so we can add a "schedule at most once" constraint across multiple panels
+        app_group: Dict[Tuple[str, str, str], List[int]] = {}
+
         for s in self.students:
             for app in s.applications:
                 if app.status not in [AppStatus.APPLIED, AppStatus.SHORTLISTED, AppStatus.WAITLISTED]:
@@ -87,94 +96,87 @@ class Scheduler:
                     continue
                 company = company_map[app.company_id]
 
-                # Determine panel
-                pid = panel_for_role.get((company.id, app.job_role_id), 'default')
-                if pid == 'default' and company.panels:
-                    pid = company.panels[0].panel_id
-                elif pid == 'default': # If no panels defined, use a generic company-level panel_id
-                    pid = f"{company.id}-P0" # Placeholder for company-level scheduling
-
-                # Determine interview duration
-                pinfo = panel_info.get((company.id, pid))
-                if pinfo:
-                    dur = pinfo["duration"]
-                    reserved = pinfo["reserved"]
+                # Determine which panels handle this role — may be multiple
+                pid_list = panels_for_role.get((company.id, app.job_role_id))
+                if pid_list:
+                    candidate_pids = pid_list
+                elif company.panels:
+                    # Role not explicitly assigned to any panel → use first panel
+                    candidate_pids = [company.panels[0].panel_id]
                 else:
-                    role = role_map.get(app.job_role_id)
-                    dur = role.duration_minutes if role else BASE_DURATION  # Bug #G2 fix: was self.BASE_DURATION
-                    reserved = 0
+                    # No panels configured at all → synthetic placeholder
+                    candidate_pids = [f"{company.id}-P0"]
 
-                # Availability window (Phase 1c)
-                avail_start = self._hhmm_to_min(company.availability_start or "09:00")
-                avail_end   = self._hhmm_to_min(company.availability_end   or "17:00")
+                group_key = (s.id, app.company_id, app.job_role_id)
 
-                # Pre-compute which slots are valid for this application.
-                # Phase 2b: an interview of `dur` minutes occupies ceil(dur/BASE_DURATION)
-                # consecutive base slots. Slot t is valid only if ALL occupied slots fit
-                # within the availability window AND do not overlap with breaks (Phase 5).
-                import math
-                slots_needed = max(1, math.ceil(dur / BASE_DURATION))
+                for pid in candidate_pids:
+                    # Determine interview duration + reserved slots for this panel
+                    pinfo = panel_info.get((company.id, pid))
+                    if pinfo:
+                        dur = pinfo["duration"]
+                        reserved = pinfo["reserved"]
+                    else:
+                        role = role_map.get(app.job_role_id)
+                        dur = role.duration_minutes if role else BASE_DURATION
+                        reserved = 0
 
-                # --- Phase 5: Break Logic ---
-                # Determine active breaks for this panel
-                active_breaks = company.breaks # Default
-                # Find specific panel object if it exists
-                if company.panels:
-                    for p in company.panels:
-                        if p.panel_id == pid:
-                            if p.breaks: # Override if specific breaks defined
-                                active_breaks = p.breaks
-                            break
-                
-                # Convert breaks to (start_min, end_min) tuples
-                break_intervals = []
-                for b in active_breaks:
-                    try:
-                        if b.get("start") and b.get("end"):
-                            bs = self._hhmm_to_min(b["start"])
-                            be = self._hhmm_to_min(b["end"])
-                            break_intervals.append((bs, be))
-                    except: pass
+                    # Availability window (Phase 1c)
+                    avail_start = self._hhmm_to_min(company.availability_start or "09:00")
+                    avail_end   = self._hhmm_to_min(company.availability_end   or "17:00")
 
-                candidate_slots = []
-                for t in range(num_slots):
-                    # Check Availability Window
-                    if not (slot_min[t] >= avail_start and
-                            slot_min[t] + dur <= avail_end and
-                            t + slots_needed - 1 < num_slots):
+                    # Phase 2b: slots_needed = ceil(dur / BASE_DURATION)
+                    slots_needed = max(1, math.ceil(dur / BASE_DURATION))
+
+                    # Phase 5: Break logic — panel overrides company if panel has breaks
+                    active_breaks = company.breaks
+                    if company.panels:
+                        for p in company.panels:
+                            if p.panel_id == pid:
+                                if p.breaks:
+                                    active_breaks = p.breaks
+                                break
+
+                    break_intervals = []
+                    for b in active_breaks:
+                        try:
+                            if b.get("start") and b.get("end"):
+                                bs = self._hhmm_to_min(b["start"])
+                                be = self._hhmm_to_min(b["end"])
+                                break_intervals.append((bs, be))
+                        except:
+                            pass
+
+                    candidate_slots = []
+                    for t in range(num_slots):
+                        if not (slot_min[t] >= avail_start and
+                                slot_min[t] + dur <= avail_end and
+                                t + slots_needed - 1 < num_slots):
+                            continue
+                        iv_start = slot_min[t]
+                        iv_end = iv_start + dur
+                        hits_break = any(max(iv_start, bs) < min(iv_end, be)
+                                         for (bs, be) in break_intervals)
+                        if not hits_break:
+                            candidate_slots.append(t)
+
+                    if reserved > 0 and len(candidate_slots) > reserved:
+                        candidate_slots = candidate_slots[:-reserved]
+
+                    if not candidate_slots:
                         continue
-                    
-                    # Check Break Overlap
-                    # The interview occupies time [start, end)
-                    # Break is [b_start, b_end)
-                    # Overlap if max(start, b_start) < min(end, b_end)
-                    
-                    iv_start = slot_min[t]
-                    iv_end = iv_start + dur
-                    
-                    hits_break = False
-                    for (bs, be) in break_intervals:
-                        if max(iv_start, bs) < min(iv_end, be):
-                            hits_break = True
-                            break
-                    
-                    if not hits_break:
-                        candidate_slots.append(t)
-                if reserved > 0 and len(candidate_slots) > reserved:
-                    candidate_slots = candidate_slots[:-reserved]
 
-                if not candidate_slots:
-                    continue  # No valid slot for this app, skip entirely
-
-                valid_apps.append({
-                    "student": s,
-                    "app": app,
-                    "company": company,
-                    "panel_id": pid,
-                    "duration": dur,
-                    "slots_needed": slots_needed,  # Phase 2b: how many base-slots this interview occupies
-                    "valid_slots": candidate_slots,
-                })
+                    idx = len(valid_apps)
+                    valid_apps.append({
+                        "student": s,
+                        "app": app,
+                        "company": company,
+                        "panel_id": pid,
+                        "duration": dur,
+                        "slots_needed": slots_needed,
+                        "valid_slots": candidate_slots,
+                        "group_key": group_key,
+                    })
+                    app_group.setdefault(group_key, []).append(idx)
 
         print(f"  Found {len(valid_apps)} potential interviews to schedule across {num_slots} slots.")
 
@@ -188,9 +190,20 @@ class Scheduler:
             for t in item["valid_slots"]:
                 x[(i, t)] = model.NewBoolVar(f'a{i}_t{t}')
 
-        # C1: Each application scheduled at most once
+        # C1: Each valid_apps entry scheduled at most once
         for i, item in enumerate(valid_apps):
             model.Add(sum(x[(i, t)] for t in item["valid_slots"]) <= 1)
+
+        # C_GROUP: A student can only be scheduled ONCE per (company, role) across
+        # all panels that share that role. Without this, one student could be
+        # scheduled simultaneously on Panel A and Panel B for the same role.
+        for group_key, indices in app_group.items():
+            if len(indices) > 1:
+                model.Add(
+                    sum(x[(i, t)]
+                        for i in indices
+                        for t in valid_apps[i]["valid_slots"]) <= 1
+                )
 
         # C2: Student no-overlap — Phase 2b: block ALL slots occupied by the interview.
         # If app i starts at slot t and needs k slots, it occupies t, t+1, …, t+k-1.

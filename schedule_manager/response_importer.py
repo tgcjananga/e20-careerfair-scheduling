@@ -116,8 +116,68 @@ class ResponseImporter:
 
                 students.append(student)
 
+        # ── Load company defaults template ───────────────────────────────────
+        defaults = {}
+        defaults_path = self.dm.data_dir / "company_defaults.json"
+        if defaults_path.exists():
+            try:
+                import json as _json
+                with open(defaults_path) as _f:
+                    defaults = _json.load(_f)
+            except Exception:
+                defaults = {}
+
+        # ── Merge with existing company config ────────────────────────────────
+        # Priority: existing saved config > template defaults > bare dataclass defaults
+        # For NEW companies (never seen before): template defaults are applied.
+        # For EXISTING companies: their saved config is preserved in full.
+        existing_companies: Dict[str, Company] = {}
+        try:
+            for c in self.dm.load_companies():
+                existing_companies[c.id] = c
+        except Exception:
+            pass  # First import — no existing data, that's fine
+
+        final_companies = []
+        for company in companies_map.values():
+            if company.id in existing_companies:
+                # ── Existing company: preserve all manual config ──
+                existing = existing_companies[company.id]
+                company.panels             = existing.panels
+                company.breaks             = existing.breaks
+                company.availability_start = existing.availability_start
+                company.availability_end   = existing.availability_end
+                company.num_panels         = existing.num_panels
+                company.walk_in_open       = existing.walk_in_open
+                # Merge job_roles: keep existing (preserves duration_minutes),
+                # append any brand-new roles from the CSV
+                existing_role_ids = {r.id for r in existing.job_roles}
+                for new_role in company.job_roles:
+                    if new_role.id not in existing_role_ids:
+                        existing.job_roles.append(new_role)
+                company.job_roles = existing.job_roles
+            else:
+                # ── New company: apply template defaults ──
+                from schedule_manager.data_manager import Panel
+                company.availability_start = defaults.get("availability_start", "09:00")
+                company.availability_end   = defaults.get("availability_end",   "17:00")
+                company.breaks             = defaults.get("breaks", [])
+                dp = defaults.get("default_panel", {})
+                if dp:
+                    company.panels = [Panel(
+                        panel_id=f"{company.id}-P1",
+                        label=dp.get("label", "Panel 1 (Default)"),
+                        job_role_ids=[r.id for r in company.job_roles],
+                        slot_duration_minutes=dp.get("slot_duration_minutes", 30),
+                        reserved_walkin_slots=dp.get("reserved_walkin_slots", 0),
+                        walk_in_open=dp.get("walk_in_open", False),
+                        breaks=dp.get("breaks", []),
+                    )]
+                    company.num_panels = 1
+            final_companies.append(company)
+
         # Save all data
-        self.dm.save_companies(list(companies_map.values()))
+        self.dm.save_companies(final_companies)
         self.dm.save_students(students)
         
         # Clear schedule

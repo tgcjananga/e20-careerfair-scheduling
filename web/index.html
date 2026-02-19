@@ -930,6 +930,45 @@
                     Restore from Backup</button>
                 <span id="checkpoint-label" style="font-size:0.75rem; color:#94a3b8; margin-left:0.25rem;"></span>
             </div>
+            <!-- New Company Defaults card -->
+            <details id="company-defaults-panel" style="margin-bottom:1rem; border:1px solid var(--border); border-radius:0.6rem; background:#f8fafc;">
+                <summary style="padding:0.6rem 0.9rem; font-size:0.85rem; font-weight:600; cursor:pointer; color:var(--secondary); list-style:none; display:flex; align-items:center; gap:0.5rem;">
+                    ⚙ New Company Defaults
+                    <span style="font-size:0.75rem; font-weight:400; color:#94a3b8;">— applied when a company first appears in a CSV import</span>
+                </summary>
+                <div style="padding:0.75rem 1rem 1rem; display:flex; flex-wrap:wrap; gap:1rem; align-items:flex-end;">
+                    <div style="display:flex; flex-direction:column; gap:0.3rem;">
+                        <label style="font-size:0.78rem; color:var(--secondary); font-weight:600;">Interview Window</label>
+                        <div style="display:flex; align-items:center; gap:0.4rem;">
+                            <input type="time" id="def-avail-start" value="09:00" style="width:110px;" />
+                            <span style="font-size:0.8rem; color:#94a3b8;">to</span>
+                            <input type="time" id="def-avail-end" value="17:00" style="width:110px;" />
+                        </div>
+                    </div>
+                    <div style="display:flex; flex-direction:column; gap:0.3rem;">
+                        <label style="font-size:0.78rem; color:var(--secondary); font-weight:600;">Default Break</label>
+                        <div style="display:flex; align-items:center; gap:0.4rem;">
+                            <input type="time" id="def-break-start" style="width:110px;" title="Leave empty for no break" />
+                            <span style="font-size:0.8rem; color:#94a3b8;">to</span>
+                            <input type="time" id="def-break-end" style="width:110px;" title="Leave empty for no break" />
+                        </div>
+                    </div>
+                    <div style="display:flex; flex-direction:column; gap:0.3rem;">
+                        <label style="font-size:0.78rem; color:var(--secondary); font-weight:600;">Default Panel Label</label>
+                        <input type="text" id="def-panel-label" value="Panel 1 (Default)" style="width:180px;" />
+                    </div>
+                    <div style="display:flex; flex-direction:column; gap:0.3rem;">
+                        <label style="font-size:0.78rem; color:var(--secondary); font-weight:600;">Slot Duration (min)</label>
+                        <input type="number" id="def-slot-duration" value="30" min="10" max="120" step="5" style="width:80px;" />
+                    </div>
+                    <div style="display:flex; flex-direction:column; gap:0.3rem;">
+                        <label style="font-size:0.78rem; color:var(--secondary); font-weight:600;">Reserved Walk-in Slots</label>
+                        <input type="number" id="def-reserved" value="0" min="0" max="16" style="width:80px;" />
+                    </div>
+                    <button onclick="saveCompanyDefaults()" style="font-size:0.82rem; padding:0.4rem 0.9rem; background:#0f172a; color:white; border:none; border-radius:0.4rem; cursor:pointer; align-self:flex-end;">💾 Save Defaults</button>
+                </div>
+            </details>
+
             <!-- Grid view (default) -->
             <div id="admin-grid" class="admin-grid"></div>
 
@@ -1275,18 +1314,19 @@
                 // Timeline cards
                 const cardsHtml = ivs.map(iv => {
                     const company = companies_data.find(c => c.id === iv.company_id);
-                    const cName = company ? company.name.substring(0, 15) + (company.name.length > 15 ? '...' : '') : iv.company_id;
-                    const time = iv.start_time.split('T')[1].slice(0, 5);
+                    const cName = company ? company.name.substring(0, 18) + (company.name.length > 18 ? '…' : '') : iv.company_id;
+                    const timeStart = iv.start_time.split('T')[1].slice(0, 5);
+                    const timeEnd = iv.end_time.split('T')[1].slice(0, 5);
                     const cls = getStatusClass(iv);
-
-                    // Tooltip with full details
                     const roleTitle = getRoleTitle(iv.company_id, iv.job_role_id);
-                    const title = `${cName}\n${iv.start_time} - ${iv.end_time}\n${roleTitle}\n${iv.status}`;
+                    const statusLabel = (iv.status && iv.status !== 'scheduled') ? iv.status.replace('_', ' ') : '';
+                    const title = `${cName}\n${timeStart}–${timeEnd}\n${roleTitle}\n${iv.status}`;
 
                     return `<div class="t-card ${cls}" title="${title}">
-                        <div style="font-weight:bold;">${time}</div>
-                        <div>${cName}</div>
+                        <div style="font-weight:bold; font-size:0.78rem;">${timeStart}–${timeEnd}</div>
+                        <div style="white-space:nowrap; overflow:hidden; text-overflow:ellipsis; max-width:140px;">${cName}</div>
                         <div style="font-size:0.7rem; opacity:0.8;">${roleTitle}</div>
+                        ${statusLabel ? `<div style="font-size:0.65rem; font-weight:700; text-transform:uppercase; margin-top:2px;">${statusLabel}</div>` : ''}
                     </div>`;
                 }).join('');
 
@@ -1314,8 +1354,8 @@
                 if (filter && !c.name.toLowerCase().includes(filter)) return;
 
                 // Render each panel as a row
-                // If no panels, render default
-                const panels = (c.panels && c.panels.length > 0) ? c.panels : [{ panel_id: 'default', label: 'Main Panel' }];
+                // Fallback uses the real panel_id pattern the scheduler assigns ({id}-P0)
+                const panels = (c.panels && c.panels.length > 0) ? c.panels : [{ panel_id: `${c.id}-P0`, label: 'Main Panel' }];
 
                 panels.forEach((p, idx) => {
                     const tr = document.createElement('tr');
@@ -1323,19 +1363,26 @@
                     // Filter interviews for this company AND panel
                     const ivs = schedule_data.filter(i =>
                         i.company_id === c.id &&
-                        (i.panel_id === p.panel_id || (!i.panel_id && p.panel_id === 'default'))
+                        (i.panel_id === p.panel_id ||
+                         !i.panel_id ||
+                         (p.panel_id === `${c.id}-P0` && !i.panel_id))
                     ).sort((a, b) => a.start_time.localeCompare(b.start_time));
 
                     const cardsHtml = ivs.map(iv => {
                         const student = students_data.find(s => s.id === iv.student_id);
                         const sName = student ? student.name : iv.student_id;
-                        const time = iv.start_time.split('T')[1].slice(0, 5);
+                        const timeStart = iv.start_time.split('T')[1].slice(0, 5);
+                        const timeEnd = iv.end_time.split('T')[1].slice(0, 5);
                         const cls = getStatusClass(iv);
+                        const roleTitle = getRoleTitle(iv.company_id, iv.job_role_id);
+                        const statusLabel = (iv.status && iv.status !== 'scheduled') ? iv.status.replace('_', ' ') : '';
+                        const tooltip = `${sName} (${iv.student_id})\n${timeStart}–${timeEnd}\n${roleTitle}\n${iv.status}`;
 
-                        return `<div class="t-card ${cls}" title="${sName}\n${iv.status}">
-                            <div style="font-weight:bold;">${time}</div>
-                            <div>${sName}</div>
-                            <div style="font-size:0.7rem; opacity:0.8;">${iv.student_id}</div>
+                        return `<div class="t-card ${cls}" title="${tooltip}">
+                            <div style="font-weight:bold; font-size:0.78rem;">${timeStart}–${timeEnd}</div>
+                            <div style="font-weight:600; white-space:nowrap; overflow:hidden; text-overflow:ellipsis; max-width:140px;">${sName}</div>
+                            <div style="font-size:0.7rem; opacity:0.8;">${roleTitle}</div>
+                            ${statusLabel ? `<div style="font-size:0.65rem; font-weight:700; text-transform:uppercase; margin-top:2px;">${statusLabel}</div>` : ''}
                         </div>`;
                     }).join('');
 
@@ -1591,6 +1638,7 @@
                 stopLiveQueueRefresh();
                 loadAdminSummary();
                 loadCheckpointInfo();
+                loadCompanyDefaults();
                 startAdminAutoRefresh();
             } else if (tab === 'livequeue') {
                 stopAdminAutoRefresh();
@@ -1616,6 +1664,52 @@
                 renderAdminPanel();
             } catch (e) {
                 console.error('Failed to load admin summary', e);
+            }
+        }
+
+        async function loadCompanyDefaults() {
+            try {
+                const res = await fetch('/api/company-defaults');
+                const d = await res.json();
+                document.getElementById('def-avail-start').value  = d.availability_start || '09:00';
+                document.getElementById('def-avail-end').value    = d.availability_end   || '17:00';
+                const brk = (d.breaks && d.breaks.length) ? d.breaks[0] : {};
+                document.getElementById('def-break-start').value  = brk.start || '';
+                document.getElementById('def-break-end').value    = brk.end   || '';
+                const dp = d.default_panel || {};
+                document.getElementById('def-panel-label').value    = dp.label                || 'Panel 1 (Default)';
+                document.getElementById('def-slot-duration').value  = dp.slot_duration_minutes || 30;
+                document.getElementById('def-reserved').value       = dp.reserved_walkin_slots || 0;
+            } catch (e) {
+                console.error('Failed to load company defaults', e);
+            }
+        }
+
+        async function saveCompanyDefaults() {
+            const bs = document.getElementById('def-break-start').value;
+            const be = document.getElementById('def-break-end').value;
+            const payload = {
+                availability_start: document.getElementById('def-avail-start').value,
+                availability_end:   document.getElementById('def-avail-end').value,
+                breaks: (bs && be) ? [{ start: bs, end: be }] : [],
+                default_panel: {
+                    label:                  document.getElementById('def-panel-label').value.trim() || 'Panel 1 (Default)',
+                    slot_duration_minutes:  parseInt(document.getElementById('def-slot-duration').value) || 30,
+                    reserved_walkin_slots:  parseInt(document.getElementById('def-reserved').value)     || 0,
+                    walk_in_open: false,
+                    breaks: []
+                }
+            };
+            try {
+                const res = await fetch('/api/company-defaults', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify(payload)
+                });
+                const data = await res.json();
+                showToast(data.status === 'error' ? `❌ ${data.message}` : '✅ Company defaults saved');
+            } catch (e) {
+                showToast('❌ Save failed: ' + e.message);
             }
         }
 
