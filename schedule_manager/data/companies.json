@@ -1,63 +1,5 @@
 [
   {
-    "id": "adeona_technologies_private_limited",
-    "name": "Adeona Technologies (Private) Limited",
-    "job_roles": [
-      {
-        "id": "adeona_technologies_private_limited_mobile_app_developers",
-        "title": "Mobile App Developers",
-        "company_id": "adeona_technologies_private_limited",
-        "duration_minutes": 30
-      },
-      {
-        "id": "adeona_technologies_private_limited_backend_dev",
-        "title": "Backend Dev",
-        "company_id": "adeona_technologies_private_limited",
-        "duration_minutes": 30
-      },
-      {
-        "id": "adeona_technologies_private_limited_aiml",
-        "title": "AI/ML",
-        "company_id": "adeona_technologies_private_limited",
-        "duration_minutes": 30
-      },
-      {
-        "id": "adeona_technologies_private_limited_software_engineer",
-        "title": "Software Engineer",
-        "company_id": "adeona_technologies_private_limited",
-        "duration_minutes": 30
-      },
-      {
-        "id": "adeona_technologies_private_limited_frontend_dev",
-        "title": "Frontend Dev",
-        "company_id": "adeona_technologies_private_limited",
-        "duration_minutes": 30
-      }
-    ],
-    "panels": [
-      {
-        "panel_id": "adeona_technologies_private_limited-P1",
-        "label": "Panel 1 (Default)",
-        "job_role_ids": [
-          "adeona_technologies_private_limited_mobile_app_developers",
-          "adeona_technologies_private_limited_backend_dev",
-          "adeona_technologies_private_limited_aiml",
-          "adeona_technologies_private_limited_software_engineer",
-          "adeona_technologies_private_limited_frontend_dev"
-        ],
-        "slot_duration_minutes": 30,
-        "walk_in_open": false,
-        "reserved_walkin_slots": 0,
-        "breaks": []
-      }
-    ],
-    "availability_start": "09:00",
-    "availability_end": "17:00",
-    "breaks": [],
-    "num_panels": 1,
-    "walk_in_open": false
-  },
-  {
     "id": "avtrasoft_lanka_pvt_ltd",
     "name": "Avtrasoft Lanka (Pvt) Ltd",
     "job_roles": [
@@ -170,6 +112,12 @@
         "title": "Software Engineer",
         "company_id": "enactor",
         "duration_minutes": 30
+      },
+      {
+        "id": "enactor_react__java_intern",
+        "title": "React & Java Intern.",
+        "company_id": "enactor",
+        "duration_minutes": 30
       }
     ],
     "panels": [
@@ -192,12 +140,55 @@
     "walk_in_open": false
   },
   {
+    "id": "codegen_international",
+    "name": "CodeGen International",
+    "job_roles": [
+      {
+        "id": "codegen_international_software_engineer",
+        "title": "Software Engineer.",
+        "company_id": "codegen_international",
+        "duration_minutes": 30
+      },
+      {
+        "id": "codegen_international_fullstack",
+        "title": "Fullstack",
+        "company_id": "codegen_international",
+        "duration_minutes": 30
+      }
+    ],
+    "panels": [
+      {
+        "panel_id": "codegen_international-P1",
+        "label": "Panel 1 (Default)",
+        "job_role_ids": [
+          "codegen_international_software_engineer",
+          "codegen_international_fullstack"
+        ],
+        "slot_duration_minutes": 30,
+        "walk_in_open": false,
+        "reserved_walkin_slots": 0,
+        "breaks": []
+      }
+    ],
+    "availability_start": "09:00",
+    "availability_end": "17:00",
+    "breaks": [],
+    "num_panels": 1,
+    "walk_in_open": false
+  },
+  {
     "id": "sysco_labs_technologies_pvt_ltd",
     "name": "Sysco LABS Technologies (Pvt) Ltd",
     "job_roles": [
       {
         "id": "sysco_labs_technologies_pvt_ltd_software_engineer",
         "title": "Software Engineer",
+        "company_id": "sysco_labs_technologies_pvt_ltd",
+        "duration_minutes": 30
+      },
+      {
+        "id": "sysco_labs_technologies_pvt_ltd_quality_assurance",
+        "title": "Quality Assurance",
         "company_id": "sysco_labs_technologies_pvt_ltd",
         "duration_minutes": 30
       }
@@ -407,6 +398,36 @@
     "walk_in_open": false
   },
   {
+    "id": "wso2",
+    "name": "WSO2",
+    "job_roles": [
+      {
+        "id": "wso2_sre",
+        "title": "SRE",
+        "company_id": "wso2",
+        "duration_minutes": 30
+      }
+    ],
+    "panels": [
+      {
+        "panel_id": "wso2-P1",
+        "label": "Panel 1 (Default)",
+        "job_role_ids": [
+          "wso2_sre"
+        ],
+        "slot_duration_minutes": 30,
+        "walk_in_open": false,
+        "reserved_walkin_slots": 0,
+        "breaks": []
+      }
+    ],
+    "availability_start": "09:00",
+    "availability_end": "17:00",
+    "breaks": [],
+    "num_panels": 1,
+    "walk_in_open": false
+  },
+  {
     "id": "thomson_reuters",
     "name": "Thomson Reuters",
     "job_roles": [
@@ -437,43 +458,22 @@
     "walk_in_open": false
   },
   {
-    "id": "villvay_systems_pvt_ltd",
-    "name": "Villvay Systems Pvt Ltd.",
+    "id": "sysco_labs",
+    "name": "Sysco LABS",
     "job_roles": [
       {
-        "id": "villvay_systems_pvt_ltd_machine_learning_data_engineeringai",
-        "title": "Machine Learning/ Data Engineering/AI",
-        "company_id": "villvay_systems_pvt_ltd",
-        "duration_minutes": 30
-      },
-      {
-        "id": "villvay_systems_pvt_ltd_machine_learning",
-        "title": "Machine learning",
-        "company_id": "villvay_systems_pvt_ltd",
-        "duration_minutes": 30
-      },
-      {
-        "id": "villvay_systems_pvt_ltd_ai_engineering",
-        "title": "AI Engineering",
-        "company_id": "villvay_systems_pvt_ltd",
-        "duration_minutes": 30
-      },
-      {
-        "id": "villvay_systems_pvt_ltd_aiml",
-        "title": "AI/ML",
-        "company_id": "villvay_systems_pvt_ltd",
+        "id": "sysco_labs_qa",
+        "title": "QA",
+        "company_id": "sysco_labs",
         "duration_minutes": 30
       }
     ],
     "panels": [
       {
-        "panel_id": "villvay_systems_pvt_ltd-P1",
+        "panel_id": "sysco_labs-P1",
         "label": "Panel 1 (Default)",
         "job_role_ids": [
-          "villvay_systems_pvt_ltd_machine_learning_data_engineeringai",
-          "villvay_systems_pvt_ltd_machine_learning",
-          "villvay_systems_pvt_ltd_ai_engineering",
-          "villvay_systems_pvt_ltd_aiml"
+          "sysco_labs_qa"
         ],
         "slot_duration_minutes": 30,
         "walk_in_open": false,
@@ -511,6 +511,66 @@
         "job_role_ids": [
           "rhino_partners_pte_ltd_data_science",
           "rhino_partners_pte_ltd_ai_engineering"
+        ],
+        "slot_duration_minutes": 30,
+        "walk_in_open": false,
+        "reserved_walkin_slots": 0,
+        "breaks": []
+      }
+    ],
+    "availability_start": "09:00",
+    "availability_end": "17:00",
+    "breaks": [],
+    "num_panels": 1,
+    "walk_in_open": false
+  },
+  {
+    "id": "gtn",
+    "name": "GTN",
+    "job_roles": [
+      {
+        "id": "gtn_cyber",
+        "title": "Cyber",
+        "company_id": "gtn",
+        "duration_minutes": 30
+      }
+    ],
+    "panels": [
+      {
+        "panel_id": "gtn-P1",
+        "label": "Panel 1 (Default)",
+        "job_role_ids": [
+          "gtn_cyber"
+        ],
+        "slot_duration_minutes": 30,
+        "walk_in_open": false,
+        "reserved_walkin_slots": 0,
+        "breaks": []
+      }
+    ],
+    "availability_start": "09:00",
+    "availability_end": "17:00",
+    "breaks": [],
+    "num_panels": 1,
+    "walk_in_open": false
+  },
+  {
+    "id": "directfn",
+    "name": "DirectFN",
+    "job_roles": [
+      {
+        "id": "directfn_qe",
+        "title": "QE",
+        "company_id": "directfn",
+        "duration_minutes": 30
+      }
+    ],
+    "panels": [
+      {
+        "panel_id": "directfn-P1",
+        "label": "Panel 1 (Default)",
+        "job_role_ids": [
+          "directfn_qe"
         ],
         "slot_duration_minutes": 30,
         "walk_in_open": false,
@@ -576,6 +636,36 @@
           "octave_data_engineering",
           "octave_ai_engineeringfullstack",
           "octave_aiml"
+        ],
+        "slot_duration_minutes": 30,
+        "walk_in_open": false,
+        "reserved_walkin_slots": 0,
+        "breaks": []
+      }
+    ],
+    "availability_start": "09:00",
+    "availability_end": "17:00",
+    "breaks": [],
+    "num_panels": 1,
+    "walk_in_open": false
+  },
+  {
+    "id": "0",
+    "name": "0",
+    "job_roles": [
+      {
+        "id": "0_",
+        "title": "",
+        "company_id": "0",
+        "duration_minutes": 30
+      }
+    ],
+    "panels": [
+      {
+        "panel_id": "0-P1",
+        "label": "Panel 1 (Default)",
+        "job_role_ids": [
+          "0_"
         ],
         "slot_duration_minutes": 30,
         "walk_in_open": false,
