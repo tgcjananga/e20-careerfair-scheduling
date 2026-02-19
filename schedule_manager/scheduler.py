@@ -1,5 +1,5 @@
 from datetime import datetime, timedelta
-from typing import List, Dict, Set, Tuple, Optional
+from typing import List, Dict, Tuple, Optional
 import sys
 
 # Try importing OR-Tools
@@ -11,26 +11,18 @@ except ImportError:
 
 from schedule_manager.data_manager import DataManager, Student, Company, Application, Interview, AppStatus
 
+
 class Scheduler:
     def __init__(self, data_manager: DataManager):
         self.dm = data_manager
         self.students = self.dm.load_students()
         self.companies = self.dm.load_companies()
         self.interviews: List[Interview] = []
-        
-        # Maps to track availability (if we were preserving state, but optimization usually rebuilds)
-        # For this implementation, we assume run() builds from scratch for the given day
-        
-    def generate_slots(self, date_str: str, start_hour: int = 9, end_hour: int = 17, duration_minutes: int = 30) -> List[datetime]:
-        """Generates a list of start times for a given day."""
-        slots = []
-        current = datetime.strptime(f"{date_str} {start_hour}:00", "%Y-%m-%d %H:%M")
-        end_time = datetime.strptime(f"{date_str} {end_hour}:00", "%Y-%m-%d %H:%M")
-        
-        while current < end_time:
-            slots.append(current)
-            current += timedelta(minutes=duration_minutes)
-        return slots
+
+    def _hhmm_to_min(self, t: str) -> int:
+        """'HH:MM' → minutes since midnight."""
+        h, m = map(int, t.split(':'))
+        return h * 60 + m
 
     def run(self, event_date: str = "2026-02-20") -> List[Interview]:
         if not ORTOOLS_AVAILABLE:
@@ -38,132 +30,211 @@ class Scheduler:
             return []
 
         print(f"Starting OR-Tools optimization for {event_date}...")
-        
-        # 1. Prepare Data
-        slots = self.generate_slots(event_date)
-        num_slots = len(slots)
-        
-        # Flatten applications to schedule
-        # List of (Student, Application, Company)
+
+        # ── 1. Prepare lookup tables ─────────────────────────────────────────
+
+        company_map: Dict[str, Company] = {c.id: c for c in self.companies}
+
+        # role_map: role_id → JobRole
+        role_map = {}
+        for c in self.companies:
+            for r in c.job_roles:
+                role_map[r.id] = r
+
+        # For each (company_id, role_id): which panel handles it?
+        panel_for_role: Dict[Tuple[str, str], str] = {}
+        for c in self.companies:
+            for panel in c.panels:
+                for rid in panel.job_role_ids:
+                    panel_for_role[(c.id, rid)] = panel.panel_id
+
+        # panel_info: (company_id, panel_id) → {duration, reserved_walkin_slots}
+        panel_info: Dict[Tuple[str, str], dict] = {}
+        for c in self.companies:
+            for panel in c.panels:
+                panel_info[(c.id, panel.panel_id)] = {
+                    "duration": panel.slot_duration_minutes or 30,
+                    "reserved": panel.reserved_walkin_slots or 0,
+                }
+
+        # ── 2. Build application list with metadata ──────────────────────────
+
+        # Base slot duration: 30 min (fixed grid — keeps model size manageable)
+        BASE_DURATION = 30
+        DAY_START = 9 * 60    # 09:00 in minutes
+        DAY_END   = 17 * 60   # 17:00 in minutes
+        num_slots = (DAY_END - DAY_START) // BASE_DURATION  # 16 slots
+
+        # slot_min[t] = start minute of slot t (e.g. 0→540, 1→570, …, 15→1020)
+        slot_min = [DAY_START + t * BASE_DURATION for t in range(num_slots)]
+
+        # slot_start[t] = actual datetime for slot t
+        day_dt = datetime.strptime(event_date, "%Y-%m-%d")
+        slot_start_dt = [day_dt + timedelta(minutes=m - DAY_START + DAY_START)
+                         for m in slot_min]
+        # Simpler: just compute from event_date
+        slot_start_dt = [
+            datetime.strptime(f"{event_date} 09:00", "%Y-%m-%d %H:%M") + timedelta(minutes=t * BASE_DURATION)
+            for t in range(num_slots)
+        ]
+
         valid_apps = []
-        
-        # For lookup
-        company_map = {c.id: c for c in self.companies}
-        
         for s in self.students:
             for app in s.applications:
-                # We consider APPLIED, SHORTLISTED, and WAITLISTED for optimization
-                # (Assuming we want to schedule as many as possible given constraints)
-                if app.status in [AppStatus.APPLIED, AppStatus.SHORTLISTED, AppStatus.WAITLISTED]:
-                    valid_apps.append({
-                        "student": s,
-                        "app": app,
-                        "company": company_map[app.company_id]
-                    })
+                if app.status not in [AppStatus.APPLIED, AppStatus.SHORTLISTED, AppStatus.WAITLISTED]:
+                    continue
+                if app.company_id not in company_map:
+                    continue
+                company = company_map[app.company_id]
+
+                # Determine panel
+                pid = panel_for_role.get((company.id, app.job_role_id), 'default')
+                if pid == 'default' and company.panels:
+                    pid = company.panels[0].panel_id
+
+                # Determine interview duration
+                pinfo = panel_info.get((company.id, pid))
+                if pinfo:
+                    dur = pinfo["duration"]
+                    reserved = pinfo["reserved"]
+                else:
+                    role = role_map.get(app.job_role_id)
+                    dur = role.duration_minutes if role else BASE_DURATION
+                    reserved = 0
+
+                # Availability window (Phase 1c)
+                avail_start = self._hhmm_to_min(company.availability_start or "09:00")
+                avail_end   = self._hhmm_to_min(company.availability_end   or "17:00")
+
+                # Pre-compute which slots are valid for this application.
+                # Phase 2b: an interview of `dur` minutes occupies ceil(dur/BASE_DURATION)
+                # consecutive base slots. Slot t is valid only if ALL occupied slots fit
+                # within the availability window.
+                import math
+                slots_needed = max(1, math.ceil(dur / BASE_DURATION))
+
+                candidate_slots = [
+                    t for t in range(num_slots)
+                    if (slot_min[t] >= avail_start and
+                        slot_min[t] + dur <= avail_end and
+                        t + slots_needed - 1 < num_slots)  # all slots must exist
+                ]
+                if reserved > 0 and len(candidate_slots) > reserved:
+                    candidate_slots = candidate_slots[:-reserved]
+
+                if not candidate_slots:
+                    continue  # No valid slot for this app, skip entirely
+
+                valid_apps.append({
+                    "student": s,
+                    "app": app,
+                    "company": company,
+                    "panel_id": pid,
+                    "duration": dur,
+                    "slots_needed": slots_needed,  # Phase 2b: how many base-slots this interview occupies
+                    "valid_slots": candidate_slots,
+                })
 
         print(f"  Found {len(valid_apps)} potential interviews to schedule across {num_slots} slots.")
 
-        # 2. Build Model
+        # ── 3. Build OR-Tools model ──────────────────────────────────────────
+
         model = cp_model.CpModel()
-        
-        # Variables: x[app_index, slot_index]
-        # 1 if valid_apps[i] is scheduled at slot[j], 0 otherwise
-        x = {}
-        
-        for i, item in enumerate(valid_apps):
-            for t in range(num_slots):
-                x[(i, t)] = model.NewBoolVar(f'app_{i}_slot_{t}')
 
-        # Constraints
-        
+        # Variables: only create x[(i, t)] for valid start slots of app i
+        x: Dict[Tuple[int, int], object] = {}
+        for i, item in enumerate(valid_apps):
+            for t in item["valid_slots"]:
+                x[(i, t)] = model.NewBoolVar(f'a{i}_t{t}')
+
         # C1: Each application scheduled at most once
-        for i in range(len(valid_apps)):
-            model.Add(sum(x[(i, t)] for t in range(num_slots)) <= 1)
-            
-        # C2: Student can have at most 1 interview per slot
-        # Group apps by student
-        apps_by_student = {}
         for i, item in enumerate(valid_apps):
-            s_id = item["student"].id
-            if s_id not in apps_by_student: apps_by_student[s_id] = []
-            apps_by_student[s_id].append(i)
-            
-        for s_id, app_indices in apps_by_student.items():
-            for t in range(num_slots):
-                model.Add(sum(x[(i, t)] for i in app_indices) <= 1)
+            model.Add(sum(x[(i, t)] for t in item["valid_slots"]) <= 1)
 
-        # C3: Company can have at most 1 interview per slot (Assuming 1 panel per company for now)
-        # If companies have multiple roles/panels, we might handle this differently, 
-        # but safe assumption is 1 slot = 1 interview for the company entity.
-        apps_by_company = {}
+        # C2: Student no-overlap — Phase 2b: block ALL slots occupied by the interview.
+        # If app i starts at slot t and needs k slots, it occupies t, t+1, …, t+k-1.
+        # For each base slot b, sum over all apps whose interval covers b must be ≤ 1.
+        student_slot_apps: Dict[str, Dict[int, List[int]]] = {}
         for i, item in enumerate(valid_apps):
-            c_id = item["company"].id
-            if c_id not in apps_by_company: apps_by_company[c_id] = []
-            apps_by_company[c_id].append(i)
-            
-        for c_id, app_indices in apps_by_company.items():
-            for t in range(num_slots):
-                model.Add(sum(x[(i, t)] for i in app_indices) <= 1)
+            sid = item["student"].id
+            sn  = item["slots_needed"]
+            if sid not in student_slot_apps:
+                student_slot_apps[sid] = {}
+            for t in item["valid_slots"]:
+                # This app starting at t occupies base slots t … t+sn-1
+                for b in range(t, t + sn):
+                    if b < num_slots:
+                        student_slot_apps[sid].setdefault(b, []).append(i)
 
-        # Objective: Maximize total scheduled interviews
-        # Weighting:
-        # - Shortlisted apps could have higher weight?
-        # - Earlier slots could have tiny positive weight to compact schedule?
-        
+        for sid, slot_dict in student_slot_apps.items():
+            for b, indices in slot_dict.items():
+                if len(indices) > 1:
+                    model.Add(sum(x[(i, t)]
+                                  for i in indices
+                                  for t in valid_apps[i]["valid_slots"]
+                                  if t <= b < t + valid_apps[i]["slots_needed"]) <= 1)
+
+        # C3: Per-panel no-overlap — Phase 2b: same multi-slot blocking logic
+        panel_slot_apps: Dict[Tuple[str, str], Dict[int, List[int]]] = {}
+        for i, item in enumerate(valid_apps):
+            key = (item["company"].id, item["panel_id"])
+            sn  = item["slots_needed"]
+            if key not in panel_slot_apps:
+                panel_slot_apps[key] = {}
+            for t in item["valid_slots"]:
+                for b in range(t, t + sn):
+                    if b < num_slots:
+                        panel_slot_apps[key].setdefault(b, []).append(i)
+
+        for key, slot_dict in panel_slot_apps.items():
+            for b, indices in slot_dict.items():
+                if len(indices) > 1:
+                    model.Add(sum(x[(i, t)]
+                                  for i in indices
+                                  for t in valid_apps[i]["valid_slots"]
+                                  if t <= b < t + valid_apps[i]["slots_needed"]) <= 1)
+
+        # ── Objective: maximise weighted scheduled interviews ─────────────────
+        # Phase 2e: tiered weights for priority + status
         objective_terms = []
         for i, item in enumerate(valid_apps):
             app = item["app"]
-            
-            # Base weight
             weight = 10
-            
-            # Boost for Shortlisted
             if app.status == AppStatus.SHORTLISTED:
                 weight += 20
-            
-            # Boost for Priority (if it exists, lower is better. 1=High)
             if app.priority:
-                # 1->5, 2->4, 3->3, etc.
-                weight += (6 - app.priority)
-            
-            for t in range(num_slots):
+                weight += max(0, 6 - app.priority)  # priority 1→+5, …, 5→+1
+            for t in item["valid_slots"]:
                 objective_terms.append(x[(i, t)] * weight)
 
         model.Maximize(sum(objective_terms))
 
-        # 3. Solve
+        # ── 4. Solve ─────────────────────────────────────────────────────────
         solver = cp_model.CpSolver()
-        # solver.parameters.log_search_progress = True
+        solver.parameters.max_time_in_seconds = 60.0  # safety cap
         status = solver.Solve(model)
-
         print(f"  Solver Status: {solver.StatusName(status)}")
-        
+
         self.interviews = []
 
-        if status == cp_model.OPTIMAL or status == cp_model.FEASIBLE:
+        if status in (cp_model.OPTIMAL, cp_model.FEASIBLE):
             count = 0
             for i, item in enumerate(valid_apps):
-                for t in range(num_slots):
-                    if solver.BooleanValue(x[(i, t)]):
-                        # Scheduled!
-                        slot_start = slots[t]
-                        slot_end = slot_start + timedelta(minutes=30)
-                        
-                        student = item["student"]
-                        company = item["company"]
-                        app = item["app"]
-                        
+                for t in item["valid_slots"]:
+                    if (i, t) in x and solver.BooleanValue(x[(i, t)]):
+                        start_dt = slot_start_dt[t]
+                        end_dt   = start_dt + timedelta(minutes=item["duration"])
                         interview = Interview(
-                            id=f"INT-{count+1}",
-                            student_id=student.id,
-                            company_id=company.id,
-                            job_role_id=app.job_role_id,
-                            start_time=slot_start.isoformat(),
-                            end_time=slot_end.isoformat()
+                            id=f"INT-{count + 1}",
+                            student_id=item["student"].id,
+                            company_id=item["company"].id,
+                            job_role_id=item["app"].job_role_id,
+                            panel_id=item["panel_id"],       # Phase 2a
+                            start_time=start_dt.isoformat(),
+                            end_time=end_dt.isoformat(),
                         )
                         self.interviews.append(interview)
                         count += 1
-                        
             print(f"  Optimization found {count} interviews.")
             print(f"  Objective Value: {solver.ObjectiveValue()}")
         else:
@@ -171,15 +242,11 @@ class Scheduler:
 
         return self.interviews
 
+
 if __name__ == "__main__":
-    from schedule_manager.data_manager import DataManager
     import os
-    
-    # Ensure we are in the project root context for imports
-    # If running from inside schedule_manager, add parent to path
     if os.path.basename(os.getcwd()) == "schedule_manager":
         sys.path.append(os.path.abspath(os.path.join(os.getcwd(), "..")))
-    
     print("Running Scheduler Standalone...")
     dm = DataManager()
     scheduler = Scheduler(dm)

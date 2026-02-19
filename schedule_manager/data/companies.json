@@ -9,7 +9,12 @@
         "company_id": "sysco_labs_technologies_pvt_ltd",
         "duration_minutes": 30
       }
-    ]
+    ],
+    "panels": [],
+    "availability_start": "09:00",
+    "availability_end": "17:00",
+    "num_panels": 1,
+    "walk_in_open": false
   },
   {
     "id": "d_f_n_technology_pvt_ltd",
@@ -27,7 +32,24 @@
         "company_id": "d_f_n_technology_pvt_ltd",
         "duration_minutes": 30
       }
-    ]
+    ],
+    "panels": [
+      {
+        "panel_id": "d_f_n_technology_pvt_ltd-P1",
+        "label": "Panel 1 (Default)",
+        "job_role_ids": [
+          "d_f_n_technology_pvt_ltd_software_engineer",
+          "d_f_n_technology_pvt_ltd_quality_assurance"
+        ],
+        "slot_duration_minutes": 30,
+        "walk_in_open": false,
+        "reserved_walkin_slots": 0
+      }
+    ],
+    "availability_start": "09:00",
+    "availability_end": "17:00",
+    "num_panels": 1,
+    "walk_in_open": false
   },
   {
     "id": "thomson_reuters",
@@ -39,7 +61,12 @@
         "company_id": "thomson_reuters",
         "duration_minutes": 30
       }
-    ]
+    ],
+    "panels": [],
+    "availability_start": "09:00",
+    "availability_end": "17:00",
+    "num_panels": 1,
+    "walk_in_open": false
   },
   {
     "id": "avtrasoft_lanka_pvt_ltd",
@@ -63,7 +90,12 @@
         "company_id": "avtrasoft_lanka_pvt_ltd",
         "duration_minutes": 30
       }
-    ]
+    ],
+    "panels": [],
+    "availability_start": "09:00",
+    "availability_end": "17:00",
+    "num_panels": 1,
+    "walk_in_open": false
   },
   {
     "id": "adeona_technologies_private_limited",
@@ -99,7 +131,12 @@
         "company_id": "adeona_technologies_private_limited",
         "duration_minutes": 30
       }
-    ]
+    ],
+    "panels": [],
+    "availability_start": "09:00",
+    "availability_end": "17:00",
+    "num_panels": 1,
+    "walk_in_open": false
   },
   {
     "id": "gtn_tech",
@@ -117,7 +154,12 @@
         "company_id": "gtn_tech",
         "duration_minutes": 30
       }
-    ]
+    ],
+    "panels": [],
+    "availability_start": "09:00",
+    "availability_end": "17:00",
+    "num_panels": 1,
+    "walk_in_open": false
   },
   {
     "id": "enactor",
@@ -129,7 +171,12 @@
         "company_id": "enactor",
         "duration_minutes": 30
       }
-    ]
+    ],
+    "panels": [],
+    "availability_start": "09:00",
+    "availability_end": "17:00",
+    "num_panels": 1,
+    "walk_in_open": false
   },
   {
     "id": "axiata_digital_labs",
@@ -141,7 +188,12 @@
         "company_id": "axiata_digital_labs",
         "duration_minutes": 30
       }
-    ]
+    ],
+    "panels": [],
+    "availability_start": "09:00",
+    "availability_end": "17:00",
+    "num_panels": 1,
+    "walk_in_open": false
   },
   {
     "id": "wso2_lanka_pvt_ltd",
@@ -165,7 +217,12 @@
         "company_id": "wso2_lanka_pvt_ltd",
         "duration_minutes": 30
       }
-    ]
+    ],
+    "panels": [],
+    "availability_start": "09:00",
+    "availability_end": "17:00",
+    "num_panels": 1,
+    "walk_in_open": false
   },
   {
     "id": "octave",
@@ -207,7 +264,12 @@
         "company_id": "octave",
         "duration_minutes": 30
       }
-    ]
+    ],
+    "panels": [],
+    "availability_start": "09:00",
+    "availability_end": "17:00",
+    "num_panels": 1,
+    "walk_in_open": false
   },
   {
     "id": "villvay_systems_pvt_ltd",
@@ -237,7 +299,12 @@
         "company_id": "villvay_systems_pvt_ltd",
         "duration_minutes": 30
       }
-    ]
+    ],
+    "panels": [],
+    "availability_start": "09:00",
+    "availability_end": "17:00",
+    "num_panels": 1,
+    "walk_in_open": false
   },
   {
     "id": "rhino_partners_pte_ltd",
@@ -255,7 +322,12 @@
         "company_id": "rhino_partners_pte_ltd",
         "duration_minutes": 30
       }
-    ]
+    ],
+    "panels": [],
+    "availability_start": "09:00",
+    "availability_end": "17:00",
+    "num_panels": 1,
+    "walk_in_open": false
   },
   {
     "id": "cutdry_inc",
@@ -273,7 +345,12 @@
         "company_id": "cutdry_inc",
         "duration_minutes": 30
       }
-    ]
+    ],
+    "panels": [],
+    "availability_start": "09:00",
+    "availability_end": "17:00",
+    "num_panels": 1,
+    "walk_in_open": false
   },
   {
     "id": "creative_software",
@@ -285,7 +362,12 @@
         "company_id": "creative_software",
         "duration_minutes": 30
       }
-    ]
+    ],
+    "panels": [],
+    "availability_start": "09:00",
+    "availability_end": "17:00",
+    "num_panels": 1,
+    "walk_in_open": false
   },
   {
     "id": "wia_systems_inc",
@@ -297,6 +379,11 @@
         "company_id": "wia_systems_inc",
         "duration_minutes": 30
       }
-    ]
+    ],
+    "panels": [],
+    "availability_start": "09:00",
+    "availability_end": "17:00",
+    "num_panels": 1,
+    "walk_in_open": false
   }
 ]

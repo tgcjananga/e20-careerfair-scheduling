@@ -162,6 +162,47 @@
             color: #991b1b;
         }
 
+        .badge-inprogress {
+            background: #dbeafe;
+            color: #1e40af;
+        }
+
+        .badge-completed {
+            background: #f1f5f9;
+            color: #475569;
+            text-decoration: line-through;
+        }
+
+        .badge-cancelled {
+            background: #fef2f2;
+            color: #991b1b;
+        }
+
+        .btn-action-row {
+            display: flex;
+            gap: 0.5rem;
+            margin-top: 0.3rem;
+        }
+
+        .btn-sm {
+            font-size: 0.75rem;
+            padding: 0.2rem 0.5rem;
+            border-radius: 0.3rem;
+            border: none;
+            cursor: pointer;
+        }
+
+        .btn-complete {
+            background: #16a34a;
+            color: white;
+        }
+
+        .btn-cancel {
+            background: #fee2e2;
+            color: #991b1b;
+            border: 1px solid #fca5a5;
+        }
+
         #loading {
             position: fixed;
             top: 1rem;
@@ -171,8 +212,437 @@
             border-radius: 0.5rem;
             display: none;
         }
+
+        /* Admin Panel */
+        .admin-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(340px, 1fr));
+            gap: 1.25rem;
+        }
+
+        .admin-card {
+            background: var(--surface);
+            border: 1px solid var(--border);
+            border-radius: 0.75rem;
+            padding: 1.25rem;
+            display: flex;
+            flex-direction: column;
+            gap: 0.75rem;
+            box-shadow: 0 1px 4px rgba(0, 0, 0, 0.06);
+        }
+
+        .admin-card-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+        }
+
+        .admin-card h3 {
+            margin: 0;
+            font-size: 1rem;
+            color: var(--primary);
+        }
+
+        .admin-card small {
+            color: #94a3b8;
+            font-size: 0.75rem;
+        }
+
+        .walkin-badge {
+            display: inline-block;
+            padding: 0.2rem 0.6rem;
+            border-radius: 999px;
+            font-size: 0.75rem;
+            font-weight: 600;
+            white-space: nowrap;
+        }
+
+        .walkin-open {
+            background: #dcfce7;
+            color: #166534;
+        }
+
+        .walkin-closed {
+            background: #fee2e2;
+            color: #991b1b;
+        }
+
+        .admin-meta {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 0.4rem 1rem;
+            font-size: 0.85rem;
+            color: #475569;
+        }
+
+        .admin-meta span {
+            font-weight: 600;
+            color: #1e293b;
+        }
+
+        .positions-list {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.35rem;
+        }
+
+        .pos-badge {
+            background: #eff6ff;
+            color: #1d4ed8;
+            padding: 0.2rem 0.55rem;
+            border-radius: 999px;
+            font-size: 0.72rem;
+            font-weight: 500;
+        }
+
+        .admin-card-footer {
+            display: flex;
+            justify-content: flex-end;
+        }
+
+        /* Make admin cards clickable */
+        .admin-card {
+            cursor: pointer;
+            transition: box-shadow 0.15s, transform 0.1s;
+        }
+
+        .admin-card:hover {
+            box-shadow: 0 4px 16px rgba(0, 0, 0, 0.12);
+            transform: translateY(-2px);
+        }
+
+        /* ─── Live Queue View ─────────────────────────────────────── */
+        #view-livequeue {
+            display: none;
+        }
+
+        .lq-header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            margin-bottom: 1.25rem;
+        }
+
+        .lq-header h2 {
+            margin: 0;
+            font-size: 1.15rem;
+        }
+
+        .lq-refresh-info {
+            font-size: 0.8rem;
+            color: var(--secondary);
+        }
+
+        .lq-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(340px, 1fr));
+            gap: 1.25rem;
+        }
+
+        .lq-company-card {
+            background: var(--surface);
+            border: 1px solid var(--border);
+            border-radius: 0.85rem;
+            overflow: hidden;
+        }
+
+        .lq-company-header {
+            background: var(--primary);
+            color: white;
+            padding: 0.75rem 1rem;
+            font-weight: 700;
+            font-size: 0.9rem;
+        }
+
+        .lq-panel-block {
+            padding: 0.75rem 1rem;
+            border-bottom: 1px solid var(--border);
+        }
+
+        .lq-panel-block:last-child {
+            border-bottom: none;
+        }
+
+        .lq-panel-label {
+            font-size: 0.75rem;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 0.06em;
+            color: var(--secondary);
+            margin-bottom: 0.5rem;
+        }
+
+        .lq-row {
+            display: flex;
+            align-items: flex-start;
+            gap: 0.75rem;
+            padding: 0.5rem 0.6rem;
+            border-radius: 0.5rem;
+            margin-bottom: 0.35rem;
+            border-left: 4px solid transparent;
+        }
+
+        .lq-row.lq-current {
+            background: #f0fdf4;
+            border-left-color: #22c55e;
+        }
+
+        .lq-row.lq-next1 {
+            background: #eff6ff;
+            border-left-color: #3b82f6;
+        }
+
+        .lq-row.lq-next2 {
+            background: #f8fafc;
+            border-left-color: #94a3b8;
+        }
+
+        .lq-badge {
+            font-size: 0.7rem;
+            font-weight: 700;
+            padding: 0.15rem 0.45rem;
+            border-radius: 0.3rem;
+            white-space: nowrap;
+            min-width: 52px;
+            text-align: center;
+        }
+
+        .lq-badge.now {
+            background: #dcfce7;
+            color: #15803d;
+        }
+
+        .lq-badge.next {
+            background: #dbeafe;
+            color: #1d4ed8;
+        }
+
+        .lq-badge.after {
+            background: #e2e8f0;
+            color: #475569;
+        }
+
+        .lq-student-name {
+            font-weight: 600;
+            font-size: 0.88rem;
+            line-height: 1.2;
+        }
+
+        .lq-student-reg {
+            font-size: 0.78rem;
+            color: var(--secondary);
+            font-family: monospace;
+        }
+
+        .lq-time {
+            font-size: 0.75rem;
+            color: var(--secondary);
+            margin-top: 0.1rem;
+        }
+
+        .lq-empty {
+            font-size: 0.82rem;
+            color: #94a3b8;
+            font-style: italic;
+            padding: 0.3rem 0;
+        }
+
+        /* Company Detail View */
+        #view-company-detail {
+            display: none;
+        }
+
+        .detail-back-btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.4rem;
+            background: none;
+            border: none;
+            color: var(--primary);
+            font-size: 0.9rem;
+            cursor: pointer;
+            padding: 0;
+            margin-bottom: 1rem;
+            font-weight: 600;
+        }
+
+        .detail-back-btn:hover {
+            text-decoration: underline;
+        }
+
+        .detail-section {
+            background: var(--surface);
+            border: 1px solid var(--border);
+            border-radius: 0.75rem;
+            padding: 1.25rem;
+            margin-bottom: 1.25rem;
+        }
+
+        .detail-section h3 {
+            margin: 0 0 1rem 0;
+            font-size: 0.95rem;
+            color: var(--secondary);
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+            font-weight: 700;
+        }
+
+        .settings-row {
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+            flex-wrap: wrap;
+            margin-bottom: 0.75rem;
+        }
+
+        .settings-row label {
+            font-size: 0.85rem;
+            color: #475569;
+            min-width: 130px;
+            font-weight: 500;
+        }
+
+        .settings-row input[type="time"],
+        .settings-row input[type="number"] {
+            padding: 0.35rem 0.6rem;
+            border: 1px solid var(--border);
+            border-radius: 0.4rem;
+            font-size: 0.85rem;
+            width: 110px;
+        }
+
+        /* Panel cards */
+        .panel-card {
+            border: 1px solid var(--border);
+            border-radius: 0.6rem;
+            margin-bottom: 0.75rem;
+            overflow: hidden;
+        }
+
+        .panel-card-header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 0.75rem 1rem;
+            background: #f8fafc;
+            cursor: pointer;
+            user-select: none;
+        }
+
+        .panel-card-header:hover {
+            background: #f1f5f9;
+        }
+
+        .panel-card-title {
+            font-weight: 600;
+            font-size: 0.9rem;
+            color: #1e293b;
+        }
+
+        .panel-card-meta {
+            font-size: 0.78rem;
+            color: #64748b;
+            margin-top: 0.15rem;
+        }
+
+        .panel-card-actions {
+            display: flex;
+            gap: 0.5rem;
+            align-items: center;
+        }
+
+        /* Inline panel editor */
+        .panel-editor {
+            padding: 1rem;
+            border-top: 1px solid var(--border);
+            background: #fff;
+            display: none;
+        }
+
+        .panel-editor.open {
+            display: block;
+        }
+
+        .editor-row {
+            display: flex;
+            align-items: flex-start;
+            gap: 0.75rem;
+            margin-bottom: 0.85rem;
+            flex-wrap: wrap;
+        }
+
+        .editor-row label {
+            font-size: 0.83rem;
+            color: #475569;
+            min-width: 150px;
+            padding-top: 0.2rem;
+            font-weight: 500;
+        }
+
+        .editor-row input[type="text"],
+        .editor-row input[type="number"] {
+            padding: 0.35rem 0.6rem;
+            border: 1px solid var(--border);
+            border-radius: 0.4rem;
+            font-size: 0.85rem;
+        }
+
+        .role-checkboxes {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.5rem;
+        }
+
+        .role-checkbox-item {
+            display: flex;
+            align-items: center;
+            gap: 0.3rem;
+            background: #f1f5f9;
+            border-radius: 0.4rem;
+            padding: 0.25rem 0.6rem;
+            font-size: 0.8rem;
+            cursor: pointer;
+        }
+
+        .role-checkbox-item input {
+            cursor: pointer;
+        }
+
+        .role-checkbox-item:has(input:checked) {
+            background: #eff6ff;
+            color: #1d4ed8;
+            font-weight: 600;
+        }
+
+        .editor-actions {
+            display: flex;
+            gap: 0.5rem;
+            justify-content: flex-end;
+            margin-top: 0.5rem;
+        }
+
+        /* Toast notification */
+        #toast {
+            position: fixed;
+            bottom: 1.5rem;
+            right: 1.5rem;
+            background: #1e293b;
+            color: white;
+            padding: 0.65rem 1.1rem;
+            border-radius: 0.5rem;
+            font-size: 0.85rem;
+            opacity: 0;
+            pointer-events: none;
+            transition: opacity 0.25s;
+            z-index: 9999;
+        }
+
+        #toast.show {
+            opacity: 1;
+        }
     </style>
 </head>
+
 
 <body>
     <div id="loading">Loading...</div>
@@ -181,12 +651,19 @@
         <div class="container header-content">
             <h1>📅 Interview Scheduler</h1>
             <div class="controls">
-                <button class="secondary" onclick="resetData()">Reset Data</button>
-                <button onclick="runSchedule()">Run Auto-Schedule</button>
+                <button style="background:#16a34a; color:white; border:none;" onclick="importResponses()">📂 Load Data
+                    from CSV</button>
+                <div style="display:flex; align-items:center; gap:0.4rem;">
+                    <input type="date" id="event-date-input"
+                        style="padding:0.4rem 0.6rem; border:1px solid #cbd5e1; border-radius:0.4rem; font-size:0.85rem;"
+                        title="Event date for scheduling" />
+                    <button onclick="runSchedule()">▶ Run Auto-Schedule</button>
+                </div>
                 <div style="border-left: 1px solid #ccc; padding-left: 1rem; display:flex; gap:0.5rem;">
                     <button class="secondary" onclick="downloadCSV('companies')">📥 Export Companies</button>
                     <button class="secondary" onclick="downloadCSV('students')">📥 Export Students</button>
                 </div>
+                <button class="secondary" onclick="resetData()">Reset Data</button>
             </div>
         </div>
     </header>
@@ -210,6 +687,8 @@
         <div class="tabs">
             <button class="tab-btn active" onclick="switchTab('companies')">Company Schedules</button>
             <button class="tab-btn" onclick="switchTab('students')">Student Schedules</button>
+            <button class="tab-btn" onclick="switchTab('admin')">🛠 Admin Panel</button>
+            <button class="tab-btn" onclick="switchTab('livequeue')">🎯 Live Queue</button>
         </div>
 
         <div id="view-companies" class="view-panel">
@@ -272,12 +751,83 @@
                 </table>
             </div>
         </div>
+
+        <!-- Admin Panel View -->
+        <div id="view-admin" class="view-panel" style="display:none;">
+            <div
+                style="display:flex; justify-content:space-between; align-items:center; margin-bottom:0.75rem; flex-wrap:wrap; gap:0.5rem;">
+                <h2 style="margin:0; font-size:1.1rem; color:var(--secondary);">Company Overview &amp; Walk-in
+                    Management</h2>
+                <div style="display:flex; align-items:center; gap:0.5rem; flex-wrap:wrap;">
+                    <span id="admin-refresh-countdown" style="font-size:0.78rem; color:#94a3b8;"></span>
+                    <button class="secondary" onclick="loadAdminSummary()"
+                        style="font-size:0.8rem; padding:0.4rem 0.8rem;">🔄 Refresh</button>
+                </div>
+            </div>
+            <!-- Backup / Restore bar -->
+            <div
+                style="display:flex; align-items:center; gap:0.6rem; margin-bottom:1rem; padding:0.6rem 0.9rem; background:#f8fafc; border:1px solid var(--border); border-radius:0.6rem; flex-wrap:wrap;">
+                <span style="font-size:0.8rem; font-weight:600; color:var(--secondary);">Data Safety:</span>
+                <button onclick="doCheckpoint()"
+                    style="font-size:0.8rem; padding:0.35rem 0.8rem; background:#16a34a; color:white; border:none; border-radius:0.4rem; cursor:pointer;">💾
+                    Checkpoint</button>
+                <button onclick="doRestore()"
+                    style="font-size:0.8rem; padding:0.35rem 0.8rem; background:#ea580c; color:white; border:none; border-radius:0.4rem; cursor:pointer;">↩
+                    Restore from Backup</button>
+                <span id="checkpoint-label" style="font-size:0.75rem; color:#94a3b8; margin-left:0.25rem;"></span>
+            </div>
+            <!-- Grid view (default) -->
+            <div id="admin-grid" class="admin-grid"></div>
+
+            <!-- Company detail view (shown when a card is clicked) -->
+            <div id="view-company-detail">
+                <button class="detail-back-btn" onclick="closeCompanyDetail()">← Back to Admin Panel</button>
+                <h2 id="detail-company-name" style="margin:0 0 1.25rem 0; font-size:1.3rem; color:var(--primary);"></h2>
+
+                <!-- Company Settings Section -->
+                <div class="detail-section">
+                    <h3>⚙ Company Settings</h3>
+                    <div class="settings-row">
+                        <label>Interview Window</label>
+                        <input type="time" id="detail-avail-start" value="09:00" />
+                        <span style="color:#64748b; font-size:0.85rem;">to</span>
+                        <input type="time" id="detail-avail-end" value="17:00" />
+                        <button onclick="saveCompanySettings()" style="font-size:0.82rem; padding:0.35rem 0.8rem;">💾
+                            Save</button>
+                    </div>
+                </div>
+
+                <!-- Panels Section -->
+                <div class="detail-section">
+                    <h3>🗂 Interview Panels</h3>
+                    <div id="panels-list"></div>
+                    <button onclick="addPanel()"
+                        style="margin-top:0.5rem; font-size:0.85rem; padding:0.4rem 0.9rem; background:#16a34a; color:white; border:none; border-radius:0.4rem; cursor:pointer;">
+                        + Add Panel
+                    </button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Live Queue View -->
+        <div id="view-livequeue" class="view-panel" style="display:none;">
+            <div class="lq-header">
+                <h2>🎯 Live Interview Queue</h2>
+                <span class="lq-refresh-info" id="lq-refresh-countdown"></span>
+            </div>
+            <div id="lq-grid" class="lq-grid"></div>
+        </div>
+
     </div>
+
+    <div id="toast"></div>
+
 
     <script>
         let companies_data = [];
         let students_data = [];
         let schedule_data = [];
+        let admin_data = [];
 
         async function init() {
             await loadData();
@@ -305,6 +855,9 @@
                 updateStats();
                 renderCompanyView();
                 renderStudentView();
+
+                // Load admin summary in background
+                loadAdminSummary();
             } catch (e) {
                 console.error(e);
                 alert("Failed to load data");
@@ -397,16 +950,199 @@
             document.getElementById(`view-${activeTab}`).style.display = 'block';
         }
 
+        // Set default event date to today
+        (function () {
+            const input = document.getElementById('event-date-input');
+            if (input) input.value = new Date().toISOString().split('T')[0];
+        })();
+
+        // Auto-refresh timer for Admin Panel
+        let adminRefreshTimer = null;
+        let adminCountdown = 0;
+        const ADMIN_REFRESH_INTERVAL = 30; // seconds
+
+        function startAdminAutoRefresh() {
+            stopAdminAutoRefresh();
+            adminCountdown = ADMIN_REFRESH_INTERVAL;
+            updateCountdownLabel();
+            adminRefreshTimer = setInterval(() => {
+                adminCountdown--;
+                updateCountdownLabel();
+                if (adminCountdown <= 0) {
+                    loadAdminSummary();
+                    adminCountdown = ADMIN_REFRESH_INTERVAL;
+                }
+            }, 1000);
+        }
+
+        function stopAdminAutoRefresh() {
+            if (adminRefreshTimer) { clearInterval(adminRefreshTimer); adminRefreshTimer = null; }
+            const lbl = document.getElementById('admin-refresh-countdown');
+            if (lbl) lbl.textContent = '';
+        }
+
+        // --- Live Queue ---
+        let lqRefreshTimer = null;
+        let lqCountdown = 0;
+        const LQ_REFRESH_INTERVAL = 30;
+
+        function startLiveQueueRefresh() {
+            stopLiveQueueRefresh();
+            loadLiveQueue();
+            lqCountdown = LQ_REFRESH_INTERVAL;
+            lqRefreshTimer = setInterval(() => {
+                lqCountdown--;
+                const lbl = document.getElementById('lq-refresh-countdown');
+                if (lbl) lbl.textContent = `Auto-refresh in ${lqCountdown}s`;
+                if (lqCountdown <= 0) {
+                    loadLiveQueue();
+                    lqCountdown = LQ_REFRESH_INTERVAL;
+                }
+            }, 1000);
+        }
+
+        function stopLiveQueueRefresh() {
+            if (lqRefreshTimer) { clearInterval(lqRefreshTimer); lqRefreshTimer = null; }
+            const lbl = document.getElementById('lq-refresh-countdown');
+            if (lbl) lbl.textContent = '';
+        }
+
+        async function loadLiveQueue() {
+            try {
+                const res = await fetch('/api/live-queue');
+                const data = await res.json();
+                if (data.status === 'error') throw new Error(data.message);
+                renderLiveQueue(data);
+            } catch (e) {
+                console.error('Live queue load failed', e);
+            }
+        }
+
+        async function markComplete(id) {
+            if (!confirm("Mark this interview as complete?")) return;
+            try {
+                await fetch(`/api/interview/${id}/complete`, { method: 'POST' });
+                loadLiveQueue(); // Refresh immediately
+            } catch (e) { alert("Action failed"); }
+        }
+
+        async function cancelInterview(id) {
+            if (!confirm("Cancel this interview? Slot will arguably remain empty.")) return;
+            try {
+                await fetch(`/api/interview/${id}/cancel`, { method: 'POST' });
+                loadLiveQueue(); // Refresh immediately
+            } catch (e) { alert("Action failed"); }
+        }
+
+        function renderLiveQueue(data) {
+            const grid = document.getElementById('lq-grid');
+            grid.innerHTML = '';
+
+            data.forEach(company => {
+                const card = document.createElement('div');
+                card.className = 'lq-company-card';
+
+                let panelsHtml = '';
+                company.panels.forEach(panel => {
+                    const showPanelLabel = company.panels.length > 1;
+
+                    const makeRow = (entry, cls, badgeClass, badgeText) => {
+                        if (!entry) {
+                            return `<div class="lq-row ${cls}">
+                                <span class="lq-badge ${badgeClass}">${badgeText}</span>
+                                <span class="lq-empty">${cls === 'lq-current' ? '⏸ No active interview' : '— Queue empty —'}</span>
+                            </div>`;
+                        }
+
+                        // Phase 3: Status styling
+                        let statusBadgeClass = badgeClass;
+                        let statusText = badgeText;
+                        if (entry.status === 'in_progress') { statusBadgeClass = 'badge-inprogress'; statusText = '🔵 IN PROGRESS'; }
+                        if (entry.status === 'completed') { statusBadgeClass = 'badge-completed'; statusText = '🟢 DONE'; }
+                        if (entry.status === 'cancelled') { statusBadgeClass = 'badge-cancelled'; statusText = '🔴 CANCELLED'; }
+
+                        // Show actions only for "NOW" row if not already done
+                        let actions = '';
+                        if (cls === 'lq-current' && entry.status !== 'completed' && entry.status !== 'cancelled') {
+                            actions = `
+                                <div class="btn-action-row">
+                                    <button class="btn-sm btn-complete" onclick="markComplete('${entry.interview_id}')">✅ Mark Complete</button>
+                                    <button class="btn-sm btn-cancel" onclick="cancelInterview('${entry.interview_id}')">❌ Cancel</button>
+                                </div>
+                            `;
+                        }
+
+                        return `<div class="lq-row ${cls}">
+                            <span class="lq-badge ${statusBadgeClass}">${statusText}</span>
+                            <div>
+                                <div class="lq-student-name">${entry.student_name}</div>
+                                <div class="lq-student-reg">${entry.student_id}</div>
+                                <div class="lq-time">${entry.start_time}–${entry.end_time} &middot; ${entry.role}</div>
+                                ${actions}
+                            </div>
+                        </div>`;
+                    };
+
+                    const next0 = panel.next[0] || null;
+                    const next1 = panel.next[1] || null;
+
+                    panelsHtml += `<div class="lq-panel-block">
+                        ${showPanelLabel ? `<div class="lq-panel-label">${panel.panel_label}</div>` : ''}
+                        ${makeRow(panel.current, 'lq-current', 'now', '🟢 NOW')}
+                        ${makeRow(next0, 'lq-next1', 'next', '🔵 NEXT')}
+                        ${makeRow(next1, 'lq-next2', 'after', '⚪ AFTER')}
+                    </div>`;
+                });
+
+                card.innerHTML = `
+                    <div class="lq-company-header">${company.company_name}</div>
+                    ${panelsHtml}
+                `;
+                grid.appendChild(card);
+            });
+        }
+
+        function updateCountdownLabel() {
+            const lbl = document.getElementById('admin-refresh-countdown');
+            if (lbl) lbl.textContent = `Auto-refresh in ${adminCountdown}s`;
+        }
+
         async function runSchedule() {
-            if (!confirm("Run automatic scheduling? This will overwrite current schedule.")) return;
+            const dateInput = document.getElementById('event-date-input');
+            const eventDate = dateInput ? dateInput.value : new Date().toISOString().split('T')[0];
+            if (!eventDate) { alert('Please select an event date first.'); return; }
+            if (!confirm(`Run automatic scheduling for ${eventDate}? This will overwrite the current schedule.`)) return;
             showLoading(true);
             try {
-                const res = await fetch('/api/run-schedule', { method: 'POST' });
+                const res = await fetch('/api/run-schedule', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ event_date: eventDate })
+                });
                 const data = await res.json();
                 alert(data.message);
                 await loadData();
             } catch (e) {
                 alert("Scheduling failed");
+            } finally {
+                showLoading(false);
+            }
+        }
+
+        async function importResponses() {
+            if (!confirm("Load data from 'Carrier Fair - 2026_responses.csv'? This will overwrite current students and companies data.")) return;
+            showLoading(true);
+            try {
+                const res = await fetch('/api/import-responses', { method: 'POST' });
+                const data = await res.json();
+                if (data.status === 'error') {
+                    alert("Import failed: " + data.message);
+                } else {
+                    alert(data.message);
+                    await loadData();
+                }
+            } catch (e) {
+                alert("Import failed: " + e);
             } finally {
                 showLoading(false);
             }
@@ -519,6 +1255,371 @@
 
             event.target.classList.add('active');
             document.getElementById(`view-${tab}`).style.display = 'block';
+
+            if (tab === 'admin') {
+                stopLiveQueueRefresh();
+                loadAdminSummary();
+                loadCheckpointInfo();
+                startAdminAutoRefresh();
+            } else if (tab === 'livequeue') {
+                stopAdminAutoRefresh();
+                startLiveQueueRefresh();
+            } else {
+                stopAdminAutoRefresh();
+                stopLiveQueueRefresh();
+            }
+        }
+
+        async function loadAdminSummary() {
+            try {
+                const res = await fetch('/api/admin-summary');
+                admin_data = await res.json();
+                renderAdminPanel();
+            } catch (e) {
+                console.error('Failed to load admin summary', e);
+            }
+        }
+
+        async function loadCheckpointInfo() {
+            try {
+                const res = await fetch('/api/checkpoint-info');
+                const data = await res.json();
+                const lbl = document.getElementById('checkpoint-label');
+                if (lbl) {
+                    if (data.last_checkpoint) {
+                        const allExist = Object.values(data.backups_exist).every(v => v);
+                        lbl.textContent = `Last checkpoint: ${data.last_checkpoint}${allExist ? '' : ' ⚠ some backups missing'}`;
+                    } else {
+                        lbl.textContent = 'No checkpoint yet — click 💾 Checkpoint to create one';
+                    }
+                }
+            } catch (e) {
+                console.error('Failed to load checkpoint info', e);
+            }
+        }
+
+        async function doCheckpoint() {
+            if (!confirm('Save a checkpoint of all data files (companies, students, schedule)?')) return;
+            try {
+                const res = await fetch('/api/checkpoint', { method: 'POST' });
+                const data = await res.json();
+                showToast(data.status === 'error' ? `❌ ${data.message}` : `✅ ${data.message}`);
+                loadCheckpointInfo();
+            } catch (e) {
+                showToast('❌ Checkpoint failed');
+            }
+        }
+
+        async function doRestore() {
+            if (!confirm('⚠ Restore all data from the last checkpoint? Current data will be overwritten.')) return;
+            try {
+                const res = await fetch('/api/restore', { method: 'POST' });
+                const data = await res.json();
+                if (data.status === 'error') {
+                    showToast(`❌ ${data.message}`);
+                } else {
+                    showToast(`✅ ${data.message} (from checkpoint: ${data.checkpoint_timestamp})`);
+                    await loadData();  // Reload all data into the UI
+                }
+            } catch (e) {
+                showToast('❌ Restore failed');
+            }
+        }
+
+        // --- State for company detail view ---
+        let currentCompanyDetail = null;  // full company object from /api/company/{id}
+
+        function renderAdminPanel() {
+            const grid = document.getElementById('admin-grid');
+            grid.innerHTML = '';
+
+            admin_data.forEach(c => {
+                const walkinClass = c.walk_in_open ? 'walkin-open' : 'walkin-closed';
+                const walkinLabel = c.walk_in_open ? '🟢 Walk-in Open' : '🔴 Walk-in Closed';
+                const walkinBtnLabel = c.walk_in_open ? 'Close Walk-in' : 'Open Walk-in';
+
+                const positionBadges = c.positions.map(p =>
+                    `<span class="pos-badge">${p}</span>`
+                ).join('');
+
+                const nextInterview = c.next_interview_at
+                    ? `<span>${c.next_interview_at}</span>`
+                    : `<span style="color:#94a3b8;">None upcoming</span>`;
+
+                const card = document.createElement('div');
+                card.className = 'admin-card';
+                card.innerHTML = `
+                    <div class="admin-card-header">
+                        <div>
+                            <h3>${c.name}</h3>
+                            <small>${c.id}</small>
+                        </div>
+                        <span class="walkin-badge ${walkinClass}">${walkinLabel}</span>
+                    </div>
+
+                    <div class="positions-list">${positionBadges || '<small style="color:#94a3b8;">No positions listed</small>'}</div>
+
+                    <div class="admin-meta">
+                        <div>🕐 Interview Window</div>
+                        <span>${c.interview_start} – ${c.interview_end}</span>
+
+                        <div>⚡ Parallel Panels</div>
+                        <span>${c.num_panels} panel${c.num_panels > 1 ? 's' : ''}</span>
+
+                        <div>📅 Scheduled Today</div>
+                        <span>${c.total_scheduled} interview${c.total_scheduled !== 1 ? 's' : ''}</span>
+
+                        <div>⏭ Next Interview</div>
+                        ${nextInterview}
+
+                        <div>🗓 Slots Remaining</div>
+                        <span>${c.slots_remaining_today}</span>
+                    </div>
+
+                    <div class="admin-card-footer" style="justify-content:space-between;">
+                        <button class="secondary" style="font-size:0.8rem; padding:0.4rem 0.8rem;"
+                            onclick="event.stopPropagation(); toggleWalkin('${c.id}', this)">
+                            ${walkinBtnLabel}
+                        </button>
+                        <button style="font-size:0.8rem; padding:0.4rem 0.8rem; background:var(--primary); color:white; border:none; border-radius:0.4rem; cursor:pointer;"
+                            onclick="event.stopPropagation(); openCompanyDetail('${c.id}')">
+                            ⚙ Configure
+                        </button>
+                    </div>
+                `;
+                // Whole card is also clickable
+                card.addEventListener('click', () => openCompanyDetail(c.id));
+                grid.appendChild(card);
+            });
+        }
+
+        // ─── Company Detail View ────────────────────────────────────────────
+
+        async function openCompanyDetail(companyId) {
+            stopAdminAutoRefresh();
+            try {
+                const res = await fetch(`/api/company/${companyId}`);
+                if (!res.ok) { showToast('Failed to load company'); return; }
+                currentCompanyDetail = await res.json();
+
+                document.getElementById('detail-company-name').textContent = currentCompanyDetail.name;
+                document.getElementById('detail-avail-start').value = currentCompanyDetail.availability_start || '09:00';
+                document.getElementById('detail-avail-end').value = currentCompanyDetail.availability_end || '17:00';
+
+                renderPanels();
+
+                document.getElementById('admin-grid').style.display = 'none';
+                document.getElementById('view-company-detail').style.display = 'block';
+            } catch (e) {
+                showToast('Error loading company: ' + e.message);
+            }
+        }
+
+        function closeCompanyDetail() {
+            document.getElementById('view-company-detail').style.display = 'none';
+            document.getElementById('admin-grid').style.display = '';
+            currentCompanyDetail = null;
+            loadAdminSummary();
+            startAdminAutoRefresh();
+        }
+
+        function renderPanels() {
+            const list = document.getElementById('panels-list');
+            list.innerHTML = '';
+            const panels = currentCompanyDetail.panels;
+            if (!panels || panels.length === 0) {
+                list.innerHTML = '<p style="color:#94a3b8; font-size:0.85rem;">No panels configured.</p>';
+                return;
+            }
+            panels.forEach((p, idx) => {
+                list.appendChild(renderPanelCard(p, idx));
+            });
+        }
+
+        function renderPanelCard(panel, idx) {
+            const company = currentCompanyDetail;
+            const isLast = company.panels.length === 1;
+            const walkinLabel = panel.walk_in_open ? '🟢 Walk-in Open' : '🔴 Walk-in Closed';
+            const roleNames = (panel.job_role_ids || []).map(rid => {
+                const r = (company.job_roles || []).find(jr => jr.id === rid);
+                return r ? r.title : rid;
+            }).join(', ') || 'No roles assigned';
+
+            const card = document.createElement('div');
+            card.className = 'panel-card';
+            card.id = `panel-card-${panel.panel_id}`;
+
+            // Build role checkboxes
+            const roleCheckboxes = (company.job_roles || []).map(jr => {
+                const checked = (panel.job_role_ids || []).includes(jr.id) ? 'checked' : '';
+                return `<label class="role-checkbox-item">
+                    <input type="checkbox" value="${jr.id}" ${checked} />
+                    ${jr.title}
+                </label>`;
+            }).join('');
+
+            card.innerHTML = `
+                <div class="panel-card-header" onclick="togglePanelEditor('${panel.panel_id}')">
+                    <div>
+                        <div class="panel-card-title">${panel.label}</div>
+                        <div class="panel-card-meta">${roleNames} · ${panel.slot_duration_minutes} min/slot · ${walkinLabel}</div>
+                    </div>
+                    <div class="panel-card-actions">
+                        <span style="color:#94a3b8; font-size:0.8rem;">▼ Edit</span>
+                        ${!isLast ? `<button style="font-size:0.75rem; padding:0.25rem 0.6rem; background:#fee2e2; color:#991b1b; border:none; border-radius:0.35rem; cursor:pointer;"
+                            onclick="event.stopPropagation(); deletePanelById('${panel.panel_id}')">✕ Delete</button>` : ''}
+                    </div>
+                </div>
+                <div class="panel-editor" id="editor-${panel.panel_id}">
+                    <div class="editor-row">
+                        <label>Panel Label</label>
+                        <input type="text" id="lbl-${panel.panel_id}" value="${panel.label}" style="width:200px;" />
+                    </div>
+                    <div class="editor-row">
+                        <label>Job Roles (this panel)</label>
+                        <div class="role-checkboxes" id="roles-${panel.panel_id}">${roleCheckboxes}</div>
+                    </div>
+                    <div class="editor-row">
+                        <label>Slot Duration (min)</label>
+                        <input type="number" id="dur-${panel.panel_id}" value="${panel.slot_duration_minutes}" min="10" max="120" step="5" style="width:80px;" />
+                    </div>
+                    <div class="editor-row">
+                        <label>Reserved Walk-in Slots</label>
+                        <input type="number" id="rsv-${panel.panel_id}" value="${panel.reserved_walkin_slots}" min="0" max="16" style="width:80px;" />
+                    </div>
+                    <div class="editor-row">
+                        <label>Walk-in Open</label>
+                        <label style="display:flex;align-items:center;gap:0.4rem;cursor:pointer;">
+                            <input type="checkbox" id="wi-${panel.panel_id}" ${panel.walk_in_open ? 'checked' : ''} />
+                            Enable walk-in for this panel
+                        </label>
+                    </div>
+                    <div class="editor-actions">
+                        <button class="secondary" style="font-size:0.82rem;" onclick="togglePanelEditor('${panel.panel_id}')">Cancel</button>
+                        <button style="font-size:0.82rem;" onclick="saveSinglePanel('${panel.panel_id}')">💾 Save Panel</button>
+                    </div>
+                </div>
+            `;
+            return card;
+        }
+
+        function togglePanelEditor(panelId) {
+            const editor = document.getElementById(`editor-${panelId}`);
+            if (editor) editor.classList.toggle('open');
+        }
+
+        function addPanel() {
+            const company = currentCompanyDetail;
+            const newIdx = company.panels.length + 1;
+            const newPanel = {
+                panel_id: `${company.id}-P${newIdx}-${Date.now()}`,
+                label: `Panel ${newIdx}`,
+                job_role_ids: (company.job_roles || []).map(r => r.id),  // default: all roles
+                slot_duration_minutes: 30,
+                walk_in_open: false,
+                reserved_walkin_slots: 0
+            };
+            company.panels.push(newPanel);
+            renderPanels();
+            // Auto-open the new panel editor
+            setTimeout(() => togglePanelEditor(newPanel.panel_id), 50);
+        }
+
+        function deletePanelById(panelId) {
+            if (currentCompanyDetail.panels.length <= 1) {
+                showToast('Cannot delete the last panel.');
+                return;
+            }
+            if (!confirm('Delete this panel?')) return;
+            currentCompanyDetail.panels = currentCompanyDetail.panels.filter(p => p.panel_id !== panelId);
+            savePanels();
+        }
+
+        function saveSinglePanel(panelId) {
+            const panel = currentCompanyDetail.panels.find(p => p.panel_id === panelId);
+            if (!panel) return;
+
+            panel.label = document.getElementById(`lbl-${panelId}`).value.trim() || panel.label;
+            panel.slot_duration_minutes = parseInt(document.getElementById(`dur-${panelId}`).value) || 30;
+            panel.reserved_walkin_slots = parseInt(document.getElementById(`rsv-${panelId}`).value) || 0;
+            panel.walk_in_open = document.getElementById(`wi-${panelId}`).checked;
+
+            // Collect checked role IDs
+            const roleContainer = document.getElementById(`roles-${panelId}`);
+            panel.job_role_ids = Array.from(roleContainer.querySelectorAll('input[type=checkbox]:checked'))
+                .map(cb => cb.value);
+
+            savePanels();
+        }
+
+        async function savePanels() {
+            const company = currentCompanyDetail;
+            try {
+                const res = await fetch(`/api/company/${company.id}/panels`, {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify(company.panels)
+                });
+                const data = await res.json();
+                if (data.status === 'error') {
+                    showToast('Error: ' + data.message);
+                } else {
+                    showToast('✅ Panels saved');
+                    renderPanels();
+                }
+            } catch (e) {
+                showToast('Save failed: ' + e.message);
+            }
+        }
+
+        async function saveCompanySettings() {
+            const company = currentCompanyDetail;
+            const start = document.getElementById('detail-avail-start').value;
+            const end = document.getElementById('detail-avail-end').value;
+            try {
+                const res = await fetch(`/api/company/${company.id}/settings`, {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ availability_start: start, availability_end: end })
+                });
+                const data = await res.json();
+                if (data.status === 'error') {
+                    showToast('Error: ' + data.message);
+                } else {
+                    currentCompanyDetail.availability_start = start;
+                    currentCompanyDetail.availability_end = end;
+                    showToast('✅ Settings saved');
+                }
+            } catch (e) {
+                showToast('Save failed: ' + e.message);
+            }
+        }
+
+        // ─── Toast ──────────────────────────────────────────────────────────
+        let _toastTimer = null;
+        function showToast(msg) {
+            const t = document.getElementById('toast');
+            t.textContent = msg;
+            t.classList.add('show');
+            if (_toastTimer) clearTimeout(_toastTimer);
+            _toastTimer = setTimeout(() => t.classList.remove('show'), 2800);
+        }
+
+        async function toggleWalkin(companyId, btn) {
+            btn.disabled = true;
+            try {
+                const res = await fetch(`/api/toggle-walkin/${companyId}`, { method: 'POST' });
+                const data = await res.json();
+                if (data.status !== 'error') {
+                    await loadAdminSummary();
+                } else {
+                    alert('Failed: ' + data.message);
+                }
+            } catch (e) {
+                alert('Request failed');
+            } finally {
+                btn.disabled = false;
+            }
         }
 
         function showLoading(show) {

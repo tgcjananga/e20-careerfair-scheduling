@@ -154,6 +154,214 @@ class InterviewRequestHandler(http.server.SimpleHTTPRequestHandler):
                     interviews = json.load(f)
             response_data = interviews
 
+        elif parsed_path.path.startswith('/api/company/') and not parsed_path.path.endswith('/panels') and not parsed_path.path.endswith('/settings'):
+            company_id = parsed_path.path.split('/api/company/')[1].strip('/')
+            company = dm.get_company(company_id)
+            if company is None:
+                self.send_response(404)
+                self.send_header('Content-Type', 'application/json')
+                self.end_headers()
+                self.wfile.write(json.dumps({"error": "Company not found"}).encode())
+                return
+            from dataclasses import asdict as _asdict
+            c_dict = _asdict(company)
+            # Auto-create default panel if none exist
+            if not c_dict['panels']:
+                c_dict['panels'] = [{
+                    "panel_id": f"{company.id}-P1",
+                    "label": "Panel 1 (Default)",
+                    "job_role_ids": [r.id for r in company.job_roles],
+                    "slot_duration_minutes": 30,
+                    "walk_in_open": company.walk_in_open,
+                    "reserved_walkin_slots": 0
+                }]
+            response_data = c_dict
+
+        elif parsed_path.path == '/api/live-queue':
+            from datetime import datetime
+            companies = dm.load_companies()
+            students_list = dm.load_students()
+            student_map = {s.id: s for s in students_list}
+
+            # Load role title lookup: {job_role_id: title}
+            role_map = {}
+            for c in companies:
+                for r in c.job_roles:
+                    role_map[r.id] = r.title
+
+            # Load schedule
+            schedule_path = "schedule_manager/data/schedule.json"
+            raw_interviews = []
+            if os.path.exists(schedule_path):
+                with open(schedule_path, 'r') as f:
+                    raw_interviews = json.load(f)
+
+            now = datetime.now()
+
+            def make_entry(iv):
+                s = student_map.get(iv['student_id'])
+                return {
+                    "interview_id": iv['id'],
+                    "student_id": iv['student_id'],
+                    "student_name": s.name if s else iv['student_id'],
+                    "start_time": iv['start_time'].split('T')[1][:5] if 'T' in iv['start_time'] else iv['start_time'],
+                    "end_time": iv['end_time'].split('T')[1][:5] if 'T' in iv['end_time'] else iv['end_time'],
+                    "role": role_map.get(iv['job_role_id'], iv['job_role_id']),
+                    "status": iv.get('status', 'scheduled'),  # Phase 3
+                }
+
+            result = []
+            for c in companies:
+                # Filter interviews for this company
+                c_ivs = [iv for iv in raw_interviews if iv['company_id'] == c.id]
+                c_ivs.sort(key=lambda x: x['start_time'])
+
+                # Group by panel_id (defaults to "default" for old schedules)
+                panels_dict = {}
+                for iv in c_ivs:
+                    pid = iv.get('panel_id', 'default')
+                    if pid not in panels_dict:
+                        panels_dict[pid] = []
+                    panels_dict[pid].append(iv)
+
+                # If no interviews at all, still show one empty panel
+                if not panels_dict:
+                    panels_dict['default'] = []
+
+                panels_out = []
+                for pid, ivs in panels_dict.items():
+                    # Determine label from company panels config
+                    panel_label = "Panel 1"
+                    for p in c.panels:
+                        if p.panel_id == pid:
+                            panel_label = p.label
+                            break
+                    if pid == 'default' and not c.panels:
+                        panel_label = "Panel 1"
+
+                    # Find current, next1, next2
+                    # Phase 3: use status field if set; fallback to time-based
+                    current = None
+                    upcoming = []
+                    for iv in ivs:
+                        iv_status = iv.get('status', 'scheduled')
+                        if iv_status in ('completed', 'cancelled'):
+                            continue  # skip done/cancelled interviews
+                        try:
+                            start_dt = datetime.fromisoformat(iv['start_time'])
+                            end_dt = datetime.fromisoformat(iv['end_time'])
+                            if iv_status == 'in_progress' or (iv_status == 'scheduled' and start_dt <= now < end_dt):
+                                current = make_entry(iv)
+                            elif start_dt > now:
+                                upcoming.append(iv)
+                        except Exception:
+                            pass
+
+                    panels_out.append({
+                        "panel_id": pid,
+                        "panel_label": panel_label,
+                        "current": current,
+                        "next": [make_entry(iv) for iv in upcoming[:2]]
+                    })
+
+                result.append({
+                    "company_id": c.id,
+                    "company_name": c.name,
+                    "panels": panels_out
+                })
+
+            response_data = result
+
+        elif parsed_path.path == '/api/admin-summary':
+
+            from datetime import datetime, date
+            companies = dm.load_companies()
+            interviews = []
+            schedule_path = "schedule_manager/data/schedule.json"
+            if os.path.exists(schedule_path):
+                with open(schedule_path, 'r') as f:
+                    interviews = json.load(f)
+
+            # Read saved event_date from config (set when schedule was last run)
+            config_path = "schedule_manager/data/config.json"
+            event_date_str = date.today().strftime('%Y-%m-%d')
+            if os.path.exists(config_path):
+                with open(config_path, 'r') as f:
+                    cfg = json.load(f)
+                    event_date_str = cfg.get('event_date', event_date_str)
+
+            now = datetime.now()
+            summary = []
+            for c in companies:
+                company_interviews = [i for i in interviews if i['company_id'] == c.id]
+                company_interviews.sort(key=lambda x: x['start_time'])
+
+                # Determine interview window from schedule
+                if company_interviews:
+                    interview_start = company_interviews[0]['start_time'].split('T')[1][:5]
+                    interview_end = company_interviews[-1]['end_time'].split('T')[1][:5]
+                else:
+                    interview_start = "09:00"
+                    interview_end = "17:00"
+
+                # Find next upcoming interview
+                next_interview = None
+                for i in company_interviews:
+                    try:
+                        slot_dt = datetime.fromisoformat(i['start_time'])
+                        if slot_dt > now:
+                            next_interview = i['start_time'].split('T')[1][:5]
+                            break
+                    except Exception:
+                        pass
+
+                # Estimate remaining capacity using event_date
+                from datetime import timedelta
+                try:
+                    day_start = datetime.strptime(f"{event_date_str} 09:00", "%Y-%m-%d %H:%M")
+                    day_end = datetime.strptime(f"{event_date_str} 17:00", "%Y-%m-%d %H:%M")
+                    total_slots = int((day_end - day_start).seconds / 60 / 30)
+                    total_capacity = total_slots * c.num_panels
+                    # On the event day, count only future slots
+                    if now.strftime('%Y-%m-%d') == event_date_str:
+                        elapsed_minutes = max(0, (now - day_start).seconds // 60)
+                        elapsed_slots = elapsed_minutes // 30
+                        remaining_total = max(0, total_slots - elapsed_slots) * c.num_panels
+                        slots_remaining = max(0, remaining_total - len([i for i in company_interviews
+                            if datetime.fromisoformat(i['start_time']) >= now]))
+                    else:
+                        slots_remaining = max(0, total_capacity - len(company_interviews))
+                except Exception:
+                    slots_remaining = 0
+
+                summary.append({
+                    "id": c.id,
+                    "name": c.name,
+                    "num_panels": c.num_panels,
+                    "walk_in_open": c.walk_in_open,
+                    "positions": [r.title for r in c.job_roles],
+                    "interview_start": interview_start,
+                    "interview_end": interview_end,
+                    "total_scheduled": len(company_interviews),
+                    "next_interview_at": next_interview,
+                    "slots_remaining_today": slots_remaining
+                })
+            response_data = summary
+
+        elif parsed_path.path == '/api/checkpoint-info':
+            config_path = "schedule_manager/data/config.json"
+            data_dir = "schedule_manager/data"
+            cfg = {}
+            if os.path.exists(config_path):
+                with open(config_path, 'r') as f:
+                    cfg = json.load(f)
+            backup_files = ["companies", "students", "schedule"]
+            backups_exist = {f: os.path.exists(f"{data_dir}/{f}.backup.json") for f in backup_files}
+            response_data = {
+                "last_checkpoint": cfg.get("last_checkpoint", None),
+                "backups_exist": backups_exist
+            }
+
         self.send_json(response_data)
 
     def handle_api_post(self):
@@ -162,16 +370,197 @@ class InterviewRequestHandler(http.server.SimpleHTTPRequestHandler):
         
         response_data = {"status": "success"}
         
-        if parsed_path.path == '/api/init':
+        if parsed_path.path == '/api/import-responses':
+            csv_path = "Carrier Fair - 2026_responses.csv"
+            try:
+                if not os.path.exists(csv_path):
+                    response_data["status"] = "error"
+                    response_data["message"] = f"CSV file not found: {csv_path}"
+                else:
+                    from schedule_manager.response_importer import ResponseImporter
+                    importer = ResponseImporter(dm)
+                    importer.import_responses(csv_path)
+                    # Reload counts
+                    students = dm.load_students()
+                    companies = dm.load_companies()
+                    response_data["message"] = f"Imported {len(students)} students and {len(companies)} companies from CSV."
+                    response_data["students"] = len(students)
+                    response_data["companies"] = len(companies)
+            except Exception as e:
+                print(f"Error importing responses: {e}")
+                response_data["status"] = "error"
+                response_data["message"] = str(e)
+
+        elif parsed_path.path == '/api/init':
             seed()
             response_data["message"] = "Data reset to seed values."
-            
+
+        elif parsed_path.path == '/api/checkpoint':
+            import shutil
+            from datetime import datetime
+            data_dir = "schedule_manager/data"
+            config_path = f"{data_dir}/config.json"
+            files_to_backup = ["companies.json", "students.json", "schedule.json"]
+            backed_up = []
+            try:
+                for fname in files_to_backup:
+                    src = f"{data_dir}/{fname}"
+                    dst = f"{data_dir}/{fname.replace('.json', '.backup.json')}"
+                    if os.path.exists(src):
+                        shutil.copy2(src, dst)
+                        backed_up.append(fname)
+                # Record timestamp in config
+                cfg = {}
+                if os.path.exists(config_path):
+                    with open(config_path, 'r') as f:
+                        cfg = json.load(f)
+                cfg["last_checkpoint"] = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
+                with open(config_path, 'w') as f:
+                    json.dump(cfg, f, indent=2)
+                response_data["message"] = f"Checkpoint saved: {', '.join(backed_up)}"
+                response_data["timestamp"] = cfg["last_checkpoint"]
+            except Exception as e:
+                response_data["status"] = "error"
+                response_data["message"] = str(e)
+
+        elif parsed_path.path == '/api/restore':
+            import shutil
+            data_dir = "schedule_manager/data"
+            config_path = f"{data_dir}/config.json"
+            files_to_restore = ["companies.json", "students.json", "schedule.json"]
+            restored = []
+            missing = []
+            try:
+                for fname in files_to_restore:
+                    src = f"{data_dir}/{fname.replace('.json', '.backup.json')}"
+                    dst = f"{data_dir}/{fname}"
+                    if os.path.exists(src):
+                        shutil.copy2(src, dst)
+                        restored.append(fname)
+                    else:
+                        missing.append(fname)
+                # Get checkpoint timestamp
+                checkpoint_ts = "unknown"
+                if os.path.exists(config_path):
+                    with open(config_path, 'r') as f:
+                        cfg = json.load(f)
+                        checkpoint_ts = cfg.get("last_checkpoint", "unknown")
+                msg = f"Restored: {', '.join(restored)}"
+                if missing:
+                    msg += f" | No backup found for: {', '.join(missing)}"
+                response_data["message"] = msg
+                response_data["checkpoint_timestamp"] = checkpoint_ts
+                response_data["restored"] = restored
+                response_data["missing_backups"] = missing
+            except Exception as e:
+                response_data["status"] = "error"
+                response_data["message"] = str(e)
+
+
+        elif parsed_path.path.startswith('/api/interview/') and parsed_path.path.endswith('/complete'):
+            # POST /api/interview/{id}/complete — mark interview as completed
+            parts = parsed_path.path.split('/')
+            interview_id = parts[3] if len(parts) >= 5 else None
+            schedule_path = "schedule_manager/data/schedule.json"
+            try:
+                if not interview_id:
+                    raise ValueError("Missing interview id")
+                if not os.path.exists(schedule_path):
+                    raise FileNotFoundError("schedule.json not found")
+                with open(schedule_path, 'r') as f:
+                    schedule = json.load(f)
+                found = False
+                for iv in schedule:
+                    if iv['id'] == interview_id:
+                        iv['status'] = 'completed'
+                        found = True
+                        break
+                if not found:
+                    raise ValueError(f"Interview {interview_id} not found")
+                with open(schedule_path, 'w') as f:
+                    json.dump(schedule, f, indent=2)
+                response_data["message"] = f"Interview {interview_id} marked as completed."
+                response_data["interview_id"] = interview_id
+            except Exception as e:
+                response_data["status"] = "error"
+                response_data["message"] = str(e)
+
+        elif parsed_path.path.startswith('/api/interview/') and parsed_path.path.endswith('/cancel'):
+            # POST /api/interview/{id}/cancel — mark interview as cancelled
+            parts = parsed_path.path.split('/')
+            interview_id = parts[3] if len(parts) >= 5 else None
+            schedule_path = "schedule_manager/data/schedule.json"
+            try:
+                if not interview_id:
+                    raise ValueError("Missing interview id")
+                if not os.path.exists(schedule_path):
+                    raise FileNotFoundError("schedule.json not found")
+                with open(schedule_path, 'r') as f:
+                    schedule = json.load(f)
+                found = False
+                for iv in schedule:
+                    if iv['id'] == interview_id:
+                        iv['status'] = 'cancelled'
+                        found = True
+                        break
+                if not found:
+                    raise ValueError(f"Interview {interview_id} not found")
+                with open(schedule_path, 'w') as f:
+                    json.dump(schedule, f, indent=2)
+                response_data["message"] = f"Interview {interview_id} cancelled."
+                response_data["interview_id"] = interview_id
+            except Exception as e:
+                response_data["status"] = "error"
+                response_data["message"] = str(e)
+
+        elif parsed_path.path.startswith('/api/interview/') and parsed_path.path.endswith('/in-progress'):
+            # POST /api/interview/{id}/in-progress — mark interview as in progress
+            parts = parsed_path.path.split('/')
+            interview_id = parts[3] if len(parts) >= 5 else None
+            schedule_path = "schedule_manager/data/schedule.json"
+            try:
+                if not interview_id:
+                    raise ValueError("Missing interview id")
+                if not os.path.exists(schedule_path):
+                    raise FileNotFoundError("schedule.json not found")
+                with open(schedule_path, 'r') as f:
+                    schedule = json.load(f)
+                found = False
+                for iv in schedule:
+                    if iv['id'] == interview_id:
+                        iv['status'] = 'in_progress'
+                        found = True
+                        break
+                if not found:
+                    raise ValueError(f"Interview {interview_id} not found")
+                with open(schedule_path, 'w') as f:
+                    json.dump(schedule, f, indent=2)
+                response_data["message"] = f"Interview {interview_id} marked as in progress."
+                response_data["interview_id"] = interview_id
+            except Exception as e:
+                response_data["status"] = "error"
+                response_data["message"] = str(e)
+
         elif parsed_path.path == '/api/run-schedule':
             try:
+                # Read event_date from POST body JSON, fallback to today
+                content_length = int(self.headers.get('Content-Length', 0))
+                body = {}
+                if content_length > 0:
+                    raw = self.rfile.read(content_length)
+                    body = json.loads(raw.decode('utf-8'))
+                from datetime import date
+                event_date = body.get('event_date', date.today().strftime('%Y-%m-%d'))
+
+                # Save event_date to config so other endpoints can use it
+                config_path = "schedule_manager/data/config.json"
+                with open(config_path, 'w') as f:
+                    json.dump({"event_date": event_date}, f)
+
                 # The Scheduler now uses OR-Tools internally if available
                 from schedule_manager.scheduler import Scheduler
                 scheduler = Scheduler(dm)
-                interviews = scheduler.run("2024-10-25")
+                interviews = scheduler.run(event_date)
                 
                 # Check how many were scheduled to guess if it worked well
                 msg = f"Scheduled {len(interviews)} interviews."
@@ -190,7 +579,102 @@ class InterviewRequestHandler(http.server.SimpleHTTPRequestHandler):
                 response_data["status"] = "error"
                 response_data["message"] = str(e)
 
+        elif parsed_path.path.startswith('/api/toggle-walkin/'):
+            path_parts = parsed_path.path.split('/')
+            company_id = path_parts[3] if len(path_parts) > 3 else None
+            if company_id:
+                try:
+                    companies = dm.load_companies()
+                    for c in companies:
+                        if c.id == company_id:
+                            c.walk_in_open = not c.walk_in_open
+                            response_data["walk_in_open"] = c.walk_in_open
+                            response_data["message"] = f"Walk-in {'opened' if c.walk_in_open else 'closed'} for {c.name}"
+                            break
+                    dm.save_companies(companies)
+                except Exception as e:
+                    response_data["status"] = "error"
+                    response_data["message"] = str(e)
+            else:
+                response_data["status"] = "error"
+                response_data["message"] = "Company ID not provided"
+
+        elif parsed_path.path.startswith('/api/company/') and parsed_path.path.endswith('/settings'):
+            # POST /api/company/{id}/settings — save availability window
+            company_id = parsed_path.path.split('/api/company/')[1].replace('/settings', '').strip('/')
+            try:
+                content_length = int(self.headers.get('Content-Length', 0))
+                body = json.loads(self.rfile.read(content_length).decode('utf-8')) if content_length > 0 else {}
+                company = dm.get_company(company_id)
+                if company is None:
+                    response_data["status"] = "error"
+                    response_data["message"] = "Company not found"
+                else:
+                    company.availability_start = body.get('availability_start', company.availability_start)
+                    company.availability_end = body.get('availability_end', company.availability_end)
+                    dm.save_company(company)
+                    response_data["message"] = f"Settings saved for {company.name}"
+                    response_data["availability_start"] = company.availability_start
+                    response_data["availability_end"] = company.availability_end
+            except Exception as e:
+                response_data["status"] = "error"
+                response_data["message"] = str(e)
+
+        elif parsed_path.path.startswith('/api/company/') and parsed_path.path.endswith('/panels'):
+            # POST /api/company/{id}/panels — save full panels list
+            company_id = parsed_path.path.split('/api/company/')[1].replace('/panels', '').strip('/')
+            try:
+                content_length = int(self.headers.get('Content-Length', 0))
+                raw_panels = json.loads(self.rfile.read(content_length).decode('utf-8')) if content_length > 0 else []
+                company = dm.get_company(company_id)
+                if company is None:
+                    response_data["status"] = "error"
+                    response_data["message"] = "Company not found"
+                else:
+                    from schedule_manager.data_manager import Panel
+                    panels = [Panel(**p) for p in raw_panels]
+                    company.panels = panels
+                    # Keep num_panels in sync for backward compat
+                    company.num_panels = len(panels)
+                    dm.save_company(company)
+                    response_data["message"] = f"Saved {len(panels)} panel(s) for {company.name}"
+                    response_data["num_panels"] = len(panels)
+            except Exception as e:
+                response_data["status"] = "error"
+                response_data["message"] = str(e)
+
+        elif parsed_path.path.startswith('/api/toggle-panel-walkin/'):
+            # POST /api/toggle-panel-walkin/{company_id}/{panel_id}
+            parts = parsed_path.path.split('/')
+            # path: ['', 'api', 'toggle-panel-walkin', company_id, panel_id]
+            if len(parts) >= 5:
+                company_id = parts[3]
+                panel_id = parts[4]
+                try:
+                    company = dm.get_company(company_id)
+                    if company is None:
+                        response_data["status"] = "error"
+                        response_data["message"] = "Company not found"
+                    else:
+                        toggled = False
+                        for p in company.panels:
+                            if p.panel_id == panel_id:
+                                p.walk_in_open = not p.walk_in_open
+                                response_data["walk_in_open"] = p.walk_in_open
+                                response_data["message"] = f"Panel walk-in {'opened' if p.walk_in_open else 'closed'}"
+                                toggled = True
+                                break
+                        if not toggled:
+                            response_data["status"] = "error"
+                            response_data["message"] = "Panel not found"
+                        else:
+                            dm.save_company(company)
+                except Exception as e:
+                    response_data["status"] = "error"
+                    response_data["message"] = str(e)
+
         self.send_json(response_data)
+
 
     def send_json(self, data):
         self.send_response(200)
