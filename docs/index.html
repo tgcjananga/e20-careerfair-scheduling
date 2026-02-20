@@ -1212,9 +1212,9 @@
             showLoading(true);
             try {
                 const [cRes, sRes, schRes] = await Promise.all([
-                    fetch('../schedule_manager/data/companies.json'),
-                    fetch('../schedule_manager/data/students.json'),
-                    fetch('../schedule_manager/data/schedule.json')
+                    fetch('./data/companies.json'),
+                    fetch('./data/students.json'),
+                    fetch('./data/schedule.json')
                 ]);
 
                 companies_data = await cRes.json();

@@ -1,0 +1,12 @@
+{
+  "availability_start": "09:00",
+  "availability_end": "17:00",
+  "breaks": [],
+  "default_panel": {
+    "label": "Panel 1 (Default)",
+    "slot_duration_minutes": 30,
+    "reserved_walkin_slots": 0,
+    "walk_in_open": false,
+    "breaks": []
+  }
+}
